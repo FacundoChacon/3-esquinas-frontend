@@ -23,7 +23,7 @@ export default function ConocenosPage() {
   const { dark, toggle: toggleDark } = useDarkMode()
 
   return (
-    <div className={`min-h-screen ${dark ? 'dark bg-gray-950' : 'bg-white'}`}>
+    <div className={`page-enter min-h-screen ${dark ? 'dark bg-gray-950' : 'bg-white'}`}>
 
       {/* NAVBAR */}
       <nav className="landing-nav">
