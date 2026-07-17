@@ -70,7 +70,7 @@ export default function RegisterPage() {
     setLoading(true)
     try {
       await register(fields.email, fields.password, fields.nombre, fields.apellido)
-      navigate('/admin')
+      navigate('/')
     } catch (err) {
       setError(err.message || 'No se pudo registrar. Intente nuevamente.')
     } finally {

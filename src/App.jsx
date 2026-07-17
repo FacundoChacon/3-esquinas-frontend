@@ -1,12 +1,3 @@
-/**
- * App.jsx — Componente raíz de la aplicación
- *
- * Configura el router principal y las rutas de la app.
- * - Rutas públicas: / (inicio), /login
- * - Rutas protegidas: /admin/* (dashboard con sidebar)
- *
- * Pertenece a: Fase 5 — Frontend Dashboard
- */
 import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { AuthProvider, useAuth } from './context/AuthContext'
@@ -14,6 +5,7 @@ import { DarkModeProvider } from './context/DarkModeContext'
 import { setAccessTokenGetter } from './services/apiService'
 import ProtectedRoute from './components/ProtectedRoute'
 import AdminLayout from './components/AdminLayout'
+import LandingPage from './pages/LandingPage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import DashboardPage from './pages/DashboardPage'
@@ -39,27 +31,18 @@ export default function App() {
           {/* RUTAS PÚBLICAS                                */}
           {/* ============================================= */}
 
-          <Route path="/" element={<div className="p-8 text-center"><h1>3 Esquinas — Portal de Donaciones</h1><p>Próximamente</p></div>} />
+          <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
 
           {/* ============================================= */}
-          {/* RUTAS PROTEGIDAS — ADMIN (todos los roles)     */}
+          {/* RUTAS PROTEGIDAS — ADMIN SOLO                 */}
           {/* ============================================= */}
 
-          <Route element={<ProtectedRoute />}>
+          <Route element={<ProtectedRoute roles={['ADMIN']} />}>
             <Route element={<AdminLayout />}>
               <Route path="/admin" element={<DashboardPage />} />
               <Route path="/admin/donaciones" element={<DonacionesPage />} />
-            </Route>
-          </Route>
-
-          {/* ============================================= */}
-          {/* RUTAS PROTEGIDAS — ADMIN + EDITOR              */}
-          {/* ============================================= */}
-
-          <Route element={<ProtectedRoute roles={['ADMIN', 'EDITOR']} />}>
-            <Route element={<AdminLayout />}>
               <Route path="/admin/datos" element={<DatosPage />} />
             </Route>
           </Route>
