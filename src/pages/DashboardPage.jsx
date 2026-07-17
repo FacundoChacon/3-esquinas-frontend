@@ -8,6 +8,7 @@
 import { useAuth } from '../context/AuthContext'
 import KpiCards from '../components/KpiCards'
 import IncomeChart from '../components/IncomeChart'
+import DonationsTable from '../components/DonationsTable'
 
 export default function DashboardPage() {
   const { user } = useAuth()
@@ -26,6 +27,10 @@ export default function DashboardPage() {
 
       <div className="mt-6">
         <IncomeChart />
+      </div>
+
+      <div className="mt-6">
+        <DonationsTable compact />
       </div>
     </div>
   )
