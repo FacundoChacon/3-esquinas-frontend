@@ -66,33 +66,34 @@ export default function DonatePage() {
     }
   }
 
+  /* ========== VISTA: CONFIRMACIÓN DE TRANSFERENCIA ========== */
   if (transferencia) {
     return (
-      <div className="min-h-screen bg-gray-50 flex flex-col">
-        <nav className="sticky top-0 z-30 border-b border-gray-200 bg-white/80 backdrop-blur-md">
-          <div className="flex items-center justify-between px-4 sm:px-6 h-14 max-w-6xl mx-auto">
-            <Link to="/" className="flex items-center gap-2 shrink-0">
-              <img src="/images/logo-3esquinas.png" alt="3 Esquinas" className="w-8 h-8 rounded-lg object-contain" />
-              <span className="text-sm font-bold text-gray-900">3 Esquinas</span>
+      <div className="donate-page">
+        <nav className="donate-nav">
+          <div className="donate-nav-inner">
+            <Link to="/" className="donate-nav-logo">
+              <img src="/images/logo-3esquinas.png" alt="3 Esquinas" className="donate-nav-logo-img" />
+              <span className="donate-nav-logo-text">3 Esquinas</span>
             </Link>
           </div>
         </nav>
 
         <div className="flex-1 flex items-center justify-center p-4">
-          <div className="w-full max-w-md bg-white rounded-2xl shadow-lg border border-gray-200 p-6 sm:p-8">
-            <div className="text-center mb-6">
-              <div className="w-14 h-14 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3">
+          <div className="donate-transfer-card">
+            <div className="donate-transfer-header">
+              <div className="donate-transfer-check">
                 <svg className="w-7 h-7 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <h2 className="text-xl font-bold text-gray-900">Datos de transferencia</h2>
-              <p className="text-sm text-gray-500 mt-1">
+              <h2 className="donate-transfer-title">Datos de transferencia</h2>
+              <p className="donate-transfer-subtitle">
                 Realizá la transferencia con estos datos y tu donación quedará registrada.
               </p>
             </div>
 
-            <div className="space-y-3">
+            <div className="donate-transfer-data">
               <InfoRow label="Monto" value={`$${Number(transferencia.monto).toLocaleString('es-AR')}`} />
               <InfoRow label="Estado" value={transferencia.estado} badge />
               <InfoRow label="CVU" value={transferencia.cvu} />
@@ -103,16 +104,13 @@ export default function DonatePage() {
               {transferencia.concepto && <InfoRow label="Concepto" value={transferencia.concepto} />}
             </div>
 
-            <div className="mt-6 p-3 bg-amber-50 border border-amber-200 rounded-xl">
-              <p className="text-xs text-amber-700 leading-relaxed">
+            <div className="donate-transfer-warning">
+              <p className="donate-transfer-warning-text">
                 Importante: incluí tu nombre o email en la descripción de la transferencia para que podamos identificar tu donación.
               </p>
             </div>
 
-            <Link
-              to="/"
-              className="mt-5 w-full h-11 flex items-center justify-center rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition-colors"
-            >
+            <Link to="/" className="donate-transfer-back">
               Volver al inicio
             </Link>
           </div>
@@ -121,49 +119,40 @@ export default function DonatePage() {
     )
   }
 
+  /* ========== VISTA: FORMULARIO DE DONACIÓN ========== */
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
-      <nav className="sticky top-0 z-30 border-b border-gray-200 bg-white/80 backdrop-blur-md">
-        <div className="flex items-center justify-between px-4 sm:px-6 h-14 max-w-6xl mx-auto">
-          <Link to="/" className="flex items-center gap-2 shrink-0">
-            <img src="/images/logo-3esquinas.png" alt="3 Esquinas" className="w-8 h-8 rounded-lg object-contain" />
-            <span className="text-sm font-bold text-gray-900">3 Esquinas</span>
+    <div className="donate-page">
+      <nav className="donate-nav">
+        <div className="donate-nav-inner">
+          <Link to="/" className="donate-nav-logo">
+            <img src="/images/logo-3esquinas.png" alt="3 Esquinas" className="donate-nav-logo-img" />
+            <span className="donate-nav-logo-text">3 Esquinas</span>
           </Link>
-          <Link to="/" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
-            Volver
-          </Link>
+          <Link to="/" className="donate-nav-back">Volver</Link>
         </div>
       </nav>
 
-      <div className="flex-1 flex items-start justify-center p-4 sm:py-10">
-        <div className="w-full max-w-lg">
+      <div className="donate-form-container">
+        <div className="donate-form-wrapper">
           <div className="text-center mb-6">
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Sumate con tu donación</h1>
-            <p className="text-sm text-gray-500 mt-2">Elegí el monto y medio de pago. Tu aporte transforma vidas.</p>
+            <h1 className="donate-form-title">Sumate con tu donación</h1>
+            <p className="donate-form-subtitle">Elegí el monto y medio de pago. Tu aporte transforma vidas.</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 sm:p-8 space-y-5">
+          <form onSubmit={handleSubmit} className="donate-form-card">
 
-            {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm">
-                {error}
-              </div>
-            )}
+            {error && <div className="donate-form-error">{error}</div>}
 
             {/* Monto */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Monto (ARS)</label>
-              <div className="flex gap-2 mb-2">
+              <label className="donate-form-label">Monto (ARS)</label>
+              <div className="donate-amount-grid">
                 {MONTOS_SUGERIDOS.map((m) => (
                   <button
                     key={m}
                     type="button"
                     onClick={() => update('monto', String(m))}
-                    className={`flex-1 py-2 rounded-lg text-xs font-semibold border transition-colors ${
-                      form.monto === String(m)
-                        ? 'bg-emerald-600 border-emerald-600 text-white'
-                        : 'border-gray-200 text-gray-600 hover:border-emerald-300'
-                    }`}
+                    className={`donate-amount-btn ${form.monto === String(m) ? 'active' : ''}`}
                   >
                     ${m.toLocaleString('es-AR')}
                   </button>
@@ -177,35 +166,33 @@ export default function DonatePage() {
                 value={form.monto}
                 onChange={(e) => update('monto', e.target.value)}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900 placeholder-gray-400"
+                className="donate-form-input"
               />
             </div>
 
             {/* Concepto */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Concepto <span className="font-normal text-gray-400">(opcional)</span></label>
+              <label className="donate-form-label">
+                Concepto <span className="donate-form-label-optional">(opcional)</span>
+              </label>
               <input
                 type="text"
                 placeholder="Ej: Donación mensual, Ayuda comunitaria..."
                 value={form.concepto}
                 onChange={(e) => update('concepto', e.target.value)}
                 maxLength={255}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900 placeholder-gray-400"
+                className="donate-form-input"
               />
             </div>
 
             {/* Medio de pago */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Medio de pago</label>
-              <div className="space-y-2">
+              <label className="donate-form-label">Medio de pago</label>
+              <div className="donate-payment-options">
                 {PASARELAS.map((p) => (
                   <label
                     key={p.id}
-                    className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all ${
-                      form.pasarela === p.id
-                        ? 'border-emerald-500 bg-emerald-50 ring-1 ring-emerald-500'
-                        : 'border-gray-200 hover:border-gray-300'
-                    }`}
+                    className={`donate-payment-option ${form.pasarela === p.id ? 'selected' : ''}`}
                   >
                     <input
                       type="radio"
@@ -215,15 +202,13 @@ export default function DonatePage() {
                       onChange={(e) => update('pasarela', e.target.value)}
                       className="sr-only"
                     />
-                    <span className="text-xl">{p.icon}</span>
-                    <div className="flex-1 min-w-0">
-                      <div className="text-sm font-semibold text-gray-900">{p.label}</div>
-                      <div className="text-xs text-gray-500">{p.desc}</div>
+                    <span className="donate-payment-icon">{p.icon}</span>
+                    <div className="donate-payment-text">
+                      <div className="donate-payment-label">{p.label}</div>
+                      <div className="donate-payment-desc">{p.desc}</div>
                     </div>
-                    <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 ${
-                      form.pasarela === p.id ? 'border-emerald-500' : 'border-gray-300'
-                    }`}>
-                      {form.pasarela === p.id && <div className="w-2 h-2 rounded-full bg-emerald-500" />}
+                    <div className={`donate-payment-radio ${form.pasarela === p.id ? 'selected' : ''}`}>
+                      {form.pasarela === p.id && <div className="donate-payment-radio-dot" />}
                     </div>
                   </label>
                 ))}
@@ -232,7 +217,9 @@ export default function DonatePage() {
 
             {/* Datos del donante */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Datos del donante <span className="font-normal text-gray-400">(opcional)</span></label>
+              <label className="donate-form-label">
+                Datos del donante <span className="donate-form-label-optional">(opcional)</span>
+              </label>
               <div className="space-y-3">
                 <input
                   type="text"
@@ -240,7 +227,7 @@ export default function DonatePage() {
                   value={form.donanteNombre}
                   onChange={(e) => update('donanteNombre', e.target.value)}
                   maxLength={150}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900 placeholder-gray-400"
+                  className="donate-form-input"
                 />
                 <input
                   type="email"
@@ -248,7 +235,7 @@ export default function DonatePage() {
                   value={form.donanteEmail}
                   onChange={(e) => update('donanteEmail', e.target.value)}
                   maxLength={255}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900 placeholder-gray-400"
+                  className="donate-form-input"
                 />
                 <input
                   type="tel"
@@ -256,13 +243,13 @@ export default function DonatePage() {
                   value={form.donanteTelefono}
                   onChange={(e) => update('donanteTelefono', e.target.value)}
                   maxLength={50}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900 placeholder-gray-400"
+                  className="donate-form-input"
                 />
-                <div className="grid grid-cols-3 gap-2">
+                <div className="donate-doc-grid">
                   <select
                     value={form.donanteTipoDocumento}
                     onChange={(e) => update('donanteTipoDocumento', e.target.value)}
-                    className="px-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900 text-sm bg-white"
+                    className="donate-doc-select"
                   >
                     <option value="">Doc.</option>
                     <option value="DNI">DNI</option>
@@ -277,19 +264,15 @@ export default function DonatePage() {
                     value={form.donanteNumeroDocumento}
                     onChange={(e) => update('donanteNumeroDocumento', e.target.value)}
                     maxLength={50}
-                    className="col-span-2 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900 placeholder-gray-400"
+                    className="col-span-2 donate-form-input"
                   />
                 </div>
               </div>
             </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full h-12 flex items-center justify-center rounded-xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-60 disabled:cursor-not-allowed text-white text-sm font-bold transition-colors"
-            >
+            <button type="submit" disabled={loading} className="donate-submit-btn">
               {loading ? (
-                <span className="flex items-center gap-2">
+                <span className="donate-submit-spinner">
                   <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" /></svg>
                   Procesando...
                 </span>
@@ -306,12 +289,12 @@ export default function DonatePage() {
 
 function InfoRow({ label, value, badge }) {
   return (
-    <div className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0">
-      <span className="text-xs text-gray-500 uppercase tracking-wider">{label}</span>
+    <div className="donate-info-row">
+      <span className="donate-info-label">{label}</span>
       {badge ? (
-        <span className="text-sm font-semibold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full">{value}</span>
+        <span className="donate-info-badge">{value}</span>
       ) : (
-        <span className="text-sm font-medium text-gray-900 text-right">{value}</span>
+        <span className="donate-info-value">{value}</span>
       )}
     </div>
   )

@@ -5,6 +5,12 @@
  */
 @import "tailwindcss";
 
+/* Estilos modulares por página/componente */
+@import "./styles/landing.css";
+@import "./styles/donate.css";
+@import "./styles/auth.css";
+@import "./styles/admin.css";
+
 /* Reset básico y estilos globales */
 body {
   margin: 0;

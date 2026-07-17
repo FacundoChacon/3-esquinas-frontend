@@ -1,0 +1,119 @@
+/**
+ * auth.css — Estilos modulares de las páginas de autenticación
+ *
+ * Compartido entre LoginPage y RegisterPage.
+ * Organizado por sección:
+ *   1. Contenedor de la página (fondo gradiente)
+ *   2. Card del formulario
+ *   3. Campos de formulario
+ *   4. Estados de validación (error, éxito)
+ *   5. Botón de envío
+ *   6. Links inferiores
+ *
+ * Cada clase se importa en LoginPage.jsx y RegisterPage.jsx.
+ */
+@import "tailwindcss";
+
+/* ================================================================
+   1. CONTENEDOR DE LA PÁGINA
+   ================================================================ */
+
+/* Fondo con gradiente verde, centrado vertical y horizontalmente */
+.auth-page {
+  @apply min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-600 via-emerald-500 to-emerald-400 px-4;
+}
+
+/* ================================================================
+   2. CARD DEL FORMULARIO
+   ================================================================ */
+
+/* Card blanca con sombra fuerte y bordes redondeados */
+.auth-card {
+  @apply w-full max-w-md bg-white rounded-2xl shadow-2xl p-8;
+}
+
+/* Contenedor del logo + título */
+.auth-header {
+  @apply text-center mb-8;
+}
+
+/* Imagen del logo */
+.auth-logo {
+  @apply w-16 h-16 mx-auto mb-4 rounded-xl object-contain;
+}
+
+/* Título principal (nombre de la ONG o "Crear cuenta") */
+.auth-title {
+  @apply text-2xl font-bold text-gray-900;
+}
+
+/* Subtítulo descriptivo */
+.auth-subtitle {
+  @apply text-gray-500 text-sm mt-1;
+}
+
+/* ================================================================
+   3. CAMPOS DEL FORMULARIO
+   ================================================================ */
+
+/* Contenedor de cada campo (label + input + error) */
+.auth-field {
+  @apply block text-sm font-medium text-gray-700 mb-1;
+}
+
+/* Input base: w-full, padding, border gris, focus ring verde */
+.auth-input {
+  @apply w-full px-4 py-3 border rounded-lg outline-none transition-all text-gray-900 placeholder-gray-400 border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500;
+}
+
+/* Input con error de validación: borde rojo */
+.auth-input.error {
+  @apply border-red-400 focus:ring-red-400 focus:border-red-400;
+}
+
+/* ================================================================
+   4. ESTADOS DE VALIDACIÓN
+   ================================================================ */
+
+/* Mensaje de error debajo del campo */
+.auth-field-error {
+  @apply text-red-500 text-xs mt-1;
+}
+
+/* Mensaje de error global (credenciales incorrectas, etc.) */
+.auth-global-error {
+  @apply bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm;
+}
+
+/* ================================================================
+   5. BOTÓN DE ENVÍO
+   ================================================================ */
+
+/* Botón principal: verde, ancho completo, con loading state */
+.auth-submit {
+  @apply w-full bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-400 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2;
+}
+
+/* ================================================================
+   6. LINKS INFERIORES
+   ================================================================ */
+
+/* Contenedor de links debajo del formulario */
+.auth-links {
+  @apply mt-6 text-center text-sm text-gray-500;
+}
+
+/* Texto "¿No tenés cuenta?" / "¿Ya tenés cuenta?" */
+.auth-links-question {
+  @apply mt-0;
+}
+
+/* Link de navegación (Crear cuenta / Iniciar sesión) */
+.auth-links-action {
+  @apply mt-2 inline-block text-emerald-600 hover:text-emerald-700 font-medium;
+}
+
+/* Texto de ubicación */
+.auth-links-location {
+  @apply mt-3 text-xs text-gray-400;
+}

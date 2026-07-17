@@ -35,6 +35,7 @@ export default function DonationsTable({ compact = false }) {
   const [totalPages, setTotalPages] = useState(1)
   const [loading, setLoading] = useState(true)
   const size = compact ? 5 : 10
+  const mode = dark ? 'dark' : 'light'
 
   useEffect(() => {
     let cancelled = false
@@ -52,26 +53,23 @@ export default function DonationsTable({ compact = false }) {
   }, [page, size])
 
   return (
-    <div className={`rounded-xl overflow-hidden ${dark ? 'bg-gray-800 border border-gray-700' : 'bg-white border border-gray-100'}`}>
-      <div className={`px-5 py-4 border-b ${dark ? 'border-gray-700' : 'border-gray-50'}`}>
-        <h3 className={`text-sm font-bold ${dark ? 'text-gray-100' : 'text-gray-900'}`}>Últimos ingresos</h3>
+    <div className={`donations-table ${mode}`}>
+      <div className={`donations-table-header ${mode}`}>
+        <h3 className={`donations-table-title ${mode}`}>Últimos ingresos</h3>
       </div>
 
-      <div className={`grid grid-cols-5 gap-0 text-[10px] font-semibold uppercase tracking-wider px-5 py-2.5 border-b ${
-        dark ? 'bg-gray-700/50 text-gray-400 border-gray-700' : 'bg-gray-50 text-gray-500 border-gray-100'
-      }`}>
+      {/* Encabezados de columna */}
+      <div className={`donations-table-head ${mode}`}>
         <span>Fecha</span><span>Donante</span><span>Concepto</span><span className="text-right">Monto</span><span className="text-right">Estado</span>
       </div>
 
       {loading ? (
-        <div className={`px-5 py-8 text-center text-sm ${dark ? 'text-gray-500' : 'text-gray-400'}`}>Cargando donaciones...</div>
+        <div className={`donations-table-empty ${mode}`}>Cargando donaciones...</div>
       ) : data.length === 0 ? (
-        <div className={`px-5 py-8 text-center text-sm ${dark ? 'text-gray-500' : 'text-gray-400'}`}>No hay donaciones registradas</div>
+        <div className={`donations-table-empty ${mode}`}>No hay donaciones registradas</div>
       ) : (
         data.map((row, i) => (
-          <div key={row.id || i} className={`grid grid-cols-5 gap-0 text-xs px-5 py-3 transition-colors items-center ${
-            dark ? 'text-gray-300 hover:bg-gray-700/50' : 'text-gray-700 hover:bg-gray-50'
-          } ${i < data.length - 1 ? `border-b ${dark ? 'border-gray-700' : 'border-gray-50'}` : ''}`}>
+          <div key={row.id || i} className={`donations-table-row ${mode} ${i < data.length - 1 ? `donations-table-row-border ${mode}` : ''}`}>
             <span className={dark ? 'text-gray-400' : 'text-gray-500'}>{formatDate(row.creadoEn)}</span>
             <span className={`font-medium truncate ${dark ? 'text-gray-100' : 'text-gray-900'}`}>{row.donanteNombre || 'Anónimo'}</span>
             <span className={dark ? 'text-gray-400' : 'text-gray-600'}>{row.concepto || '—'}</span>
@@ -84,12 +82,10 @@ export default function DonationsTable({ compact = false }) {
       )}
 
       {!compact && totalPages > 1 && (
-        <div className={`flex items-center justify-between px-5 py-3 border-t ${dark ? 'border-gray-700' : 'border-gray-50'}`}>
-          <button onClick={() => setPage((p) => Math.max(0, p - 1))} disabled={page === 0}
-            className={`text-xs disabled:opacity-30 ${dark ? 'text-gray-400 hover:text-gray-200' : 'text-gray-500 hover:text-gray-700'}`}>← Anterior</button>
-          <span className={`text-xs ${dark ? 'text-gray-500' : 'text-gray-400'}`}>Página {page + 1} de {totalPages}</span>
-          <button onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))} disabled={page >= totalPages - 1}
-            className={`text-xs disabled:opacity-30 ${dark ? 'text-gray-400 hover:text-gray-200' : 'text-gray-500 hover:text-gray-700'}`}>Siguiente →</button>
+        <div className={`table-pagination ${mode}`}>
+          <button onClick={() => setPage((p) => Math.max(0, p - 1))} disabled={page === 0} className={`table-pagination-btn ${mode}`}>← Anterior</button>
+          <span className={`table-pagination-info ${mode}`}>Página {page + 1} de {totalPages}</span>
+          <button onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))} disabled={page >= totalPages - 1} className={`table-pagination-btn ${mode}`}>Siguiente →</button>
         </div>
       )}
     </div>

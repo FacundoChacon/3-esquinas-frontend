@@ -23,6 +23,7 @@ export default function DatosTable() {
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
   const [filterCat, setFilterCat] = useState('')
+  const mode = dark ? 'dark' : 'light'
 
   const fetchData = useCallback(async () => {
     setLoading(true)
@@ -54,21 +55,19 @@ export default function DatosTable() {
     try { await datosService.eliminar(id); fetchData() } catch (err) { alert(err.message || 'Error al eliminar') }
   }
 
-  const inputCls = `w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none ${
-    dark ? 'bg-gray-700 border-gray-600 text-gray-100 placeholder-gray-400' : 'border-gray-200 text-gray-900'
-  }`
-
   return (
     <div>
-      <div className="flex flex-wrap items-center gap-3 mb-4">
-        <button onClick={handleOpenNew} className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium rounded-lg transition-colors">
+      {/* Barra de acciones: Nuevo registro + filtro */}
+      <div className="datos-actions">
+        <button onClick={handleOpenNew} className="datos-btn-new">
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
           Nuevo registro
         </button>
-        <select value={filterCat} onChange={(e) => { setFilterCat(e.target.value); setPage(0) }}
-          className={`text-sm border rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none ${
-            dark ? 'bg-gray-700 border-gray-600 text-gray-200' : 'border-gray-200 text-gray-700 bg-white'
-          }`}>
+        <select
+          value={filterCat}
+          onChange={(e) => { setFilterCat(e.target.value); setPage(0) }}
+          className={`datos-filter-select ${mode}`}
+        >
           <option value="">Todas las categorías</option>
           <option value="general">General</option>
           <option value="proyectos">Proyectos</option>
@@ -77,24 +76,25 @@ export default function DatosTable() {
         </select>
       </div>
 
+      {/* Modal de creación/edición */}
       {showForm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className={`rounded-xl shadow-2xl w-full max-w-md ${dark ? 'bg-gray-800' : 'bg-white'}`}>
-            <div className={`px-6 py-4 border-b ${dark ? 'border-gray-700' : 'border-gray-100'}`}>
-              <h3 className={`text-base font-bold ${dark ? 'text-gray-100' : 'text-gray-900'}`}>{editingId ? 'Editar registro' : 'Nuevo registro'}</h3>
+        <div className="datos-modal-overlay">
+          <div className={`datos-modal-card ${mode}`}>
+            <div className={`datos-modal-header ${mode}`}>
+              <h3 className={`datos-modal-title ${mode}`}>{editingId ? 'Editar registro' : 'Nuevo registro'}</h3>
             </div>
             <form onSubmit={handleSave} className="px-6 py-4 space-y-4">
               <div>
-                <label className={`block text-sm font-medium mb-1 ${dark ? 'text-gray-300' : 'text-gray-700'}`}>Descripción *</label>
-                <input type="text" value={form.descripcion} onChange={(e) => setForm({ ...form, descripcion: e.target.value })} className={inputCls} placeholder="Descripción del registro" autoFocus />
+                <label className={`datos-modal-label ${mode}`}>Descripción *</label>
+                <input type="text" value={form.descripcion} onChange={(e) => setForm({ ...form, descripcion: e.target.value })} className={`datos-input ${mode}`} placeholder="Descripción del registro" autoFocus />
               </div>
               <div>
-                <label className={`block text-sm font-medium mb-1 ${dark ? 'text-gray-300' : 'text-gray-700'}`}>Valor</label>
-                <input type="text" value={form.valor} onChange={(e) => setForm({ ...form, valor: e.target.value })} className={inputCls} placeholder="Valor (opcional)" />
+                <label className={`datos-modal-label ${mode}`}>Valor</label>
+                <input type="text" value={form.valor} onChange={(e) => setForm({ ...form, valor: e.target.value })} className={`datos-input ${mode}`} placeholder="Valor (opcional)" />
               </div>
               <div>
-                <label className={`block text-sm font-medium mb-1 ${dark ? 'text-gray-300' : 'text-gray-700'}`}>Categoría</label>
-                <select value={form.categoria} onChange={(e) => setForm({ ...form, categoria: e.target.value })} className={inputCls}>
+                <label className={`datos-modal-label ${mode}`}>Categoría</label>
+                <select value={form.categoria} onChange={(e) => setForm({ ...form, categoria: e.target.value })} className={`datos-input ${mode}`}>
                   <option value="">Sin categoría</option>
                   <option value="general">General</option>
                   <option value="proyectos">Proyectos</option>
@@ -114,22 +114,19 @@ export default function DatosTable() {
         </div>
       )}
 
-      <div className={`rounded-xl overflow-hidden ${dark ? 'bg-gray-800 border border-gray-700' : 'bg-white border border-gray-100'}`}>
-        <div className={`grid grid-cols-4 gap-0 text-[10px] font-semibold uppercase tracking-wider px-5 py-2.5 border-b ${
-          dark ? 'bg-gray-700/50 text-gray-400 border-gray-700' : 'bg-gray-50 text-gray-500 border-gray-100'
-        }`}>
+      {/* Tabla de datos */}
+      <div className={`datos-table ${mode}`}>
+        <div className={`datos-table-head ${mode}`}>
           <span>Descripción</span><span>Valor</span><span>Categoría</span><span className="text-right">Acciones</span>
         </div>
 
         {loading ? (
-          <div className={`px-5 py-8 text-center text-sm ${dark ? 'text-gray-500' : 'text-gray-400'}`}>Cargando...</div>
+          <div className={`donations-table-empty ${mode}`}>Cargando...</div>
         ) : data.length === 0 ? (
-          <div className={`px-5 py-8 text-center text-sm ${dark ? 'text-gray-500' : 'text-gray-400'}`}>No hay registros</div>
+          <div className={`donations-table-empty ${mode}`}>No hay registros</div>
         ) : (
           data.map((row, i) => (
-            <div key={row.id || i} className={`grid grid-cols-4 gap-0 text-xs px-5 py-3 transition-colors items-center ${
-              dark ? 'text-gray-300 hover:bg-gray-700/50' : 'text-gray-700 hover:bg-gray-50'
-            } ${i < data.length - 1 ? `border-b ${dark ? 'border-gray-700' : 'border-gray-50'}` : ''}`}>
+            <div key={row.id || i} className={`datos-table-row ${mode} ${i < data.length - 1 ? `datos-table-row-border ${mode}` : ''}`}>
               <span className={`font-medium truncate ${dark ? 'text-gray-100' : 'text-gray-900'}`}>{row.descripcion}</span>
               <span className={dark ? 'text-gray-400' : 'text-gray-600'}>{row.valor || '—'}</span>
               <span>{row.categoria && <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-medium ${dark ? 'bg-gray-700 text-gray-300' : 'bg-gray-100 text-gray-600'}`}>{row.categoria}</span>}</span>
@@ -146,10 +143,10 @@ export default function DatosTable() {
         )}
 
         {!filterCat && totalPages > 1 && (
-          <div className={`flex items-center justify-between px-5 py-3 border-t ${dark ? 'border-gray-700' : 'border-gray-50'}`}>
-            <button onClick={() => setPage((p) => Math.max(0, p - 1))} disabled={page === 0} className={`text-xs disabled:opacity-30 ${dark ? 'text-gray-400 hover:text-gray-200' : 'text-gray-500 hover:text-gray-700'}`}>← Anterior</button>
-            <span className={`text-xs ${dark ? 'text-gray-500' : 'text-gray-400'}`}>Página {page + 1} de {totalPages}</span>
-            <button onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))} disabled={page >= totalPages - 1} className={`text-xs disabled:opacity-30 ${dark ? 'text-gray-400 hover:text-gray-200' : 'text-gray-500 hover:text-gray-700'}`}>Siguiente →</button>
+          <div className={`table-pagination ${mode}`}>
+            <button onClick={() => setPage((p) => Math.max(0, p - 1))} disabled={page === 0} className={`table-pagination-btn ${mode}`}>← Anterior</button>
+            <span className={`table-pagination-info ${mode}`}>Página {page + 1} de {totalPages}</span>
+            <button onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))} disabled={page >= totalPages - 1} className={`table-pagination-btn ${mode}`}>Siguiente →</button>
           </div>
         )}
       </div>

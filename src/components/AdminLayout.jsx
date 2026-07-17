@@ -58,50 +58,52 @@ export default function AdminLayout() {
     (item) => !item.roles || item.roles.includes(user?.rol)
   )
 
-  const linkClass = ({ isActive }) =>
-    `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-      isActive
-        ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400'
-        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200'
-    }`
+  const mode = dark ? 'dark' : 'light'
 
   return (
-    <div className={`min-h-screen flex ${dark ? 'bg-gray-900' : 'bg-gray-50'}`}>
+    <div className={`admin-layout ${mode}`}>
+      {/* Overlay del sidebar en móvil */}
       {sidebarOpen && (
-        <div className="fixed inset-0 z-40 bg-black/50 lg:hidden" onClick={() => setSidebarOpen(false)} />
+        <div className="admin-sidebar-overlay" onClick={() => setSidebarOpen(false)} />
       )}
 
       {/* Sidebar */}
-      <aside className={`fixed inset-y-0 left-0 z-50 w-64 flex flex-col transform transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:z-auto ${
-        dark ? 'bg-gray-900 border-r border-gray-800' : 'bg-white border-r border-gray-200'
-      } ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-        {/* Logo */}
-        <div className={`flex items-center gap-3 px-5 py-5 border-b ${dark ? 'border-gray-800' : 'border-gray-100'}`}>
-          <img src="/images/logo-3esquinas.png" alt="3 Esquinas" className="w-9 h-9 rounded-lg object-contain" />
+      <aside className={`admin-sidebar ${mode} ${sidebarOpen ? 'visible-mobile' : 'hidden-mobile'}`}>
+        {/* Header del sidebar: logo + nombre */}
+        <div className={`admin-sidebar-header ${mode}`}>
+          <img src="/images/logo-3esquinas.png" alt="3 Esquinas" className="admin-sidebar-logo" />
           <div>
-            <div className={`font-bold text-sm leading-tight ${dark ? 'text-white' : 'text-gray-900'}`}>3 Esquinas</div>
-            <div className={`text-[11px] ${dark ? 'text-gray-500' : 'text-gray-400'}`}>Panel de administración</div>
+            <div className={`admin-sidebar-name ${mode}`}>3 Esquinas</div>
+            <div className={`admin-sidebar-subtitle ${mode}`}>Panel de administración</div>
           </div>
         </div>
 
-        {/* Nav */}
-        <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+        {/* Navegación del sidebar */}
+        <nav className="admin-sidebar-nav">
           {visibleNavItems.map((item) => (
-            <NavLink key={item.to} to={item.to} end={item.end} className={linkClass} onClick={() => setSidebarOpen(false)}>
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end={item.end}
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                  isActive
+                    ? `admin-nav-link active ${mode}`
+                    : `admin-nav-link inactive ${mode}`
+                }`
+              }
+              onClick={() => setSidebarOpen(false)}
+            >
               {item.icon}
               {item.label}
             </NavLink>
           ))}
         </nav>
 
-        {/* Dark mode toggle + User + Logout */}
-        <div className={`border-t px-4 py-4 space-y-3 ${dark ? 'border-gray-800' : 'border-gray-100'}`}>
-          <button
-            onClick={toggle}
-            className={`w-full flex items-center gap-2 px-3 py-2 text-sm rounded-lg transition-colors ${
-              dark ? 'text-gray-400 hover:bg-gray-800 hover:text-gray-200' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-            }`}
-          >
+        {/* Footer del sidebar: dark mode toggle, usuario, logout */}
+        <div className={`admin-sidebar-footer ${mode}`}>
+          {/* Toggle dark mode */}
+          <button onClick={toggle} className={`admin-sidebar-btn ${mode}`}>
             {dark ? (
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
@@ -111,47 +113,42 @@ export default function AdminLayout() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
               </svg>
             )}
-            {dark ? 'Modo claro' : 'Modo oscuro'}
+            <span>{dark ? 'Modo claro' : 'Modo oscuro'}</span>
           </button>
 
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs font-bold dark:bg-emerald-900/50 dark:text-emerald-400">
-              {user?.nombre?.charAt(0)?.toUpperCase() || user?.email?.charAt(0)?.toUpperCase() || '?'}
-            </div>
-            <div className="min-w-0 flex-1">
-              <div className={`text-sm font-medium truncate ${dark ? 'text-white' : 'text-gray-900'}`}>{user?.nombre || user?.email}</div>
-              <div className={`text-[11px] capitalize ${dark ? 'text-gray-500' : 'text-gray-400'}`}>{user?.rol?.toLowerCase()}</div>
-            </div>
+          {/* Info del usuario */}
+          <div className={`admin-sidebar-btn ${mode} cursor-default`}>
+            <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+            </svg>
+            <span className="truncate text-xs">{user?.nombre || user?.email}</span>
           </div>
 
-          <button onClick={handleLogout} className={`w-full flex items-center gap-2 px-3 py-2 text-sm rounded-lg transition-colors ${
-            dark ? 'text-gray-400 hover:bg-gray-800 hover:text-gray-200' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-          }`}>
+          {/* Botón cerrar sesión */}
+          <button onClick={handleLogout} className={`admin-sidebar-btn ${mode}`}>
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
             </svg>
-            Cerrar sesión
+            <span>Cerrar sesión</span>
           </button>
         </div>
       </aside>
 
-      {/* Contenido */}
-      <div className="flex-1 flex flex-col min-w-0">
-        <header className={`sticky top-0 z-30 border-b px-4 py-3 flex items-center gap-3 lg:hidden ${
-          dark ? 'bg-gray-900 border-gray-800' : 'bg-white border-gray-200'
-        }`}>
-          <button onClick={() => setSidebarOpen(true)} className={`p-1.5 rounded-lg ${dark ? 'text-gray-400 hover:bg-gray-800' : 'text-gray-600 hover:bg-gray-100'}`}>
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+      {/* Contenido principal */}
+      <div className="admin-content">
+        {/* Botón hamburguesa en móvil */}
+        <div className={`lg:hidden flex items-center gap-3 px-4 py-3 border-b ${dark ? 'border-gray-800' : 'border-gray-200'}`}>
+          <button onClick={() => setSidebarOpen(true)} className="p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+            <svg className="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>
           </button>
-          <img src="/images/logo-3esquinas.png" alt="3 Esquinas" className="w-7 h-7 rounded object-contain" />
-          <span className={`font-bold text-sm ${dark ? 'text-white' : 'text-gray-900'}`}>Panel de administración</span>
-        </header>
+          <span className={`text-sm font-medium ${dark ? 'text-gray-300' : 'text-gray-700'}`}>3 Esquinas</span>
+        </div>
 
-        <main className="flex-1 overflow-y-auto">
+        <div className="admin-content-inner">
           <Outlet />
-        </main>
+        </div>
       </div>
     </div>
   )

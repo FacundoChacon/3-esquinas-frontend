@@ -24,27 +24,26 @@ const ODS_LIST = [
 
 function ODSFlipCard({ ods, flipped, onToggle }) {
   return (
-    <div
-      className="[perspective:1000px] cursor-pointer transition-transform duration-200 hover:scale-105"
-      onClick={onToggle}
-    >
+    <div className="landing-ods-card" onClick={onToggle}>
       <div
-        className={`relative w-full [transform-style:preserve-3d] transition-transform duration-500 ${flipped ? '[transform:rotateY(180deg)]' : ''}`}
+        className={`landing-ods-card-inner ${flipped ? 'flipped' : ''}`}
         style={{ minHeight: '16rem' }}
       >
-        <div className="absolute inset-0 rounded-xl p-4 text-white text-center flex flex-col items-center gap-2 [backface-visibility:hidden]" style={{ backgroundColor: ods.color }}>
-          <div className="text-base sm:text-lg font-bold">{String(ods.id).padStart(2, '0')}</div>
-          <div className="w-full rounded-lg border border-white/30 flex items-center justify-center" style={{ height: '5rem' }}>
+        {/* Cara frontal: número + placeholder de ícono + nombre */}
+        <div className="landing-ods-card-front" style={{ backgroundColor: ods.color }}>
+          <div className="landing-ods-card-number">{String(ods.id).padStart(2, '0')}</div>
+          <div className="landing-ods-card-icon-box" style={{ height: '5rem' }}>
             <svg className="w-6 h-6 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" />
             </svg>
           </div>
-          <div className="text-[11px] leading-tight opacity-90 font-medium mt-auto">{ods.label}</div>
+          <div className="landing-ods-card-label">{ods.label}</div>
         </div>
-        <div className="absolute inset-0 rounded-xl p-4 text-white text-center flex flex-col items-center justify-center gap-2 [backface-visibility:hidden] [transform:rotateY(180deg)]" style={{ backgroundColor: ods.color }}>
-          <div className="text-xs font-bold opacity-80 uppercase tracking-wider">ODS {String(ods.id).padStart(2, '0')}</div>
-          <p className="text-[10px] leading-relaxed opacity-90">{ods.desc}</p>
-          <div className="text-[9px] font-medium opacity-60 mt-1">Tocar para voltear</div>
+        {/* Cara trasera: descripción del ODS */}
+        <div className="landing-ods-card-back" style={{ backgroundColor: ods.color }}>
+          <div className="landing-ods-card-back-label">ODS {String(ods.id).padStart(2, '0')}</div>
+          <p className="landing-ods-card-back-desc">{ods.desc}</p>
+          <div className="landing-ods-card-back-hint">Tocar para voltear</div>
         </div>
       </div>
     </div>
@@ -72,39 +71,43 @@ export default function LandingPage() {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
+  const NAV_ITEMS = [
+    { id: 'inicio', label: 'Inicio' },
+    { id: 'institucional', label: 'Institucional' },
+    { id: 'ods', label: 'ODS' },
+    { id: 'contacto', label: 'Contacto' },
+  ]
+
   return (
     <div className="min-h-screen bg-white">
+
       {/* ===== NAVBAR ===== */}
-      <nav className="sticky top-0 z-30 border-b border-gray-200 bg-white/80 backdrop-blur-md">
-        <div className="flex items-center justify-between px-4 sm:px-6 h-14 max-w-6xl mx-auto">
-          <button onClick={() => scrollTo('inicio')} className="flex items-center gap-2 shrink-0">
-            <img src="/images/logo-3esquinas.png" alt="3 Esquinas" className="w-8 h-8 rounded-lg object-contain" />
-            <span className="text-sm font-bold text-gray-900 hidden sm:inline">3 Esquinas</span>
+      <nav className="landing-nav">
+        <div className="landing-nav-inner">
+          <button onClick={() => scrollTo('inicio')} className="landing-nav-logo">
+            <img src="/images/logo-3esquinas.png" alt="3 Esquinas" className="landing-nav-logo-img" />
+            <span className="landing-nav-logo-text">3 Esquinas</span>
           </button>
-          <div className="flex items-center gap-0 sm:gap-1 overflow-x-auto min-w-0">
-            {[{ id: 'inicio', label: 'Inicio' }, { id: 'institucional', label: 'Institucional' }, { id: 'ods', label: 'ODS' }, { id: 'contacto', label: 'Contacto' }].map((item) => (
-              <button key={item.id} onClick={() => scrollTo(item.id)} className="shrink-0 text-xs sm:text-sm whitespace-nowrap px-2 sm:px-3 py-1.5 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors">
+
+          <div className="landing-nav-links">
+            {NAV_ITEMS.map((item) => (
+              <button key={item.id} onClick={() => scrollTo(item.id)} className="landing-nav-link">
                 {item.label}
               </button>
             ))}
           </div>
-          <div className="flex items-center gap-2 shrink-0">
+
+          <div className="landing-nav-actions">
             {isAuthenticated ? (
               user?.rol === 'ADMIN' ? (
-                <Link to="/admin" className="shrink-0 text-xs sm:text-sm whitespace-nowrap px-3 sm:px-4 py-1.5 rounded-full font-semibold border text-gray-600 hover:bg-gray-100 border-gray-300 transition-all">
-                  Admin
-                </Link>
+                <Link to="/admin" className="landing-nav-btn-outline">Admin</Link>
               ) : (
-                <button onClick={logout} className="shrink-0 text-xs sm:text-sm whitespace-nowrap px-3 sm:px-4 py-1.5 rounded-full font-semibold border text-gray-600 hover:bg-gray-100 border-gray-300 transition-all">
-                  Cerrar sesión
-                </button>
+                <button onClick={logout} className="landing-nav-btn-outline">Cerrar sesión</button>
               )
             ) : (
-              <Link to="/login" className="shrink-0 text-xs sm:text-sm whitespace-nowrap px-3 sm:px-4 py-1.5 rounded-full font-semibold border text-gray-600 hover:bg-gray-100 border-gray-300 transition-all">
-                Iniciar sesión
-              </Link>
+              <Link to="/login" className="landing-nav-btn-outline">Iniciar sesión</Link>
             )}
-            <button onClick={() => scrollTo('donar')} className="shrink-0 text-xs sm:text-sm whitespace-nowrap px-3 sm:px-4 py-1.5 rounded-full font-semibold text-white bg-emerald-600 hover:bg-emerald-700 transition-colors">
+            <button onClick={() => scrollTo('donar')} className="landing-nav-btn-primary">
               Donar
             </button>
           </div>
@@ -112,46 +115,47 @@ export default function LandingPage() {
       </nav>
 
       {/* ===== HERO ===== */}
-      <section id="inicio" className="px-6 py-12 sm:py-20 bg-gradient-to-br from-emerald-700 via-emerald-600 to-emerald-400 text-white">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-12">
-          <div className="flex-1 text-center md:text-left">
-            <div className="inline-flex items-center gap-2 mb-4">
-              <img src="/images/logo-3esquinas.png" alt="3 Esquinas" className="w-9 h-9 rounded-xl object-contain" />
-              <span className="text-sm font-semibold tracking-wider uppercase opacity-80">3 Esquinas</span>
+      <section id="inicio" className="landing-hero">
+        <div className="landing-hero-inner">
+          <div className="landing-hero-text-block">
+            <div className="landing-hero-tag">
+              <img src="/images/logo-3esquinas.png" alt="3 Esquinas" className="landing-hero-tag-img" />
+              <span className="landing-hero-tag-text">3 Esquinas</span>
             </div>
-            <h1 className="text-3xl sm:text-5xl font-bold leading-tight mb-4">
+            <h1 className="landing-hero-title">
               Construyendo un futuro sostenible desde Maipú, Mendoza
             </h1>
-            <p className="text-base sm:text-lg opacity-90 max-w-xl mb-6">
+            <p className="landing-hero-desc">
               Somos una organización comprometida con los 17 Objetivos de Desarrollo Sostenible de la ONU.
               Trabajamos para generar impacto social, económico y ambiental en nuestra comunidad.
             </p>
-            <div className="flex flex-wrap justify-center md:justify-start gap-3">
-              <button onClick={() => scrollTo('institucional')} className="px-5 py-2 rounded-full text-sm font-semibold bg-white text-emerald-700">
+            <div className="landing-hero-actions">
+              <button onClick={() => scrollTo('institucional')} className="landing-hero-btn-primary">
                 Conocé más
               </button>
-              <button onClick={() => scrollTo('contacto')} className="px-5 py-2 border border-white/40 text-white rounded-full text-sm font-semibold">
+              <button onClick={() => scrollTo('contacto')} className="landing-hero-btn-outline">
                 Contactanos
               </button>
             </div>
           </div>
           <div className="flex-1 w-full max-w-sm">
-            <div className="aspect-[4/3] rounded-2xl border-2 border-dashed border-white/40 text-white/50 flex flex-col items-center justify-center gap-2">
-              <svg className="w-10 h-10 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            {/* Placeholder para foto institucional — reemplazar con imagen real */}
+            <div className="landing-hero-image-placeholder">
+              <svg className="landing-hero-image-placeholder-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" />
               </svg>
-              <span className="text-xs font-medium opacity-70">Foto institucional</span>
+              <span className="landing-hero-image-placeholder-text">Foto institucional</span>
             </div>
           </div>
         </div>
       </section>
 
       {/* ===== QUIENES SOMOS ===== */}
-      <section id="institucional" className="px-6 py-10 sm:py-14 bg-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">Quiénes somos</h2>
-          <div className="w-16 h-1 mx-auto mb-6 rounded-full bg-emerald-600" />
-          <p className="leading-relaxed max-w-3xl mx-auto text-gray-600">
+      <section id="institucional" className="landing-about">
+        <div className="landing-about-inner">
+          <h2 className="landing-about-title">Quiénes somos</h2>
+          <div className="landing-about-divider" />
+          <p className="landing-about-text">
             <strong>3 Esquinas</strong> nace en Maipú, Mendoza, con la misión de contribuir activamente al cumplimiento de los
             17 ODS de la Agenda 2030. Creemos en el poder de la comunidad organizada para transformar realidades. Trabajamos
             en proyectos de educación, ambiente, inclusión social y desarrollo comunitario.
@@ -160,11 +164,11 @@ export default function LandingPage() {
       </section>
 
       {/* ===== ODS ===== */}
-      <section id="ods" className="px-6 py-10 sm:py-14 bg-gray-50">
-        <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1">Objetivos de Desarrollo Sostenible</h2>
-          <p className="text-sm mb-6 text-gray-500">Agenda 2030 — ONU</p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+      <section id="ods" className="landing-ods">
+        <div className="landing-ods-inner">
+          <h2 className="landing-ods-title">Objetivos de Desarrollo Sostenible</h2>
+          <p className="landing-ods-subtitle">Agenda 2030 — ONU</p>
+          <div className="landing-ods-grid">
             {ODS_LIST.map((ods) => (
               <ODSFlipCard key={ods.id} ods={ods} flipped={flippedODS.includes(ods.id)} onToggle={() => toggleODS(ods.id)} />
             ))}
@@ -173,33 +177,33 @@ export default function LandingPage() {
       </section>
 
       {/* ===== DONAR ===== */}
-      <section id="donar" className="px-6 py-10 sm:py-14 bg-emerald-600 text-white text-center">
-        <div className="max-w-2xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold mb-2">Sumate con tu donación</h2>
-          <p className="opacity-90 mb-6">Tu aporte nos ayuda a seguir construyendo un futuro sostenible para todos.</p>
-          <Link to="/donar" className="inline-block px-8 py-3 rounded-full font-bold text-lg bg-white text-emerald-700 shadow-lg hover:shadow-xl transition-shadow">
+      <section id="donar" className="landing-donate">
+        <div className="landing-donate-inner">
+          <h2 className="landing-donate-title">Sumate con tu donación</h2>
+          <p className="landing-donate-desc">Tu aporte nos ayuda a seguir construyendo un futuro sostenible para todos.</p>
+          <Link to="/donar" className="landing-donate-btn">
             Donar ahora
           </Link>
         </div>
       </section>
 
       {/* ===== CONTACTO ===== */}
-      <section id="contacto" className="px-6 py-10 sm:py-14 bg-white">
-        <div className="max-w-2xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-6">Contacto</h2>
+      <section id="contacto" className="landing-contact">
+        <div className="landing-contact-inner">
+          <h2 className="landing-contact-title">Contacto</h2>
           {contactSent ? (
-            <div className="bg-emerald-50 border border-emerald-200 text-emerald-700 px-6 py-4 rounded-xl text-center text-sm">
+            <div className="landing-contact-success">
               Mensaje enviado correctamente. ¡Gracias por contactarnos!
             </div>
           ) : (
-            <form onSubmit={handleContact} className="space-y-3">
+            <form onSubmit={handleContact} className="landing-contact-form">
               <input
                 type="text"
                 placeholder="Nombre"
                 value={contactForm.nombre}
                 onChange={(e) => setContactForm((p) => ({ ...p, nombre: e.target.value }))}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900 placeholder-gray-400"
+                className="landing-contact-input"
               />
               <input
                 type="email"
@@ -207,7 +211,7 @@ export default function LandingPage() {
                 value={contactForm.email}
                 onChange={(e) => setContactForm((p) => ({ ...p, email: e.target.value }))}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900 placeholder-gray-400"
+                className="landing-contact-input"
               />
               <textarea
                 placeholder="Tu mensaje"
@@ -215,9 +219,9 @@ export default function LandingPage() {
                 value={contactForm.mensaje}
                 onChange={(e) => setContactForm((p) => ({ ...p, mensaje: e.target.value }))}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900 placeholder-gray-400 resize-none"
+                className="landing-contact-textarea"
               />
-              <button type="submit" className="h-11 px-8 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition-colors mx-auto block">
+              <button type="submit" className="landing-contact-submit">
                 Enviar
               </button>
             </form>
@@ -226,18 +230,18 @@ export default function LandingPage() {
       </section>
 
       {/* ===== FOOTER ===== */}
-      <footer className="px-6 py-8 text-sm bg-gray-900 text-gray-400">
-        <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <img src="/images/logo-3esquinas.png" alt="3 Esquinas" className="w-7 h-7 rounded-xl object-contain" />
-            <span className="text-white font-semibold">3 Esquinas</span>
+      <footer className="landing-footer">
+        <div className="landing-footer-inner">
+          <div className="landing-footer-brand">
+            <img src="/images/logo-3esquinas.png" alt="3 Esquinas" className="landing-footer-logo" />
+            <span className="landing-footer-name">3 Esquinas</span>
           </div>
-          <div className="flex gap-4">
-            <span className="hover:text-white transition-colors cursor-default">Facebook</span>
-            <span className="hover:text-white transition-colors cursor-default">Instagram</span>
-            <span className="hover:text-white transition-colors cursor-default">YouTube</span>
+          <div className="landing-footer-social">
+            <span className="landing-footer-social-link">Facebook</span>
+            <span className="landing-footer-social-link">Instagram</span>
+            <span className="landing-footer-social-link">YouTube</span>
           </div>
-          <div className="text-xs">Maipú, Mendoza — Argentina</div>
+          <div className="landing-footer-location">Maipú, Mendoza — Argentina</div>
         </div>
       </footer>
     </div>

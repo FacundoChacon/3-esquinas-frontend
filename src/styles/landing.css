@@ -1,0 +1,374 @@
+/**
+ * landing.css — Estilos modulares de la Landing Page (página pública)
+ *
+ * Organizado por sección visual de la landing:
+ *   1. Navbar (barra de navegación sticky)
+ *   2. Hero (sección principal con gradiente)
+ *   3. Quiénes somos
+ *   4. ODS (tarjetas flip)
+ *   5. Donar (CTA de donación)
+ *   6. Contacto (formulario)
+ *   7. Footer
+ *
+ * Cada clase se importa en LandingPage.jsx y reemplaza los utilitarios inline.
+ * Modificar una sección solo toca este archivo.
+ */
+@import "tailwindcss";
+
+/* ================================================================
+   1. NAVBAR — Barra de navegación superior sticky con blur
+   ================================================================ */
+
+/* Contenedor principal del navbar: sticky arriba, borde inferior, fondo semitransparente con blur */
+.landing-nav {
+  @apply sticky top-0 z-30 border-b border-gray-200 bg-white/80 backdrop-blur-md;
+}
+
+/* Contenedor interno del navbar: alineado horizontalmente, centrado, con ancho máximo */
+.landing-nav-inner {
+  @apply flex items-center justify-between px-4 sm:px-6 h-14 max-w-6xl mx-auto;
+}
+
+/* Botón del logo: flex con ícono + texto, no se encoge */
+.landing-nav-logo {
+  @apply flex items-center gap-2 shrink-0;
+}
+
+/* Imagen del logo en el navbar */
+.landing-nav-logo-img {
+  @apply w-8 h-8 rounded-lg object-contain;
+}
+
+/* Texto del logo solo visible en sm+ */
+.landing-nav-logo-text {
+  @apply text-sm font-bold text-gray-900 hidden sm:inline;
+}
+
+/* Contenedor de links de navegación: scroll horizontal en móvil */
+.landing-nav-links {
+  @apply flex items-center gap-0 sm:gap-1 overflow-x-auto min-w-0;
+}
+
+/* Cada link del navbar: texto pequeño, responsive, redondeado, transición suave */
+.landing-nav-link {
+  @apply shrink-0 text-xs sm:text-sm whitespace-nowrap px-2 sm:px-3 py-1.5 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors;
+}
+
+/* Contenedor de botones de acción (sesión + donar) */
+.landing-nav-actions {
+  @apply flex items-center gap-2 shrink-0;
+}
+
+/* Botón outline genérico del navbar (sesión, admin, cerrar) */
+.landing-nav-btn-outline {
+  @apply shrink-0 text-xs sm:text-sm whitespace-nowrap px-3 sm:px-4 py-1.5 rounded-full font-semibold border text-gray-600 hover:bg-gray-100 border-gray-300 transition-all;
+}
+
+/* Botón primario verde del navbar (donar) */
+.landing-nav-btn-primary {
+  @apply shrink-0 text-xs sm:text-sm whitespace-nowrap px-3 sm:px-4 py-1.5 rounded-full font-semibold text-white bg-emerald-600 hover:bg-emerald-700 transition-colors;
+}
+
+/* ================================================================
+   2. HERO — Sección principal con gradiente verde
+   ================================================================ */
+
+/* Fondo con gradiente diagonal de verde oscuro a verde claro */
+.landing-hero {
+  @apply px-6 py-12 sm:py-20 bg-gradient-to-br from-emerald-700 via-emerald-600 to-emerald-400 text-white;
+}
+
+/* Contenedor del hero: layout flexible, responsive column/row */
+.landing-hero-inner {
+  @apply max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-12;
+}
+
+/* Bloque de texto del hero */
+.landing-hero-text-block {
+  @apply flex-1 text-center md:text-left;
+}
+
+/* Etiqueta inline del hero (logo + nombre) */
+.landing-hero-tag {
+  @apply inline-flex items-center gap-2 mb-4;
+}
+
+/* Imagen del logo en el hero */
+.landing-hero-tag-img {
+  @apply w-9 h-9 rounded-xl object-contain;
+}
+
+/* Texto de la etiqueta del hero */
+.landing-hero-tag-text {
+  @apply text-sm font-semibold tracking-wider uppercase opacity-80;
+}
+
+/* Título principal del hero: responsive, bold, con espacio inferior */
+.landing-hero-title {
+  @apply text-3xl sm:text-5xl font-bold leading-tight mb-4;
+}
+
+/* Párrafo descriptivo del hero */
+.landing-hero-desc {
+  @apply text-base sm:text-lg opacity-90 max-w-xl mb-6;
+}
+
+/* Botones de acción del hero */
+.landing-hero-actions {
+  @apply flex flex-wrap justify-center md:justify-start gap-3;
+}
+
+/* Botón primario del hero (blanco sobre verde) */
+.landing-hero-btn-primary {
+  @apply px-5 py-2 rounded-full text-sm font-semibold bg-white text-emerald-700;
+}
+
+/* Botón outline del hero (borde blanco translúcido) */
+.landing-hero-btn-outline {
+  @apply px-5 py-2 border border-white/40 text-white rounded-full text-sm font-semibold;
+}
+
+/* Placeholder de imagen del hero (cuando no hay foto) */
+.landing-hero-image-placeholder {
+  @apply aspect-[4/3] rounded-2xl border-2 border-dashed border-white/40 text-white/50 flex flex-col items-center justify-center gap-2;
+}
+
+/* Icono dentro del placeholder de imagen */
+.landing-hero-image-placeholder-icon {
+  @apply w-10 h-10 opacity-60;
+}
+
+/* Texto del placeholder de imagen */
+.landing-hero-image-placeholder-text {
+  @apply text-xs font-medium opacity-70;
+}
+
+/* ================================================================
+   3. QUIÉNES SOMOS — Sección institucional
+   ================================================================ */
+
+/* Fondo blanco de la sección */
+.landing-about {
+  @apply px-6 py-10 sm:py-14 bg-white;
+}
+
+/* Contenedor centrado con texto alineado al centro */
+.landing-about-inner {
+  @apply max-w-4xl mx-auto text-center;
+}
+
+/* Título de la sección */
+.landing-about-title {
+  @apply text-2xl sm:text-3xl font-bold text-gray-900 mb-3;
+}
+
+/* Línea decorativa verde debajo del título */
+.landing-about-divider {
+  @apply w-16 h-1 mx-auto mb-6 rounded-full bg-emerald-600;
+}
+
+/* Párrafo descriptivo de la sección */
+.landing-about-text {
+  @apply leading-relaxed max-w-3xl mx-auto text-gray-600;
+}
+
+/* ================================================================
+   4. ODS — Tarjetas flip de los 17 Objetivos de Desarrollo Sostenible
+   ================================================================ */
+
+/* Fondo gris claro de la sección */
+.landing-ods {
+  @apply px-6 py-10 sm:py-14 bg-gray-50;
+}
+
+/* Contenedor centrado */
+.landing-ods-inner {
+  @apply max-w-6xl mx-auto text-center;
+}
+
+/* Título de la sección */
+.landing-ods-title {
+  @apply text-2xl sm:text-3xl font-bold text-gray-900 mb-1;
+}
+
+/* Subtítulo de la sección */
+.landing-ods-subtitle {
+  @apply text-sm mb-6 text-gray-500;
+}
+
+/* Grid responsivo de tarjetas ODS */
+.landing-ods-grid {
+  @apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3;
+}
+
+/* Contenedor de cada tarjeta flip: perspective para efecto 3D */
+.landing-ods-card {
+  @apply [perspective:1000px] cursor-pointer transition-transform duration-200 hover:scale-105;
+}
+
+/* Contenedor interno que rota con preserve-3d */
+.landing-ods-card-inner {
+  @apply relative w-full [transform-style:preserve-3d] transition-transform duration-500;
+}
+
+/* Estado girado de la tarjeta */
+.landing-ods-card-inner.flipped {
+  @apply [transform:rotateY(180deg)];
+}
+
+/* Cara frontal de la tarjeta: oculta al voltear */
+.landing-ods-card-front {
+  @apply absolute inset-0 rounded-xl p-4 text-white text-center flex flex-col items-center gap-2 [backface-visibility:hidden];
+}
+
+/* Número del ODS en la cara frontal */
+.landing-ods-card-number {
+  @apply text-base sm:text-lg font-bold;
+}
+
+/* Contenedor del ícono del ODS */
+.landing-ods-card-icon-box {
+  @apply w-full rounded-lg border border-white/30 flex items-center justify-center;
+}
+
+/* Texto del nombre del ODS */
+.landing-ods-card-label {
+  @apply text-[11px] leading-tight opacity-90 font-medium mt-auto;
+}
+
+/* Cara trasera de la tarjeta: visible al voltear */
+.landing-ods-card-back {
+  @apply absolute inset-0 rounded-xl p-4 text-white text-center flex flex-col items-center justify-center gap-2 [backface-visibility:hidden] [transform:rotateY(180deg)];
+}
+
+/* Etiqueta "ODS XX" en la cara trasera */
+.landing-ods-card-back-label {
+  @apply text-xs font-bold opacity-80 uppercase tracking-wider;
+}
+
+/* Descripción del ODS en la cara trasera */
+.landing-ods-card-back-desc {
+  @apply text-[10px] leading-relaxed opacity-90;
+}
+
+/* Texto de ayuda "Tocar para voltear" */
+.landing-ods-card-back-hint {
+  @apply text-[9px] font-medium opacity-60 mt-1;
+}
+
+/* ================================================================
+   5. DONAR — Sección CTA de donación
+   ================================================================ */
+
+/* Fondo verde con texto blanco centrado */
+.landing-donate {
+  @apply px-6 py-10 sm:py-14 bg-emerald-600 text-white text-center;
+}
+
+/* Contenedor centrado */
+.landing-donate-inner {
+  @apply max-w-2xl mx-auto;
+}
+
+/* Título de la sección */
+.landing-donate-title {
+  @apply text-2xl sm:text-3xl font-bold mb-2;
+}
+
+/* Texto descriptivo */
+.landing-donate-desc {
+  @apply opacity-90 mb-6;
+}
+
+/* Botón grande de donar ahora (blanco sobre verde) */
+.landing-donate-btn {
+  @apply inline-block px-8 py-3 rounded-full font-bold text-lg bg-white text-emerald-700 shadow-lg hover:shadow-xl transition-shadow;
+}
+
+/* ================================================================
+   6. CONTACTO — Formulario de contacto
+   ================================================================ */
+
+/* Fondo blanco de la sección */
+.landing-contact {
+  @apply px-6 py-10 sm:py-14 bg-white;
+}
+
+/* Contenedor centrado del formulario */
+.landing-contact-inner {
+  @apply max-w-2xl mx-auto;
+}
+
+/* Título de la sección */
+.landing-contact-title {
+  @apply text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-6;
+}
+
+/* Mensaje de éxito al enviar */
+.landing-contact-success {
+  @apply bg-emerald-50 border border-emerald-200 text-emerald-700 px-6 py-4 rounded-xl text-center text-sm;
+}
+
+/* Formulario de contacto */
+.landing-contact-form {
+  @apply space-y-3;
+}
+
+/* Input genérico del formulario de contacto */
+.landing-contact-input {
+  @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900 placeholder-gray-400;
+}
+
+/* Textarea del formulario de contacto */
+.landing-contact-textarea {
+  @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900 placeholder-gray-400 resize-none;
+}
+
+/* Botón de enviar */
+.landing-contact-submit {
+  @apply h-11 px-8 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition-colors mx-auto block;
+}
+
+/* ================================================================
+   7. FOOTER — Pie de página
+   ================================================================ */
+
+/* Fondo oscuro del footer */
+.landing-footer {
+  @apply px-6 py-8 text-sm bg-gray-900 text-gray-400;
+}
+
+/* Contenedor interno del footer: responsive row/column */
+.landing-footer-inner {
+  @apply max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4;
+}
+
+/* Bloque del logo en el footer */
+.landing-footer-brand {
+  @apply flex items-center gap-2;
+}
+
+/* Imagen del logo en el footer */
+.landing-footer-logo {
+  @apply w-7 h-7 rounded-xl object-contain;
+}
+
+/* Texto del nombre en el footer */
+.landing-footer-name {
+  @apply text-white font-semibold;
+}
+
+/* Links de redes sociales */
+.landing-footer-social {
+  @apply flex gap-4;
+}
+
+/* Cada link de redes sociales */
+.landing-footer-social-link {
+  @apply hover:text-white transition-colors cursor-default;
+}
+
+/* Texto de ubicación */
+.landing-footer-location {
+  @apply text-xs;
+}

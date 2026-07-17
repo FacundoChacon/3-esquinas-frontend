@@ -78,13 +78,8 @@ export default function RegisterPage() {
     }
   }
 
-  const inputClass = (name) => {
-    const base = 'w-full px-4 py-3 border rounded-lg outline-none transition-all text-gray-900 placeholder-gray-400'
-    if (touched[name] && errors[name]) {
-      return `${base} border-red-400 focus:ring-2 focus:ring-red-400 focus:border-red-400`
-    }
-    return `${base} border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500`
-  }
+  const inputClass = (name) =>
+    touched[name] && errors[name] ? 'auth-input error' : 'auth-input'
 
   const fieldDefs = [
     { name: 'nombre', label: 'Nombre', type: 'text', placeholder: 'Juan', autoComplete: 'given-name' },
@@ -94,19 +89,19 @@ export default function RegisterPage() {
   ]
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-600 via-emerald-500 to-emerald-400 px-4">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8">
+    <div className="auth-page">
+      <div className="auth-card">
 
-        <div className="text-center mb-8">
-          <img src="/images/logo-3esquinas.png" alt="3 Esquinas" className="w-16 h-16 mx-auto mb-4 rounded-xl object-contain" />
-          <h1 className="text-2xl font-bold text-gray-900">Crear cuenta</h1>
-          <p className="text-gray-500 text-sm mt-1">Registrarse en el Portal de Donaciones</p>
+        <div className="auth-header">
+          <img src="/images/logo-3esquinas.png" alt="3 Esquinas" className="auth-logo" />
+          <h1 className="auth-title">Crear cuenta</h1>
+          <p className="auth-subtitle">Registrarse en el Portal de Donaciones</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {fieldDefs.map((f) => (
             <div key={f.name}>
-              <label htmlFor={f.name} className="block text-sm font-medium text-gray-700 mb-1">{f.label}</label>
+              <label htmlFor={f.name} className="auth-field">{f.label}</label>
               <input
                 id={f.name}
                 name={f.name}
@@ -120,20 +115,14 @@ export default function RegisterPage() {
                 className={inputClass(f.name)}
               />
               {touched[f.name] && errors[f.name] && (
-                <p className="text-red-500 text-xs mt-1">{errors[f.name]}</p>
+                <p className="auth-field-error">{errors[f.name]}</p>
               )}
             </div>
           ))}
 
-          {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">{error}</div>
-          )}
+          {error && <div className="auth-global-error">{error}</div>}
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-400 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
-          >
+          <button type="submit" disabled={loading} className="auth-submit">
             {loading ? (
               <>
                 <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
@@ -148,9 +137,9 @@ export default function RegisterPage() {
           </button>
         </form>
 
-        <div className="mt-6 text-center text-sm text-gray-500">
+        <div className="auth-links">
           <p>¿Ya tenés una cuenta?</p>
-          <Link to="/login" className="mt-2 inline-block text-emerald-600 hover:text-emerald-700 font-medium">Iniciar sesión</Link>
+          <Link to="/login" className="auth-links-action">Iniciar sesión</Link>
         </div>
       </div>
     </div>

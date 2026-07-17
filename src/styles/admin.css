@@ -1,0 +1,659 @@
+/**
+ * admin.css — Estilos modulares del panel de administración
+ *
+ * Organizado por componente:
+ *   1. AdminLayout (sidebar + contenido principal)
+ *   2. Sidebar (navegación lateral)
+ *   3. Header del sidebar (logo + nombre)
+ *   4. Links de navegación del sidebar
+ *   5. Sección inferior del sidebar (dark mode, usuario, logout)
+ *   6. Área de contenido principal
+ *   7. Dashboard (KPIs, gráficos, tablas)
+ *   8. Tabla de donaciones
+ *   9. Tabla de datos (CRUD)
+ *  10. KPI Cards
+ *  11. Gráfico de ingresos
+ *
+ * Cada clase se importa en los componentes correspondientes.
+ */
+@import "tailwindcss";
+
+/* ================================================================
+   1. ADMIN LAYOUT — Estructura principal
+   ================================================================ */
+
+/* Contenedor raíz: flex, ancho mínimo de pantalla */
+.admin-layout {
+  @apply min-h-screen flex;
+}
+
+/* Fondo en modo claro */
+.admin-layout.light {
+  @apply bg-gray-50;
+}
+
+/* Fondo en modo oscuro */
+.admin-layout.dark {
+  @apply bg-gray-900;
+}
+
+/* Overlay del sidebar en móvil (fondo semitransparente) */
+.admin-sidebar-overlay {
+  @apply fixed inset-0 z-40 bg-black/50 lg:hidden;
+}
+
+/* ================================================================
+   2. SIDEBAR — Barra lateral de navegación
+   ================================================================ */
+
+/* Sidebar en modo claro */
+.admin-sidebar {
+  @apply fixed inset-y-0 left-0 z-50 w-64 flex flex-col transform transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:z-auto;
+}
+
+.admin-sidebar.light {
+  @apply bg-white border-r border-gray-200;
+}
+
+.admin-sidebar.dark {
+  @apply bg-gray-900 border-r border-gray-800;
+}
+
+/* Sidebar oculto en móvil */
+.admin-sidebar.hidden-mobile {
+  @apply -translate-x-full;
+}
+
+/* Sidebar visible en móvil */
+.admin-sidebar.visible-mobile {
+  @apply translate-x-0;
+}
+
+/* ================================================================
+   3. HEADER DEL SIDEBAR — Logo + nombre
+   ================================================================ */
+
+/* Contenedor del header */
+.admin-sidebar-header {
+  @apply flex items-center gap-3 px-5 py-5 border-b;
+}
+
+.admin-sidebar-header.light {
+  @apply border-gray-100;
+}
+
+.admin-sidebar-header.dark {
+  @apply border-gray-800;
+}
+
+/* Imagen del logo */
+.admin-sidebar-logo {
+  @apply w-9 h-9 rounded-lg object-contain;
+}
+
+/* Nombre de la ONG */
+.admin-sidebar-name {
+  @apply font-bold text-sm leading-tight;
+}
+
+.admin-sidebar-name.light {
+  @apply text-gray-900;
+}
+
+.admin-sidebar-name.dark {
+  @apply text-white;
+}
+
+/* Subtítulo del sidebar */
+.admin-sidebar-subtitle {
+  @apply text-[11px];
+}
+
+.admin-sidebar-subtitle.light {
+  @apply text-gray-400;
+}
+
+.admin-sidebar-subtitle.dark {
+  @apply text-gray-500;
+}
+
+/* ================================================================
+   4. LINKS DE NAVEGACIÓN DEL SIDEBAR
+   ================================================================ */
+
+/* Contenedor del nav */
+.admin-sidebar-nav {
+  @apply flex-1 px-3 py-4 space-y-1 overflow-y-auto;
+}
+
+/* Link activo: fondo verde suave, texto verde */
+.admin-nav-link.active {
+  @apply bg-emerald-50 text-emerald-700;
+}
+
+.admin-nav-link.active.dark {
+  @apply bg-emerald-900/30 text-emerald-400;
+}
+
+/* Link inactivo: texto gris, hover suave */
+.admin-nav-link.inactive {
+  @apply text-gray-600 hover:bg-gray-50 hover:text-gray-900;
+}
+
+.admin-nav-link.inactive.dark {
+  @apply text-gray-400 hover:bg-gray-800 hover:text-gray-200;
+}
+
+/* ================================================================
+   5. SECCIÓN INFERIOR DEL SIDEBAR
+   ================================================================ */
+
+/* Contenedor de la sección inferior (dark mode, usuario, logout) */
+.admin-sidebar-footer {
+  @apply border-t px-4 py-4 space-y-3;
+}
+
+.admin-sidebar-footer.light {
+  @apply border-gray-100;
+}
+
+.admin-sidebar-footer.dark {
+  @apply border-gray-800;
+}
+
+/* Botón genérico del sidebar footer */
+.admin-sidebar-btn {
+  @apply w-full flex items-center gap-2 px-3 py-2 text-sm rounded-lg transition-colors;
+}
+
+.admin-sidebar-btn.light {
+  @apply text-gray-600 hover:bg-gray-50 hover:text-gray-900;
+}
+
+.admin-sidebar-btn.dark {
+  @apply text-gray-400 hover:bg-gray-800 hover:text-gray-200;
+}
+
+/* ================================================================
+   6. ÁREA DE CONTENIDO PRINCIPAL
+   ================================================================ */
+
+/* Wrapper del contenido principal */
+.admin-content {
+  @apply flex-1 min-w-0 overflow-y-auto;
+}
+
+/* Contenedor del contenido con padding */
+.admin-content-inner {
+  @apply p-6;
+}
+
+/* ================================================================
+   7. DASHBOARD — Página principal del admin
+   ================================================================ */
+
+/* Título del dashboard con indicador verde */
+.admin-dashboard-title {
+  @apply flex items-center gap-2 mb-1;
+}
+
+/* Punto verde indicador */
+.admin-dashboard-dot {
+  @apply w-2 h-2 rounded-full bg-emerald-400;
+}
+
+/* Subtítulo del dashboard */
+.admin-dashboard-subtitle {
+  @apply text-sm mb-6;
+}
+
+/* ================================================================
+   8. TABLA DE DONACIONES
+   ================================================================ */
+
+/* Contenedor de la tabla */
+.donations-table {
+  @apply rounded-xl overflow-hidden;
+}
+
+.donations-table.light {
+  @apply bg-white border border-gray-100;
+}
+
+.donations-table.dark {
+  @apply bg-gray-800 border border-gray-700;
+}
+
+/* Header de la tabla */
+.donations-table-header {
+  @apply px-5 py-4 border-b;
+}
+
+.donations-table-header.light {
+  @apply border-gray-50;
+}
+
+.donations-table-header.dark {
+  @apply border-gray-700;
+}
+
+/* Título de la tabla */
+.donations-table-title {
+  @apply text-sm font-bold;
+}
+
+.donations-table-title.light {
+  @apply text-gray-900;
+}
+
+.donations-table-title.dark {
+  @apply text-gray-100;
+}
+
+/* Fila de encabezados de columnas */
+.donations-table-head {
+  @apply grid grid-cols-5 gap-0 text-[10px] font-semibold uppercase tracking-wider px-5 py-2.5 border-b;
+}
+
+.donations-table-head.light {
+  @apply bg-gray-50 text-gray-500 border-gray-100;
+}
+
+.donations-table-head.dark {
+  @apply bg-gray-700/50 text-gray-400 border-gray-700;
+}
+
+/* Cada fila de datos */
+.donations-table-row {
+  @apply grid grid-cols-5 gap-0 text-xs px-5 py-3 transition-colors items-center;
+}
+
+.donations-table-row.light {
+  @apply text-gray-700 hover:bg-gray-50;
+}
+
+.donations-table-row.dark {
+  @apply text-gray-300 hover:bg-gray-700/50;
+}
+
+/* Borde entre filas */
+.donations-table-row-border {
+  @apply border-b;
+}
+
+.donations-table-row-border.light {
+  @apply border-gray-50;
+}
+
+.donations-table-row-border.dark {
+  @apply border-gray-700;
+}
+
+/* Estado de carga / vacío */
+.donations-table-empty {
+  @apply px-5 py-8 text-center text-sm;
+}
+
+.donations-table-empty.light {
+  @apply text-gray-400;
+}
+
+.donations-table-empty.dark {
+  @apply text-gray-500;
+}
+
+/* ================================================================
+   9. TABLA DE DATOS (CRUD)
+   ================================================================ */
+
+/* Contenedor de filtros y acciones */
+.datos-actions {
+  @apply flex flex-wrap items-center gap-3 mb-4;
+}
+
+/* Botón "Nuevo registro" */
+.datos-btn-new {
+  @apply inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium rounded-lg transition-colors;
+}
+
+/* Select de filtro por categoría */
+.datos-filter-select {
+  @apply text-sm border rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none;
+}
+
+.datos-filter-select.light {
+  @apply border-gray-200 text-gray-700 bg-white;
+}
+
+.datos-filter-select.dark {
+  @apply bg-gray-700 border-gray-600 text-gray-200;
+}
+
+/* Contenedor de la tabla */
+.datos-table {
+  @apply rounded-xl overflow-hidden;
+}
+
+.datos-table.light {
+  @apply bg-white border border-gray-100;
+}
+
+.datos-table.dark {
+  @apply bg-gray-800 border border-gray-700;
+}
+
+/* Fila de encabezados */
+.datos-table-head {
+  @apply grid grid-cols-4 gap-0 text-[10px] font-semibold uppercase tracking-wider px-5 py-2.5 border-b;
+}
+
+.datos-table-head.light {
+  @apply bg-gray-50 text-gray-500 border-gray-100;
+}
+
+.datos-table-head.dark {
+  @apply bg-gray-700/50 text-gray-400 border-gray-700;
+}
+
+/* Cada fila de datos */
+.datos-table-row {
+  @apply grid grid-cols-4 gap-0 text-xs px-5 py-3 transition-colors items-center;
+}
+
+.datos-table-row.light {
+  @apply text-gray-700 hover:bg-gray-50;
+}
+
+.datos-table-row.dark {
+  @apply text-gray-300 hover:bg-gray-700/50;
+}
+
+/* Borde entre filas */
+.datos-table-row-border {
+  @apply border-b;
+}
+
+.datos-table-row-border.light {
+  @apply border-gray-50;
+}
+
+.datos-table-row-border.dark {
+  @apply border-gray-700;
+}
+
+/* Input dentro de la tabla/modal */
+.datos-input {
+  @apply w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none;
+}
+
+.datos-input.light {
+  @apply border-gray-200 text-gray-900;
+}
+
+.datos-input.dark {
+  @apply bg-gray-700 border-gray-600 text-gray-100 placeholder-gray-400;
+}
+
+/* ================================================================
+  10. KPI CARDS
+   ================================================================ */
+
+/* Grid de KPI cards */
+.kpi-grid {
+  @apply grid grid-cols-2 lg:grid-cols-4 gap-4;
+}
+
+/* Card de KPI */
+.kpi-card {
+  @apply rounded-xl p-5 hover:shadow-md transition-shadow;
+}
+
+.kpi-card.light {
+  @apply bg-white border border-gray-100;
+}
+
+.kpi-card.dark {
+  @apply bg-gray-800 border border-gray-700;
+}
+
+/* Header del KPI: label + icono */
+.kpi-card-header {
+  @apply flex items-center justify-between mb-3;
+}
+
+/* Label del KPI */
+.kpi-card-label {
+  @apply text-xs font-medium;
+}
+
+.kpi-card-label.light {
+  @apply text-gray-500;
+}
+
+.kpi-card-label.dark {
+  @apply text-gray-400;
+}
+
+/* Icono del KPI (círculo de color) */
+.kpi-card-icon {
+  @apply w-8 h-8 rounded-lg flex items-center justify-center;
+}
+
+/* Valor del KPI (número grande) */
+.kpi-card-value {
+  @apply text-2xl font-bold;
+}
+
+.kpi-card-value.light {
+  @apply text-gray-900;
+}
+
+.kpi-card-value.dark {
+  @apply text-gray-100;
+}
+
+/* ================================================================
+  11. GRÁFICO DE INGRESOS
+   ================================================================ */
+
+/* Contenedor del gráfico */
+.chart-container {
+  @apply rounded-xl p-5;
+}
+
+.chart-container.light {
+  @apply bg-white border border-gray-100;
+}
+
+.chart-container.dark {
+  @apply bg-gray-800 border border-gray-700;
+}
+
+/* Título del gráfico */
+.chart-title {
+  @apply text-sm font-bold mb-4;
+}
+
+.chart-title.light {
+  @apply text-gray-900;
+}
+
+.chart-title.dark {
+  @apply text-gray-100;
+}
+
+/* Estado de carga del gráfico */
+.chart-loading-bar {
+  @apply h-4 rounded w-36 mb-4 animate-pulse;
+}
+
+.chart-loading-bar.light {
+  @apply bg-gray-100;
+}
+
+.chart-loading-bar.dark {
+  @apply bg-gray-700;
+}
+
+/* Contenedor de barras */
+.chart-bars {
+  @apply flex items-end gap-1.5 h-44 px-1 pt-2;
+}
+
+/* Barra individual */
+.chart-bar {
+  @apply w-full rounded-t-md bg-emerald-500 hover:bg-emerald-400 transition-colors cursor-pointer;
+}
+
+/* Tooltip del gráfico */
+.chart-tooltip {
+  @apply absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10;
+}
+
+/* Label del mes bajo la barra */
+.chart-month-label {
+  @apply text-[9px] truncate w-full text-center;
+}
+
+.chart-month-label.light {
+  @apply text-gray-400;
+}
+
+.chart-month-label.dark {
+  @apply text-gray-500;
+}
+
+/* Footer del gráfico: "Últimos X meses" + total */
+.chart-footer {
+  @apply flex justify-between items-center mt-3 pt-3 border-t;
+}
+
+.chart-footer.light {
+  @apply border-gray-50;
+}
+
+.chart-footer.dark {
+  @apply border-gray-700;
+}
+
+/* Texto de "Últimos X meses" */
+.chart-footer-period {
+  @apply text-[11px];
+}
+
+.chart-footer-period.light {
+  @apply text-gray-400;
+}
+
+.chart-footer-period.dark {
+  @apply text-gray-500;
+}
+
+/* Total acumulado */
+.chart-footer-total {
+  @apply text-[11px] font-medium text-emerald-500;
+}
+
+/* ================================================================
+  12. MODAL DE DATOS (CRUD Form)
+   ================================================================ */
+
+/* Overlay del modal */
+.datos-modal-overlay {
+  @apply fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4;
+}
+
+/* Card del modal */
+.datos-modal-card {
+  @apply rounded-xl shadow-2xl w-full max-w-md;
+}
+
+.datos-modal-card.light {
+  @apply bg-white;
+}
+
+.datos-modal-card.dark {
+  @apply bg-gray-800;
+}
+
+/* Header del modal */
+.datos-modal-header {
+  @apply px-6 py-4 border-b;
+}
+
+.datos-modal-header.light {
+  @apply border-gray-100;
+}
+
+.datos-modal-header.dark {
+  @apply border-gray-700;
+}
+
+/* Título del modal */
+.datos-modal-title {
+  @apply text-base font-bold;
+}
+
+.datos-modal-title.light {
+  @apply text-gray-900;
+}
+
+.datos-modal-title.dark {
+  @apply text-gray-100;
+}
+
+/* Label de cada campo */
+.datos-modal-label {
+  @apply block text-sm font-medium mb-1;
+}
+
+.datos-modal-label.light {
+  @apply text-gray-700;
+}
+
+.datos-modal-label.dark {
+  @apply text-gray-300;
+}
+
+/* ================================================================
+  13. PAGINACIÓN (compartida entre tablas)
+   ================================================================ */
+
+/* Contenedor de paginación */
+.table-pagination {
+  @apply flex items-center justify-between px-5 py-3 border-t;
+}
+
+.table-pagination.light {
+  @apply border-gray-50;
+}
+
+.table-pagination.dark {
+  @apply border-gray-700;
+}
+
+/* Botón de página anterior/siguiente */
+.table-pagination-btn {
+  @apply text-xs disabled:opacity-30;
+}
+
+.table-pagination-btn.light {
+  @apply text-gray-500 hover:text-gray-700;
+}
+
+.table-pagination-btn.dark {
+  @apply text-gray-400 hover:text-gray-200;
+}
+
+/* Texto de página actual */
+.table-pagination-info {
+  @apply text-xs;
+}
+
+.table-pagination-info.light {
+  @apply text-gray-400;
+}
+
+.table-pagination-info.dark {
+  @apply text-gray-500;
+}
