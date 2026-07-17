@@ -76,20 +76,24 @@ export default function LandingPage() {
         const cardWidth = card.offsetWidth
         const ratio = distance / cardWidth
 
-        let scale, opacity
+        let scale, opacity, glow
         if (ratio < 0.35) {
           scale = 1
           opacity = 1
+          glow = '0 0 0 2px rgba(16,185,129,0.5), 0 0 20px rgba(16,185,129,0.25)'
         } else if (ratio < 1.3) {
           scale = 0.82
           opacity = 0.5
+          glow = 'none'
         } else {
           scale = 0.7
           opacity = 0.25
+          glow = 'none'
         }
 
         card.style.transform = `scale(${scale})`
         card.style.opacity = opacity
+        card.style.boxShadow = glow
       })
     }
 
