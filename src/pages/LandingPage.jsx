@@ -77,6 +77,7 @@ export default function LandingPage() {
         const ratio = distance / cardWidth
 
         const isCentered = ratio < 0.35
+        const inner = card.querySelector('.landing-ods-card-inner')
 
         let scale, opacity, glow
         if (isCentered) {
@@ -95,12 +96,11 @@ export default function LandingPage() {
 
         card.style.transform = `scale(${scale})`
         card.style.opacity = opacity
-        card.style.boxShadow = glow
 
-        // Reset flip on non-centered cards
-        if (!isCentered) {
-          const inner = card.querySelector('.landing-ods-card-inner')
-          if (inner && inner.classList.contains('flipped')) {
+        if (inner) {
+          inner.style.boxShadow = glow
+          // Reset flip on non-centered cards
+          if (!isCentered && inner.classList.contains('flipped')) {
             inner.classList.remove('flipped')
           }
         }
