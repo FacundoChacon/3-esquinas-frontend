@@ -6,6 +6,7 @@ import { setAccessTokenGetter } from './services/apiService'
 import ProtectedRoute from './components/ProtectedRoute'
 import AdminLayout from './components/AdminLayout'
 import LandingPage from './pages/LandingPage'
+import ConocenosPage from './pages/ConocenosPage'
 import DonatePage from './pages/DonatePage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
@@ -33,6 +34,7 @@ export default function App() {
           {/* ============================================= */}
 
           <Route path="/" element={<LandingPage />} />
+          <Route path="/conocenos" element={<ConocenosPage />} />
           <Route path="/donar" element={<DonatePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
