@@ -2,13 +2,14 @@
  * AdminLayout.jsx — Layout del panel de administración
  *
  * Sidebar con navegación + área de contenido principal.
- * Muestra diferente navegación según el rol del usuario.
+ * Soporte dark mode + responsive.
  *
  * Pertenece a: Fase 5 — Frontend Dashboard
  */
 import { useState } from 'react'
 import { Outlet, NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { useDarkMode } from '../context/DarkModeContext'
 
 const NAV_ITEMS = [
   {
@@ -44,6 +45,7 @@ const NAV_ITEMS = [
 
 export default function AdminLayout() {
   const { user, logout } = useAuth()
+  const { dark, toggle } = useDarkMode()
   const navigate = useNavigate()
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
@@ -59,70 +61,72 @@ export default function AdminLayout() {
   const linkClass = ({ isActive }) =>
     `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
       isActive
-        ? 'bg-emerald-50 text-emerald-700'
-        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+        ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400'
+        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200'
     }`
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
-      {/* Overlay para móvil */}
+    <div className={`min-h-screen flex ${dark ? 'bg-gray-900' : 'bg-gray-50'}`}>
       {sidebarOpen && (
-        <div
-          className="fixed inset-0 z-40 bg-black/50 lg:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
+        <div className="fixed inset-0 z-40 bg-black/50 lg:hidden" onClick={() => setSidebarOpen(false)} />
       )}
 
       {/* Sidebar */}
-      <aside
-        className={`fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 flex flex-col transform transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:z-auto ${
-          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
-      >
+      <aside className={`fixed inset-y-0 left-0 z-50 w-64 flex flex-col transform transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:z-auto ${
+        dark ? 'bg-gray-900 border-r border-gray-800' : 'bg-white border-r border-gray-200'
+      } ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         {/* Logo */}
-        <div className="flex items-center gap-3 px-5 py-5 border-b border-gray-100">
-          <img
-            src="/images/logo-3esquinas.png"
-            alt="3 Esquinas"
-            className="w-9 h-9 rounded-lg object-contain"
-          />
+        <div className={`flex items-center gap-3 px-5 py-5 border-b ${dark ? 'border-gray-800' : 'border-gray-100'}`}>
+          <img src="/images/logo-3esquinas.png" alt="3 Esquinas" className="w-9 h-9 rounded-lg object-contain" />
           <div>
-            <div className="font-bold text-gray-900 text-sm leading-tight">3 Esquinas</div>
-            <div className="text-[11px] text-gray-400">Panel de administración</div>
+            <div className={`font-bold text-sm leading-tight ${dark ? 'text-white' : 'text-gray-900'}`}>3 Esquinas</div>
+            <div className={`text-[11px] ${dark ? 'text-gray-500' : 'text-gray-400'}`}>Panel de administración</div>
           </div>
         </div>
 
-        {/* Navegación */}
+        {/* Nav */}
         <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
           {visibleNavItems.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              end={item.end}
-              className={linkClass}
-              onClick={() => setSidebarOpen(false)}
-            >
+            <NavLink key={item.to} to={item.to} end={item.end} className={linkClass} onClick={() => setSidebarOpen(false)}>
               {item.icon}
               {item.label}
             </NavLink>
           ))}
         </nav>
 
-        {/* Usuario + Logout */}
-        <div className="border-t border-gray-100 px-4 py-4">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs font-bold">
+        {/* Dark mode toggle + User + Logout */}
+        <div className={`border-t px-4 py-4 space-y-3 ${dark ? 'border-gray-800' : 'border-gray-100'}`}>
+          <button
+            onClick={toggle}
+            className={`w-full flex items-center gap-2 px-3 py-2 text-sm rounded-lg transition-colors ${
+              dark ? 'text-gray-400 hover:bg-gray-800 hover:text-gray-200' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+            }`}
+          >
+            {dark ? (
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+              </svg>
+            ) : (
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+              </svg>
+            )}
+            {dark ? 'Modo claro' : 'Modo oscuro'}
+          </button>
+
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs font-bold dark:bg-emerald-900/50 dark:text-emerald-400">
               {user?.nombre?.charAt(0)?.toUpperCase() || user?.email?.charAt(0)?.toUpperCase() || '?'}
             </div>
-            <div className="min-w-0">
-              <div className="text-sm font-medium text-gray-900 truncate">{user?.nombre || user?.email}</div>
-              <div className="text-[11px] text-gray-400 capitalize">{user?.rol?.toLowerCase()}</div>
+            <div className="min-w-0 flex-1">
+              <div className={`text-sm font-medium truncate ${dark ? 'text-white' : 'text-gray-900'}`}>{user?.nombre || user?.email}</div>
+              <div className={`text-[11px] capitalize ${dark ? 'text-gray-500' : 'text-gray-400'}`}>{user?.rol?.toLowerCase()}</div>
             </div>
           </div>
-          <button
-            onClick={handleLogout}
-            className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-lg transition-colors"
-          >
+
+          <button onClick={handleLogout} className={`w-full flex items-center gap-2 px-3 py-2 text-sm rounded-lg transition-colors ${
+            dark ? 'text-gray-400 hover:bg-gray-800 hover:text-gray-200' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+          }`}>
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
             </svg>
@@ -131,23 +135,20 @@ export default function AdminLayout() {
         </div>
       </aside>
 
-      {/* Contenido principal */}
+      {/* Contenido */}
       <div className="flex-1 flex flex-col min-w-0">
-        {/* Header superior (móvil) */}
-        <header className="sticky top-0 z-30 bg-white border-b border-gray-200 px-4 py-3 flex items-center gap-3 lg:hidden">
-          <button
-            onClick={() => setSidebarOpen(true)}
-            className="p-1.5 rounded-lg text-gray-600 hover:bg-gray-100"
-          >
+        <header className={`sticky top-0 z-30 border-b px-4 py-3 flex items-center gap-3 lg:hidden ${
+          dark ? 'bg-gray-900 border-gray-800' : 'bg-white border-gray-200'
+        }`}>
+          <button onClick={() => setSidebarOpen(true)} className={`p-1.5 rounded-lg ${dark ? 'text-gray-400 hover:bg-gray-800' : 'text-gray-600 hover:bg-gray-100'}`}>
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>
           </button>
           <img src="/images/logo-3esquinas.png" alt="3 Esquinas" className="w-7 h-7 rounded object-contain" />
-          <span className="font-bold text-gray-900 text-sm">Panel de administración</span>
+          <span className={`font-bold text-sm ${dark ? 'text-white' : 'text-gray-900'}`}>Panel de administración</span>
         </header>
 
-        {/* Área de contenido */}
         <main className="flex-1 overflow-y-auto">
           <Outlet />
         </main>

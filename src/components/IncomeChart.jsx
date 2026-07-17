@@ -1,43 +1,32 @@
 /**
  * IncomeChart.jsx — Gráfico de barras de ingresos mensuales
  *
- * Muestra los últimos 12 meses de ingresos en un gráfico de barras CSS.
- * Datos reales del endpoint GET /api/dashboard/ingresos.
+ * Soporte dark mode. Datos del endpoint GET /api/dashboard/ingresos.
  *
  * Pertenece a: Fase 5 — Frontend Dashboard
  */
 import { useState, useEffect } from 'react'
 import { dashboardService } from '../services/apiService'
+import { useDarkMode } from '../context/DarkModeContext'
 
 function formatMonth(mes) {
   if (!mes) return ''
-  const [year, month] = mes.split('-')
+  const [, month] = mes.split('-')
   const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
   return months[parseInt(month, 10) - 1] || mes
 }
 
-function formatShortCurrency(value) {
-  const num = Number(value) || 0
-  if (num >= 1000000) return `$${(num / 1000000).toFixed(1)}M`
-  if (num >= 1000) return `$${(num / 1000).toFixed(0)}k`
-  return `$${num}`
-}
-
 export default function IncomeChart() {
+  const { dark } = useDarkMode()
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     let cancelled = false
-    dashboardService
-      .getIngresos()
-      .then((res) => {
-        if (!cancelled && Array.isArray(res)) setData(res)
-      })
+    dashboardService.getIngresos()
+      .then((res) => { if (!cancelled && Array.isArray(res)) setData(res) })
       .catch(() => {})
-      .finally(() => {
-        if (!cancelled) setLoading(false)
-      })
+      .finally(() => { if (!cancelled) setLoading(false) })
     return () => { cancelled = true }
   }, [])
 
@@ -45,21 +34,19 @@ export default function IncomeChart() {
 
   if (loading) {
     return (
-      <div className="rounded-xl bg-white border border-gray-100 p-5">
-        <div className="h-4 bg-gray-100 rounded w-36 mb-4 animate-pulse" />
-        <div className="h-40 bg-gray-50 rounded-xl animate-pulse" />
+      <div className={`rounded-xl p-5 ${dark ? 'bg-gray-800 border border-gray-700' : 'bg-white border border-gray-100'}`}>
+        <div className={`h-4 rounded w-36 mb-4 animate-pulse ${dark ? 'bg-gray-700' : 'bg-gray-100'}`} />
+        <div className={`h-40 rounded-xl animate-pulse ${dark ? 'bg-gray-700' : 'bg-gray-50'}`} />
       </div>
     )
   }
 
   return (
-    <div className="rounded-xl bg-white border border-gray-100 p-5">
-      <h3 className="text-sm font-bold text-gray-900 mb-4">Ingresos mensuales</h3>
+    <div className={`rounded-xl p-5 ${dark ? 'bg-gray-800 border border-gray-700' : 'bg-white border border-gray-100'}`}>
+      <h3 className={`text-sm font-bold mb-4 ${dark ? 'text-gray-100' : 'text-gray-900'}`}>Ingresos mensuales</h3>
 
       {data.length === 0 ? (
-        <div className="h-40 flex items-center justify-center text-gray-400 text-sm">
-          Sin datos de ingresos
-        </div>
+        <div className={`h-40 flex items-center justify-center text-sm ${dark ? 'text-gray-500' : 'text-gray-400'}`}>Sin datos de ingresos</div>
       ) : (
         <div className="flex items-end gap-1.5 h-44 px-1 pt-2">
           {data.map((item, i) => {
@@ -70,10 +57,10 @@ export default function IncomeChart() {
                   {formatMonth(item.mes)}: ${Number(item.total || 0).toLocaleString('es-AR')}
                 </div>
                 <div
-                  className="w-full rounded-t-md bg-emerald-500 hover:bg-emerald-600 transition-colors cursor-pointer"
+                  className="w-full rounded-t-md bg-emerald-500 hover:bg-emerald-400 transition-colors cursor-pointer"
                   style={{ height: `${pct}%`, opacity: 0.4 + (i / data.length) * 0.6 }}
                 />
-                <span className="text-[9px] text-gray-400 truncate w-full text-center">
+                <span className={`text-[9px] truncate w-full text-center ${dark ? 'text-gray-500' : 'text-gray-400'}`}>
                   {formatMonth(item.mes)}
                 </span>
               </div>
@@ -82,9 +69,9 @@ export default function IncomeChart() {
         </div>
       )}
 
-      <div className="flex justify-between items-center mt-3 pt-3 border-t border-gray-50">
-        <span className="text-[11px] text-gray-400">Últimos {data.length} meses</span>
-        <span className="text-[11px] font-medium text-emerald-600">
+      <div className={`flex justify-between items-center mt-3 pt-3 border-t ${dark ? 'border-gray-700' : 'border-gray-50'}`}>
+        <span className={`text-[11px] ${dark ? 'text-gray-500' : 'text-gray-400'}`}>Últimos {data.length} meses</span>
+        <span className="text-[11px] font-medium text-emerald-500">
           Total: ${data.reduce((sum, d) => sum + (Number(d.total) || 0), 0).toLocaleString('es-AR')}
         </span>
       </div>

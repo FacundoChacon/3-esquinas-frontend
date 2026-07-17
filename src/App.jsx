@@ -10,6 +10,7 @@
 import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { AuthProvider, useAuth } from './context/AuthContext'
+import { DarkModeProvider } from './context/DarkModeContext'
 import { setAccessTokenGetter } from './services/apiService'
 import ProtectedRoute from './components/ProtectedRoute'
 import AdminLayout from './components/AdminLayout'
@@ -29,6 +30,7 @@ function TokenBridge() {
 export default function App() {
   return (
     <AuthProvider>
+      <DarkModeProvider>
       <TokenBridge />
       <BrowserRouter>
         <Routes>
@@ -77,6 +79,7 @@ export default function App() {
           } />
         </Routes>
       </BrowserRouter>
+      </DarkModeProvider>
     </AuthProvider>
   )
 }
