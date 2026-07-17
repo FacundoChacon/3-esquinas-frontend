@@ -437,6 +437,11 @@
   background: linear-gradient(135deg, #065f46 0%, #047857 30%, #059669 60%, #d97706 100%);
 }
 
+.landing-contact-donate {
+  @apply relative mt-12 px-6 py-14 sm:py-20 text-white text-center overflow-hidden rounded-3xl mx-4 mb-8;
+  background: linear-gradient(135deg, #065f46 0%, #047857 30%, #059669 60%, #d97706 100%);
+}
+
 .landing-donate-bg {
   @apply absolute inset-0 opacity-10;
   background-image: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.3) 0%, transparent 50%),
