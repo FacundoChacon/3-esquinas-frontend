@@ -178,8 +178,20 @@
    3. QUIÉNES SOMOS — Sección institucional
    ================================================================ */
 
+@keyframes about-slide-right {
+  from {
+    opacity: 0;
+    transform: translateX(80px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .landing-about {
   @apply px-6 py-12 sm:py-20 bg-white;
+  animation: about-slide-right 1s ease-out both;
 }
 :root.dark .landing-about {
   @apply bg-gray-950;
