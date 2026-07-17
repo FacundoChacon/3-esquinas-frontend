@@ -40,13 +40,22 @@ export default function App() {
           <Route path="/login" element={<LoginPage />} />
 
           {/* ============================================= */}
-          {/* RUTAS PROTEGIDAS — ADMIN                      */}
+          {/* RUTAS PROTEGIDAS — ADMIN (todos los roles)     */}
           {/* ============================================= */}
 
           <Route element={<ProtectedRoute />}>
             <Route element={<AdminLayout />}>
               <Route path="/admin" element={<DashboardPage />} />
               <Route path="/admin/donaciones" element={<DonacionesPage />} />
+            </Route>
+          </Route>
+
+          {/* ============================================= */}
+          {/* RUTAS PROTEGIDAS — ADMIN + EDITOR              */}
+          {/* ============================================= */}
+
+          <Route element={<ProtectedRoute roles={['ADMIN', 'EDITOR']} />}>
+            <Route element={<AdminLayout />}>
               <Route path="/admin/datos" element={<DatosPage />} />
             </Route>
           </Route>
