@@ -23,6 +23,9 @@
 .landing-nav {
   @apply sticky top-0 z-30 border-b border-gray-200 bg-white/80 backdrop-blur-md;
 }
+:root.dark .landing-nav {
+  @apply border-gray-800 bg-gray-950/80;
+}
 
 /* Contenedor interno del navbar: alineado horizontalmente, centrado, con ancho máximo */
 .landing-nav-inner {
@@ -43,6 +46,9 @@
 .landing-nav-logo-text {
   @apply text-sm font-bold text-gray-900 hidden sm:inline;
 }
+:root.dark .landing-nav-logo-text {
+  @apply text-white;
+}
 
 /* Contenedor de links de navegación: scroll horizontal en móvil */
 .landing-nav-links {
@@ -53,15 +59,29 @@
 .landing-nav-link {
   @apply shrink-0 text-xs sm:text-sm whitespace-nowrap px-2 sm:px-3 py-1.5 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors;
 }
+:root.dark .landing-nav-link {
+  @apply text-gray-400 hover:text-white hover:bg-gray-800;
+}
 
 /* Contenedor de botones de acción (sesión + donar) */
 .landing-nav-actions {
   @apply flex items-center gap-2 shrink-0;
 }
 
+/* Botón toggle modo oscuro */
+.landing-nav-dark-toggle {
+  @apply p-2 rounded-full text-gray-600 hover:bg-gray-100 transition-colors;
+}
+:root.dark .landing-nav-dark-toggle {
+  @apply text-gray-400 hover:bg-gray-800;
+}
+
 /* Botón outline genérico del navbar (sesión, admin, cerrar) */
 .landing-nav-btn-outline {
   @apply shrink-0 text-xs sm:text-sm whitespace-nowrap px-3 sm:px-4 py-1.5 rounded-full font-semibold border text-gray-600 hover:bg-gray-100 border-gray-300 transition-all;
+}
+:root.dark .landing-nav-btn-outline {
+  @apply text-gray-300 hover:bg-gray-800 border-gray-700;
 }
 
 /* Botón primario verde del navbar (donar) */
@@ -151,6 +171,9 @@
 .landing-about {
   @apply px-6 py-10 sm:py-14 bg-white;
 }
+:root.dark .landing-about {
+  @apply bg-gray-950;
+}
 
 /* Contenedor centrado con texto alineado al centro */
 .landing-about-inner {
@@ -160,6 +183,9 @@
 /* Título de la sección */
 .landing-about-title {
   @apply text-2xl sm:text-3xl font-bold text-gray-900 mb-3;
+}
+:root.dark .landing-about-title {
+  @apply text-white;
 }
 
 /* Línea decorativa verde debajo del título */
@@ -171,6 +197,9 @@
 .landing-about-text {
   @apply leading-relaxed max-w-3xl mx-auto text-gray-600;
 }
+:root.dark .landing-about-text {
+  @apply text-gray-400;
+}
 
 /* ================================================================
    4. ODS — Tarjetas flip de los 17 Objetivos de Desarrollo Sostenible
@@ -179,6 +208,9 @@
 /* Fondo gris claro de la sección */
 .landing-ods {
   @apply px-6 py-10 sm:py-14 bg-gray-50;
+}
+:root.dark .landing-ods {
+  @apply bg-gray-900;
 }
 
 /* Contenedor centrado */
@@ -190,10 +222,16 @@
 .landing-ods-title {
   @apply text-2xl sm:text-3xl font-bold text-gray-900 mb-1;
 }
+:root.dark .landing-ods-title {
+  @apply text-white;
+}
 
 /* Subtítulo de la sección */
 .landing-ods-subtitle {
   @apply text-sm mb-6 text-gray-500;
+}
+:root.dark .landing-ods-subtitle {
+  @apply text-gray-400;
 }
 
 /* Grid responsivo de tarjetas ODS */
@@ -264,6 +302,9 @@
 .landing-donate {
   @apply px-6 py-10 sm:py-14 bg-emerald-600 text-white text-center;
 }
+:root.dark .landing-donate {
+  @apply bg-emerald-800;
+}
 
 /* Contenedor centrado */
 .landing-donate-inner {
@@ -293,6 +334,9 @@
 .landing-contact {
   @apply px-6 py-10 sm:py-14 bg-white;
 }
+:root.dark .landing-contact {
+  @apply bg-gray-950;
+}
 
 /* Contenedor centrado del formulario */
 .landing-contact-inner {
@@ -302,6 +346,9 @@
 /* Título de la sección */
 .landing-contact-title {
   @apply text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-6;
+}
+:root.dark .landing-contact-title {
+  @apply text-white;
 }
 
 /* Mensaje de éxito al enviar */
@@ -318,10 +365,16 @@
 .landing-contact-input {
   @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900 placeholder-gray-400;
 }
+:root.dark .landing-contact-input {
+  @apply bg-gray-800 border-gray-700 text-white placeholder-gray-500;
+}
 
 /* Textarea del formulario de contacto */
 .landing-contact-textarea {
   @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900 placeholder-gray-400 resize-none;
+}
+:root.dark .landing-contact-textarea {
+  @apply bg-gray-800 border-gray-700 text-white placeholder-gray-500;
 }
 
 /* Botón de enviar */
