@@ -177,7 +177,7 @@ export default function LandingPage() {
         <div className="max-w-2xl mx-auto">
           <h2 className="text-2xl sm:text-3xl font-bold mb-2">Sumate con tu donación</h2>
           <p className="opacity-90 mb-6">Tu aporte nos ayuda a seguir construyendo un futuro sostenible para todos.</p>
-          <Link to="/login" className="inline-block px-8 py-3 rounded-full font-bold text-lg bg-white text-emerald-700 shadow-lg hover:shadow-xl transition-shadow">
+          <Link to="/donar" className="inline-block px-8 py-3 rounded-full font-bold text-lg bg-white text-emerald-700 shadow-lg hover:shadow-xl transition-shadow">
             Donar ahora
           </Link>
         </div>
