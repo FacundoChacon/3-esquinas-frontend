@@ -93,9 +93,20 @@
    2. HERO — Sección principal con gradiente verde
    ================================================================ */
 
-/* Fondo con gradiente diagonal de verde oscuro a verde claro */
+@keyframes hero-emerge {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .landing-hero {
   @apply px-6 py-12 sm:py-20 bg-gradient-to-br from-emerald-700 via-emerald-600 to-emerald-400 text-white;
+  animation: hero-emerge 0.7s ease-out both;
 }
 
 /* Contenedor del hero: layout flexible, responsive column/row */
