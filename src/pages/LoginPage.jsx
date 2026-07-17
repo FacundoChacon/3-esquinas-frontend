@@ -1,46 +1,69 @@
-/**
- * LoginPage.jsx — Página de inicio de sesión
- * 
- * Formulario que permite a los usuarios autenticarse en el sistema.
- * - Email + contraseña
- * - Muestra errores del backend
- * - Redirige al dashboard después del login exitoso
- * 
- * Pertenece a: Fase 4 — Frontend Auth
- */
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
+function validateField(name, value) {
+  if (!value || !value.trim()) {
+    if (name === 'email') return 'El email es obligatorio'
+    if (name === 'password') return 'La contraseña es obligatoria'
+  }
+  if (name === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+    return 'El email debe ser válido'
+  }
+  return ''
+}
+
 export default function LoginPage() {
-  // Estado del formulario
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [errors, setErrors] = useState({})
+  const [touched, setTouched] = useState({})
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  // Hook de navegación para redirigir después del login
   const navigate = useNavigate()
-
-  // Context de autenticación para llamar al login
   const { login } = useAuth()
 
-  /**
-   * Maneja el envío del formulario de login.
-   * Llama al servicio de auth y redirige al dashboard si es exitoso.
-   */
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    if (name === 'email') setEmail(value)
+    else setPassword(value)
+    if (touched[name]) {
+      setErrors((prev) => ({ ...prev, [name]: validateField(name, value) }))
+    }
+  }
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target
+    setTouched((prev) => ({ ...prev, [name]: true }))
+    setErrors((prev) => ({ ...prev, [name]: validateField(name, value) }))
+  }
+
+  const inputClass = (name) => {
+    const base = 'w-full px-4 py-3 border rounded-lg outline-none transition-all text-gray-900 placeholder-gray-400'
+    if (touched[name] && errors[name]) {
+      return `${base} border-red-400 focus:ring-2 focus:ring-red-400 focus:border-red-400`
+    }
+    return `${base} border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500`
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
-    setLoading(true)
 
+    const emailErr = validateField('email', email)
+    const passErr = validateField('password', password)
+    if (emailErr || passErr) {
+      setErrors({ email: emailErr, password: passErr })
+      setTouched({ email: true, password: true })
+      return
+    }
+
+    setLoading(true)
     try {
-      // Llamar al servicio de login del backend
       await login(email, password)
-      // Redirigir al dashboard después del login exitoso
       navigate('/admin')
     } catch (err) {
-      // Mostrar error del backend o mensaje genérico
       setError(err.message || 'Credenciales incorrectas. Intente nuevamente.')
     } finally {
       setLoading(false)
@@ -49,71 +72,58 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-600 via-emerald-500 to-emerald-400 px-4">
-      {/* Contenedor del formulario de login */}
       <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8">
-        
-        {/* Logo y título */}
+
         <div className="text-center mb-8">
-          <img 
-            src="/images/logo-3esquinas.png" 
-            alt="3 Esquinas" 
-            className="w-16 h-16 mx-auto mb-4 rounded-xl object-contain"
-          />
+          <img src="/images/logo-3esquinas.png" alt="3 Esquinas" className="w-16 h-16 mx-auto mb-4 rounded-xl object-contain" />
           <h1 className="text-2xl font-bold text-gray-900">3 Esquinas</h1>
           <p className="text-gray-500 text-sm mt-1">Portal de Donaciones</p>
         </div>
 
-        {/* Formulario de login */}
         <form onSubmit={handleSubmit} className="space-y-5">
-          
-          {/* Campo de email */}
+
           <div>
-            <label 
-              htmlFor="email" 
-              className="block text-sm font-medium text-gray-700 mb-1"
-            >
-              Correo electrónico
-            </label>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Correo electrónico</label>
             <input
               id="email"
+              name="email"
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleChange}
+              onBlur={handleBlur}
               required
               autoComplete="email"
               placeholder="usuario@ejemplo.com"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900 placeholder-gray-400"
+              className={inputClass('email')}
             />
+            {touched.email && errors.email && (
+              <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+            )}
           </div>
 
-          {/* Campo de contraseña */}
           <div>
-            <label 
-              htmlFor="password" 
-              className="block text-sm font-medium text-gray-700 mb-1"
-            >
-              Contraseña
-            </label>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
             <input
               id="password"
+              name="password"
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handleChange}
+              onBlur={handleBlur}
               required
               autoComplete="current-password"
               placeholder="••••••••"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900 placeholder-gray-400"
+              className={inputClass('password')}
             />
+            {touched.password && errors.password && (
+              <p className="text-red-500 text-xs mt-1">{errors.password}</p>
+            )}
           </div>
 
-          {/* Mensaje de error */}
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
-              {error}
-            </div>
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">{error}</div>
           )}
 
-          {/* Botón de envío */}
           <button
             type="submit"
             disabled={loading}
@@ -121,7 +131,6 @@ export default function LoginPage() {
           >
             {loading ? (
               <>
-                {/* Spinner de carga */}
                 <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
@@ -134,12 +143,9 @@ export default function LoginPage() {
           </button>
         </form>
 
-        {/* Footer del formulario */}
         <div className="mt-6 text-center text-sm text-gray-500">
           <p>¿No tenés una cuenta?</p>
-          <Link to="/register" className="mt-2 inline-block text-emerald-600 hover:text-emerald-700 font-medium">
-            Crear cuenta
-          </Link>
+          <Link to="/register" className="mt-2 inline-block text-emerald-600 hover:text-emerald-700 font-medium">Crear cuenta</Link>
           <p className="mt-3 text-xs text-gray-400">3 Esquinas — Maipú, Mendoza</p>
         </div>
       </div>

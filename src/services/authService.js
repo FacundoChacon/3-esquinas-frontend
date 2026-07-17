@@ -74,6 +74,7 @@ function transformAuthResponse(data) {
       id: data.usuarioId,
       email: data.email,
       nombre: data.nombre,
+      apellido: data.apellido,
       rol: data.rol,
     },
   }
@@ -103,13 +104,14 @@ export const authService = {
    * El backend crea el usuario con rol VIEWER por defecto.
    * @param {string} email - Correo del usuario
    * @param {string} password - Contraseña del usuario
-   * @param {string} nombre - Nombre completo
+   * @param {string} nombre - Nombre
+   * @param {string} apellido - Apellido
    * @returns {Promise<{accessToken: string, refreshToken: string, user: object}>}
    */
-  async register(email, password, nombre) {
+  async register(email, password, nombre, apellido) {
     const data = await apiRequest('/auth/register', {
       method: 'POST',
-      body: JSON.stringify({ email, password, nombre }),
+      body: JSON.stringify({ email, password, nombre, apellido }),
     })
     return transformAuthResponse(data)
   },

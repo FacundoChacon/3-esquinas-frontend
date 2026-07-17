@@ -79,8 +79,8 @@ export function AuthProvider({ children }) {
    * Llama al backend para crear un usuario con rol VIEWER,
    * guarda el token y el usuario (login automático).
    */
-  const register = useCallback(async (email, password, nombre) => {
-    const data = await authService.register(email, password, nombre)
+  const register = useCallback(async (email, password, nombre, apellido) => {
+    const data = await authService.register(email, password, nombre, apellido)
     saveAuth(data)
     return data
   }, [saveAuth])
