@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useDarkMode } from '../context/DarkModeContext'
@@ -57,6 +57,55 @@ export default function LandingPage() {
   const [contactForm, setContactForm] = useState({ nombre: '', email: '', mensaje: '' })
   const [contactSent, setContactSent] = useState(false)
   const carouselRef = useRef(null)
+
+  useEffect(() => {
+    const container = carouselRef.current
+    if (!container) return
+
+    let rafId = null
+
+    const updateCards = () => {
+      const scrollLeft = container.scrollLeft
+      const containerWidth = container.clientWidth
+      const containerCenter = scrollLeft + containerWidth / 2
+      const cards = Array.from(container.children)
+
+      cards.forEach((card) => {
+        const cardCenter = card.offsetLeft + card.offsetWidth / 2
+        const distance = Math.abs(containerCenter - cardCenter)
+        const cardWidth = card.offsetWidth
+        const ratio = distance / cardWidth
+
+        let scale, opacity
+        if (ratio < 0.35) {
+          scale = 1
+          opacity = 1
+        } else if (ratio < 1.3) {
+          scale = 0.82
+          opacity = 0.5
+        } else {
+          scale = 0.7
+          opacity = 0.25
+        }
+
+        card.style.transform = `scale(${scale})`
+        card.style.opacity = opacity
+      })
+    }
+
+    const onScroll = () => {
+      if (rafId) cancelAnimationFrame(rafId)
+      rafId = requestAnimationFrame(updateCards)
+    }
+
+    container.addEventListener('scroll', onScroll, { passive: true })
+    updateCards()
+
+    return () => {
+      container.removeEventListener('scroll', onScroll)
+      if (rafId) cancelAnimationFrame(rafId)
+    }
+  }, [])
 
   const toggleODS = (id) => {
     setFlippedODS((prev) => prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id])
