@@ -111,6 +111,23 @@ export default function LandingPage() {
     setFlippedODS((prev) => prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id])
   }
 
+  const handleODSClick = (id, index) => {
+    const container = carouselRef.current
+    if (!container) return
+    const card = container.children[index]
+    if (!card) return
+    const containerCenter = container.scrollLeft + container.clientWidth / 2
+    const cardCenter = card.offsetLeft + card.offsetWidth / 2
+    const distance = Math.abs(containerCenter - cardCenter)
+
+    if (distance < card.offsetWidth * 0.35) {
+      toggleODS(id)
+    } else {
+      const scrollTarget = card.offsetLeft - container.clientWidth / 2 + card.offsetWidth / 2
+      container.scrollTo({ left: scrollTarget, behavior: 'smooth' })
+    }
+  }
+
   const scrollCarousel = (direction) => {
     if (!carouselRef.current) return
     const scrollAmount = 310
@@ -243,8 +260,8 @@ export default function LandingPage() {
               </svg>
             </button>
             <div ref={carouselRef} className="landing-ods-carousel">
-              {ODS_LIST.map((ods) => (
-                <ODSFlipCard key={ods.id} ods={ods} flipped={flippedODS.includes(ods.id)} onToggle={() => toggleODS(ods.id)} dark={dark} />
+              {ODS_LIST.map((ods, index) => (
+                <ODSFlipCard key={ods.id} ods={ods} flipped={flippedODS.includes(ods.id)} onToggle={() => handleODSClick(ods.id, index)} dark={dark} />
               ))}
             </div>
             <button onClick={() => scrollCarousel('right')} className="landing-ods-arrow landing-ods-arrow--right" aria-label="Siguiente">
