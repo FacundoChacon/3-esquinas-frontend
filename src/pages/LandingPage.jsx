@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useDarkMode } from '../context/DarkModeContext'
@@ -23,27 +23,26 @@ const ODS_LIST = [
   { id: 17, color: '#19486A', label: 'Alianzas para lograr los objetivos', desc: 'Articulamos con organizaciones públicas, privadas y sociales para potenciar el impacto de nuestras acciones.' },
 ]
 
-function ODSFlipCard({ ods, flipped, onToggle }) {
+function ODSFlipCard({ ods, flipped, onToggle, dark }) {
   return (
     <div className="landing-ods-card" onClick={onToggle}>
       <div
         className={`landing-ods-card-inner ${flipped ? 'flipped' : ''}`}
-        style={{ minHeight: '16rem' }}
       >
-        {/* Cara frontal: número + placeholder de ícono + nombre */}
         <div className="landing-ods-card-front" style={{ backgroundColor: ods.color }}>
           <div className="landing-ods-card-number">{String(ods.id).padStart(2, '0')}</div>
-          <div className="landing-ods-card-icon-box" style={{ height: '5rem' }}>
-            <svg className="w-6 h-6 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+          <div className="landing-ods-card-photo">
+            <svg className="w-10 h-10 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" />
             </svg>
           </div>
           <div className="landing-ods-card-label">{ods.label}</div>
+          <p className="landing-ods-card-desc">{ods.desc}</p>
         </div>
-        {/* Cara trasera: descripción del ODS */}
-        <div className="landing-ods-card-back" style={{ backgroundColor: ods.color }}>
-          <div className="landing-ods-card-back-label">ODS {String(ods.id).padStart(2, '0')}</div>
-          <p className="landing-ods-card-back-desc">{ods.desc}</p>
+        <div className={`landing-ods-card-back ${dark ? 'dark' : ''}`}>
+          <div className="landing-ods-card-back-ods">ODS {String(ods.id).padStart(2, '0')}</div>
+          <div className="landing-ods-card-back-title">{ods.label}</div>
+          <p className="landing-ods-card-back-desc">Próximamente conocerás cómo trabajamos en este objetivo desde 3 Esquinas.</p>
           <div className="landing-ods-card-back-hint">Tocar para voltear</div>
         </div>
       </div>
@@ -57,9 +56,16 @@ export default function LandingPage() {
   const [flippedODS, setFlippedODS] = useState([])
   const [contactForm, setContactForm] = useState({ nombre: '', email: '', mensaje: '' })
   const [contactSent, setContactSent] = useState(false)
+  const carouselRef = useRef(null)
 
   const toggleODS = (id) => {
     setFlippedODS((prev) => prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id])
+  }
+
+  const scrollCarousel = (direction) => {
+    if (!carouselRef.current) return
+    const scrollAmount = 310
+    carouselRef.current.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' })
   }
 
   const handleContact = (e) => {
@@ -181,10 +187,22 @@ export default function LandingPage() {
         <div className="landing-ods-inner">
           <h2 className="landing-ods-title">Objetivos de Desarrollo Sostenible</h2>
           <p className="landing-ods-subtitle">Agenda 2030 — ONU</p>
-          <div className="landing-ods-grid">
-            {ODS_LIST.map((ods) => (
-              <ODSFlipCard key={ods.id} ods={ods} flipped={flippedODS.includes(ods.id)} onToggle={() => toggleODS(ods.id)} />
-            ))}
+          <div className="landing-ods-carousel-wrapper">
+            <button onClick={() => scrollCarousel('left')} className="landing-ods-arrow landing-ods-arrow--left" aria-label="Anterior">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+              </svg>
+            </button>
+            <div ref={carouselRef} className="landing-ods-carousel">
+              {ODS_LIST.map((ods) => (
+                <ODSFlipCard key={ods.id} ods={ods} flipped={flippedODS.includes(ods.id)} onToggle={() => toggleODS(ods.id)} dark={dark} />
+              ))}
+            </div>
+            <button onClick={() => scrollCarousel('right')} className="landing-ods-arrow landing-ods-arrow--right" aria-label="Siguiente">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+              </svg>
+            </button>
           </div>
         </div>
       </section>

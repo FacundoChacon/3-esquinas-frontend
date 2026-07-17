@@ -202,10 +202,9 @@
 }
 
 /* ================================================================
-   4. ODS — Tarjetas flip de los 17 Objetivos de Desarrollo Sostenible
+   4. ODS — Carrusel de tarjetas flip de los 17 ODS
    ================================================================ */
 
-/* Fondo gris claro de la sección */
 .landing-ods {
   @apply px-6 py-10 sm:py-14 bg-gray-50;
 }
@@ -213,12 +212,10 @@
   @apply bg-gray-900;
 }
 
-/* Contenedor centrado */
 .landing-ods-inner {
   @apply max-w-6xl mx-auto text-center;
 }
 
-/* Título de la sección */
 .landing-ods-title {
   @apply text-2xl sm:text-3xl font-bold text-gray-900 mb-1;
 }
@@ -226,72 +223,112 @@
   @apply text-white;
 }
 
-/* Subtítulo de la sección */
 .landing-ods-subtitle {
-  @apply text-sm mb-6 text-gray-500;
+  @apply text-sm mb-8 text-gray-500;
 }
 :root.dark .landing-ods-subtitle {
   @apply text-gray-400;
 }
 
-/* Grid responsivo de tarjetas ODS */
-.landing-ods-grid {
-  @apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3;
+/* Carrusel wrapper — relative para posicionar flechas */
+.landing-ods-carousel-wrapper {
+  @apply relative;
 }
 
-/* Contenedor de cada tarjeta flip: perspective para efecto 3D */
+/* Contenedor scrollable horizontal con snap */
+.landing-ods-carousel {
+  @apply flex gap-5 overflow-x-auto scroll-smooth pb-4 px-1;
+  scroll-snap-type: x mandatory;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.landing-ods-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+/* Flechas de navegación del carrusel */
+.landing-ods-arrow {
+  @apply absolute top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white border border-gray-200 shadow-md flex items-center justify-center text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-all;
+}
+:root.dark .landing-ods-arrow {
+  @apply bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white;
+}
+.landing-ods-arrow--left {
+  @apply -left-2 sm:-left-4;
+}
+.landing-ods-arrow--right {
+  @apply -right-2 sm:-right-4;
+}
+
+/* Tarjeta individual en el carrusel: ancho fijo, snap centrado */
 .landing-ods-card {
-  @apply [perspective:1000px] cursor-pointer transition-transform duration-200 hover:scale-105;
+  @apply snap-center shrink-0 w-[260px] sm:w-[280px] [perspective:1000px] cursor-pointer transition-transform duration-200 hover:scale-[1.03];
 }
 
-/* Contenedor interno que rota con preserve-3d */
+/* Inner que rota */
 .landing-ods-card-inner {
-  @apply relative w-full [transform-style:preserve-3d] transition-transform duration-500;
+  @apply relative w-full h-[360px] [transform-style:preserve-3d] transition-transform duration-500;
 }
-
-/* Estado girado de la tarjeta */
 .landing-ods-card-inner.flipped {
   @apply [transform:rotateY(180deg)];
 }
 
-/* Cara frontal de la tarjeta: oculta al voltear */
+/* Cara frontal */
 .landing-ods-card-front {
-  @apply absolute inset-0 rounded-xl p-4 text-white text-center flex flex-col items-center gap-2 [backface-visibility:hidden];
+  @apply absolute inset-0 rounded-2xl p-5 text-white text-center flex flex-col items-center gap-2 [backface-visibility:hidden];
 }
 
-/* Número del ODS en la cara frontal */
 .landing-ods-card-number {
-  @apply text-base sm:text-lg font-bold;
+  @apply text-lg font-bold;
 }
 
-/* Contenedor del ícono del ODS */
-.landing-ods-card-icon-box {
-  @apply w-full rounded-lg border border-white/30 flex items-center justify-center;
+/* Placeholder de foto ODS */
+.landing-ods-card-photo {
+  @apply w-full h-28 rounded-xl border-2 border-dashed border-white/30 flex items-center justify-center;
 }
 
-/* Texto del nombre del ODS */
 .landing-ods-card-label {
-  @apply text-[11px] leading-tight opacity-90 font-medium mt-auto;
+  @apply text-sm font-semibold leading-tight mt-1;
 }
 
-/* Cara trasera de la tarjeta: visible al voltear */
+.landing-ods-card-desc {
+  @apply text-xs leading-relaxed opacity-85 line-clamp-3;
+}
+
+/* Cara trasera — fondo claro u oscuro según modo */
 .landing-ods-card-back {
-  @apply absolute inset-0 rounded-xl p-4 text-white text-center flex flex-col items-center justify-center gap-2 [backface-visibility:hidden] [transform:rotateY(180deg)];
+  @apply absolute inset-0 rounded-2xl p-5 text-center flex flex-col items-center justify-center gap-3 [backface-visibility:hidden] [transform:rotateY(180deg)] bg-white border border-gray-200 shadow-sm;
+}
+.landing-ods-card-back.dark {
+  @apply bg-gray-900 border-gray-700;
 }
 
-/* Etiqueta "ODS XX" en la cara trasera */
-.landing-ods-card-back-label {
-  @apply text-xs font-bold opacity-80 uppercase tracking-wider;
+.landing-ods-card-back-ods {
+  @apply text-xs font-bold uppercase tracking-wider text-emerald-600;
+}
+:root.dark .landing-ods-card-back-ods {
+  @apply text-emerald-400;
 }
 
-/* Descripción del ODS en la cara trasera */
+.landing-ods-card-back-title {
+  @apply text-sm font-bold text-gray-900;
+}
+:root.dark .landing-ods-card-back-title {
+  @apply text-white;
+}
+
 .landing-ods-card-back-desc {
-  @apply text-[10px] leading-relaxed opacity-90;
+  @apply text-xs leading-relaxed text-gray-500;
+}
+:root.dark .landing-ods-card-back-desc {
+  @apply text-gray-400;
 }
 
-/* Texto de ayuda "Tocar para voltear" */
 .landing-ods-card-back-hint {
-  @apply text-[9px] font-medium opacity-60 mt-1;
+  @apply text-[10px] font-medium text-gray-400 mt-1;
+}
+:root.dark .landing-ods-card-back-hint {
+  @apply text-gray-500;
 }
 
 /* ================================================================
