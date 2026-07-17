@@ -167,20 +167,17 @@
    3. QUIÉNES SOMOS — Sección institucional
    ================================================================ */
 
-/* Fondo blanco de la sección */
 .landing-about {
-  @apply px-6 py-10 sm:py-14 bg-white;
+  @apply px-6 py-12 sm:py-20 bg-white;
 }
 :root.dark .landing-about {
   @apply bg-gray-950;
 }
 
-/* Contenedor centrado con texto alineado al centro */
 .landing-about-inner {
-  @apply max-w-4xl mx-auto text-center;
+  @apply max-w-5xl mx-auto text-center;
 }
 
-/* Título de la sección */
 .landing-about-title {
   @apply text-2xl sm:text-3xl font-bold text-gray-900 mb-3;
 }
@@ -188,17 +185,100 @@
   @apply text-white;
 }
 
-/* Línea decorativa verde debajo del título */
 .landing-about-divider {
-  @apply w-16 h-1 mx-auto mb-6 rounded-full bg-emerald-600;
+  @apply w-16 h-1 mx-auto mb-8 rounded-full bg-emerald-600;
 }
 
-/* Párrafo descriptivo de la sección */
 .landing-about-text {
-  @apply leading-relaxed max-w-3xl mx-auto text-gray-600;
+  @apply leading-relaxed max-w-3xl mx-auto text-gray-600 mb-12;
 }
 :root.dark .landing-about-text {
   @apply text-gray-400;
+}
+
+/* Grid de tarjetas Misión / Visión / Cómo trabajamos */
+.landing-about-grid {
+  @apply grid grid-cols-1 md:grid-cols-3 gap-6 mb-14;
+}
+
+.landing-about-card {
+  @apply p-6 rounded-2xl border border-gray-100 bg-gray-50 text-left;
+}
+:root.dark .landing-about-card {
+  @apply bg-gray-900 border-gray-800;
+}
+
+.landing-about-card-icon {
+  @apply w-10 h-10 rounded-xl flex items-center justify-center mb-4;
+}
+.landing-about-card-icon--mission {
+  @apply bg-emerald-100 text-emerald-700;
+}
+:root.dark .landing-about-card-icon--mission {
+  @apply bg-emerald-900/40 text-emerald-400;
+}
+.landing-about-card-icon--vision {
+  @apply bg-blue-100 text-blue-700;
+}
+:root.dark .landing-about-card-icon--vision {
+  @apply bg-blue-900/40 text-blue-400;
+}
+.landing-about-card-icon--how {
+  @apply bg-amber-100 text-amber-700;
+}
+:root.dark .landing-about-card-icon--how {
+  @apply bg-amber-900/40 text-amber-400;
+}
+
+.landing-about-card-title {
+  @apply text-base font-bold text-gray-900 mb-2;
+}
+:root.dark .landing-about-card-title {
+  @apply text-white;
+}
+
+.landing-about-card-text {
+  @apply text-sm leading-relaxed text-gray-500;
+}
+:root.dark .landing-about-card-text {
+  @apply text-gray-400;
+}
+
+/* Sección de valores */
+.landing-about-values {
+  @apply pt-10 border-t border-gray-100;
+}
+:root.dark .landing-about-values {
+  @apply border-gray-800;
+}
+
+.landing-about-values-title {
+  @apply text-lg font-bold text-gray-900 mb-6;
+}
+:root.dark .landing-about-values-title {
+  @apply text-white;
+}
+
+.landing-about-values-grid {
+  @apply flex flex-wrap justify-center gap-4 sm:gap-6;
+}
+
+.landing-about-value {
+  @apply flex items-center gap-2 px-4 py-2 rounded-full bg-gray-50 border border-gray-100;
+}
+:root.dark .landing-about-value {
+  @apply bg-gray-900 border-gray-800;
+}
+
+.landing-about-value-icon {
+  @apply text-base;
+}
+
+.landing-about-value-text {
+  @apply text-sm font-medium text-gray-700;
+}
+:root.dark .landing-about-value-text {
+  @apply text-gray-300;
 }
 
 /* ================================================================
