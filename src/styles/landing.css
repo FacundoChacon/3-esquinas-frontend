@@ -364,7 +364,7 @@
 
 /* Inner que rota */
 .landing-ods-card-inner {
-  @apply relative w-full h-[360px] [transform-style:preserve-3d] transition-transform duration-500;
+  @apply relative w-full h-[360px] [transform-style:preserve-3d] transition-transform duration-500 rounded-2xl;
 }
 .landing-ods-card-inner.flipped {
   @apply [transform:rotateY(180deg)];
