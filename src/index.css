@@ -24,20 +24,31 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Transición de entrada — fade-in suave al cargar cualquier página */
+/* Transición de entrada — fade-in suave al cambiar de página */
 @keyframes page-fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-.page-enter {
-  animation: page-fade-in 0.5s ease-out both;
+.page-transition {
+  min-height: 100vh;
+}
+
+.page-transition--entered {
+  opacity: 1;
+}
+
+.page-transition--exiting {
+  opacity: 0;
+  transition: opacity 0.15s ease-in;
+}
+
+.page-transition--entering {
+  opacity: 0;
+}
+
+.page-transition--entering > * {
+  animation: page-fade-in 0.3s ease-out forwards;
 }
 
 /* Estilos para scrollbar personalizada (opcional) */

@@ -89,7 +89,7 @@ export default function RegisterPage() {
   ]
 
   return (
-    <div className="page-enter auth-page">
+    <div className="auth-page">
       <div className="auth-card">
 
         <div className="auth-header">
