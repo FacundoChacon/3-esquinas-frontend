@@ -69,7 +69,7 @@ export default function DonatePage() {
   /* ========== VISTA: CONFIRMACIÓN DE TRANSFERENCIA ========== */
   if (transferencia) {
     return (
-    <div className="donate-page">
+      <div className="donate-page">
         <nav className="donate-nav">
           <div className="donate-nav-inner">
             <Link to="/" className="donate-nav-logo">
