@@ -381,42 +381,112 @@ export default function LandingPage() {
       {/* ===== CONTACTO ===== */}
       <section id="contacto" className="landing-contact">
         <div className="landing-contact-inner">
-          <h2 className="landing-contact-title">Contacto</h2>
-          {contactSent ? (
-            <div className="landing-contact-success">
-              Mensaje enviado correctamente. ¡Gracias por contactarnos!
+          <div className="landing-contact-layout">
+            <div className="landing-contact-info">
+              <h2 className="landing-contact-title">Contactanos</h2>
+              <div className="landing-contact-divider" />
+              <p className="landing-contact-desc">
+                Si tenés preguntas, querés sumarte como voluntario, proponer un proyecto o simplemente
+                saludarnos, nos encantaría escucharte. Cada mensaje es una oportunidad para fortalecer
+                nuestra comunidad.
+              </p>
+
+              <div className="landing-contact-channels">
+                <div className="landing-contact-channel">
+                  <div className="landing-contact-channel-icon">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                    </svg>
+                  </div>
+                  <div>
+                    <span className="landing-contact-channel-label">Email</span>
+                    <span className="landing-contact-channel-value">info@3esquinas.org.ar</span>
+                  </div>
+                </div>
+
+                <div className="landing-contact-channel">
+                  <div className="landing-contact-channel-icon">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <span className="landing-contact-channel-label">Ubicación</span>
+                    <span className="landing-contact-channel-value">Maipú, Mendoza — Argentina</span>
+                  </div>
+                </div>
+
+                <div className="landing-contact-channel">
+                  <div className="landing-contact-channel-icon">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <span className="landing-contact-channel-label">Horario</span>
+                    <span className="landing-contact-channel-value">Lunes a Viernes — 9 a 17 hs</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="landing-contact-socials">
+                <span className="landing-contact-socials-label">Seguinos en redes</span>
+                <div className="landing-contact-socials-links">
+                  <span className="landing-contact-social-link">Facebook</span>
+                  <span className="landing-contact-social-link">Instagram</span>
+                  <span className="landing-contact-social-link">YouTube</span>
+                </div>
+              </div>
             </div>
-          ) : (
-            <form onSubmit={handleContact} className="landing-contact-form">
-              <input
-                type="text"
-                placeholder="Nombre"
-                value={contactForm.nombre}
-                onChange={(e) => setContactForm((p) => ({ ...p, nombre: e.target.value }))}
-                required
-                className="landing-contact-input"
-              />
-              <input
-                type="email"
-                placeholder="Email"
-                value={contactForm.email}
-                onChange={(e) => setContactForm((p) => ({ ...p, email: e.target.value }))}
-                required
-                className="landing-contact-input"
-              />
-              <textarea
-                placeholder="Tu mensaje"
-                rows={4}
-                value={contactForm.mensaje}
-                onChange={(e) => setContactForm((p) => ({ ...p, mensaje: e.target.value }))}
-                required
-                className="landing-contact-textarea"
-              />
-              <button type="submit" className="landing-contact-submit">
-                Enviar
-              </button>
-            </form>
-          )}
+
+            <div className="landing-contact-form-wrapper">
+              {contactSent ? (
+                <div className="landing-contact-success">
+                  <svg className="w-8 h-8 mx-auto mb-2 text-emerald-600" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <p className="landing-contact-success-text">
+                    Mensaje enviado correctamente. ¡Gracias por contactarnos!
+                  </p>
+                  <p className="landing-contact-success-sub">
+                    Te responderemos a la brevedad.
+                  </p>
+                </div>
+              ) : (
+                <form onSubmit={handleContact} className="landing-contact-form">
+                  <h3 className="landing-contact-form-title">Envianos tu mensaje</h3>
+                  <input
+                    type="text"
+                    placeholder="Nombre completo"
+                    value={contactForm.nombre}
+                    onChange={(e) => setContactForm((p) => ({ ...p, nombre: e.target.value }))}
+                    required
+                    className="landing-contact-input"
+                  />
+                  <input
+                    type="email"
+                    placeholder="Tu email"
+                    value={contactForm.email}
+                    onChange={(e) => setContactForm((p) => ({ ...p, email: e.target.value }))}
+                    required
+                    className="landing-contact-input"
+                  />
+                  <textarea
+                    placeholder="Contanos en qué podemos ayudarte..."
+                    rows={5}
+                    value={contactForm.mensaje}
+                    onChange={(e) => setContactForm((p) => ({ ...p, mensaje: e.target.value }))}
+                    required
+                    className="landing-contact-textarea"
+                  />
+                  <button type="submit" className="landing-contact-submit">
+                    Enviar mensaje
+                  </button>
+                </form>
+              )}
+            </div>
+          </div>
         </div>
       </section>
 

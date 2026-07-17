@@ -480,59 +480,164 @@
 }
 
 /* ================================================================
-   6. CONTACTO — Formulario de contacto
+   6. CONTACTO — Sección de contacto expandida
    ================================================================ */
 
-/* Fondo blanco de la sección */
+/* Fondo de la sección */
 .landing-contact {
-  @apply px-6 py-10 sm:py-14 bg-white;
+  @apply px-6 py-12 sm:py-16 bg-white;
 }
 :root.dark .landing-contact {
   @apply bg-gray-950;
 }
 
-/* Contenedor centrado del formulario */
+/* Contenedor centrado */
 .landing-contact-inner {
-  @apply max-w-2xl mx-auto;
+  @apply max-w-5xl mx-auto;
 }
 
-/* Título de la sección */
+/* Layout dos columnas: info | formulario */
+.landing-contact-layout {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 items-start;
+}
+
+/* --- Lado izquierdo: info --- */
+.landing-contact-info {
+  @apply space-y-6;
+}
+
 .landing-contact-title {
-  @apply text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-6;
+  @apply text-2xl sm:text-3xl font-bold text-gray-900;
 }
 :root.dark .landing-contact-title {
   @apply text-white;
 }
 
-/* Mensaje de éxito al enviar */
-.landing-contact-success {
-  @apply bg-emerald-50 border border-emerald-200 text-emerald-700 px-6 py-4 rounded-xl text-center text-sm;
+.landing-contact-divider {
+  @apply w-12 h-1 bg-emerald-500 rounded-full;
 }
 
-/* Formulario de contacto */
+.landing-contact-desc {
+  @apply text-sm sm:text-base text-gray-600 leading-relaxed;
+}
+:root.dark .landing-contact-desc {
+  @apply text-gray-400;
+}
+
+/* Canales de contacto */
+.landing-contact-channels {
+  @apply space-y-4 mt-4;
+}
+
+.landing-contact-channel {
+  @apply flex items-start gap-3;
+}
+
+.landing-contact-channel-icon {
+  @apply w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 shrink-0 mt-0.5;
+}
+:root.dark .landing-contact-channel-icon {
+  @apply bg-emerald-900/30 text-emerald-400;
+}
+
+.landing-contact-channel-label {
+  @apply block text-xs font-semibold uppercase tracking-wide text-gray-400;
+}
+:root.dark .landing-contact-channel-label {
+  @apply text-gray-500;
+}
+
+.landing-contact-channel-value {
+  @apply block text-sm text-gray-700 mt-0.5;
+}
+:root.dark .landing-contact-channel-value {
+  @apply text-gray-300;
+}
+
+/* Redes sociales */
+.landing-contact-socials {
+  @apply pt-4 border-t border-gray-100;
+}
+:root.dark .landing-contact-socials {
+  @apply border-gray-800;
+}
+
+.landing-contact-socials-label {
+  @apply block text-xs font-semibold uppercase tracking-wide text-gray-400 mb-3;
+}
+:root.dark .landing-contact-socials-label {
+  @apply text-gray-500;
+}
+
+.landing-contact-socials-links {
+  @apply flex gap-3;
+}
+
+.landing-contact-social-link {
+  @apply px-4 py-2 rounded-lg bg-gray-100 text-gray-600 text-sm font-medium hover:bg-emerald-50 hover:text-emerald-700 transition-colors cursor-pointer;
+}
+:root.dark .landing-contact-social-link {
+  @apply bg-gray-800 text-gray-400 hover:bg-emerald-900/30 hover:text-emerald-400;
+}
+
+/* --- Lado derecho: formulario --- */
+.landing-contact-form-wrapper {
+  @apply bg-gray-50 rounded-2xl p-6 sm:p-8 border border-gray-100;
+}
+:root.dark .landing-contact-form-wrapper {
+  @apply bg-gray-900 border-gray-800;
+}
+
+.landing-contact-form-title {
+  @apply text-lg font-bold text-gray-900 mb-4;
+}
+:root.dark .landing-contact-form-title {
+  @apply text-white;
+}
+
+/* Mensaje de éxito */
+.landing-contact-success {
+  @apply text-center py-8;
+}
+
+.landing-contact-success-text {
+  @apply text-emerald-700 font-semibold text-sm;
+}
+:root.dark .landing-contact-success-text {
+  @apply text-emerald-400;
+}
+
+.landing-contact-success-sub {
+  @apply text-gray-500 text-xs mt-1;
+}
+:root.dark .landing-contact-success-sub {
+  @apply text-gray-400;
+}
+
+/* Formulario */
 .landing-contact-form {
   @apply space-y-3;
 }
 
-/* Input genérico del formulario de contacto */
+/* Input */
 .landing-contact-input {
-  @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900 placeholder-gray-400;
+  @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900 placeholder-gray-400 bg-white;
 }
 :root.dark .landing-contact-input {
   @apply bg-gray-800 border-gray-700 text-white placeholder-gray-500;
 }
 
-/* Textarea del formulario de contacto */
+/* Textarea */
 .landing-contact-textarea {
-  @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900 placeholder-gray-400 resize-none;
+  @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900 placeholder-gray-400 resize-none bg-white;
 }
 :root.dark .landing-contact-textarea {
   @apply bg-gray-800 border-gray-700 text-white placeholder-gray-500;
 }
 
-/* Botón de enviar */
+/* Botón enviar */
 .landing-contact-submit {
-  @apply h-11 px-8 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition-colors mx-auto block;
+  @apply w-full py-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition-colors;
 }
 
 /* ================================================================
