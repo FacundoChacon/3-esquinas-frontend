@@ -409,32 +409,51 @@
    5. DONAR — Sección CTA de donación
    ================================================================ */
 
-/* Fondo verde con texto blanco centrado */
 .landing-donate {
-  @apply px-6 py-10 sm:py-14 bg-emerald-600 text-white text-center;
-}
-:root.dark .landing-donate {
-  @apply bg-emerald-800;
+  @apply relative px-6 py-14 sm:py-20 text-white text-center overflow-hidden;
+  background: linear-gradient(135deg, #065f46 0%, #047857 30%, #059669 60%, #d97706 100%);
 }
 
-/* Contenedor centrado */
+.landing-donate-bg {
+  @apply absolute inset-0 opacity-10;
+  background-image: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.3) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 20%, rgba(255,255,255,0.2) 0%, transparent 50%);
+}
+
 .landing-donate-inner {
-  @apply max-w-2xl mx-auto;
+  @apply relative max-w-2xl mx-auto;
 }
 
-/* Título de la sección */
+.landing-donate-heart {
+  @apply w-16 h-16 mx-auto mb-5 rounded-full bg-white/15 flex items-center justify-center text-white/80;
+}
+
 .landing-donate-title {
-  @apply text-2xl sm:text-3xl font-bold mb-2;
+  @apply text-2xl sm:text-3xl font-bold mb-3;
 }
 
-/* Texto descriptivo */
 .landing-donate-desc {
-  @apply opacity-90 mb-6;
+  @apply opacity-90 mb-6 text-sm sm:text-base leading-relaxed max-w-xl mx-auto;
 }
 
-/* Botón grande de donar ahora (blanco sobre verde) */
+.landing-donate-impact {
+  @apply flex justify-center mb-8;
+}
+
+.landing-donate-stat {
+  @apply px-5 py-2.5 rounded-full bg-white/15 backdrop-blur-sm;
+}
+
+.landing-donate-stat-number {
+  @apply text-lg font-bold;
+}
+
+.landing-donate-stat-label {
+  @apply text-xs opacity-80 ml-1.5;
+}
+
 .landing-donate-btn {
-  @apply inline-block px-8 py-3 rounded-full font-bold text-lg bg-white text-emerald-700 shadow-lg hover:shadow-xl transition-shadow;
+  @apply inline-block px-10 py-3.5 rounded-full font-bold text-lg bg-white text-emerald-700 shadow-lg hover:shadow-xl hover:scale-105 transition-all;
 }
 
 /* ================================================================

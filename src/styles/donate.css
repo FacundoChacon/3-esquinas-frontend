@@ -50,9 +50,10 @@
    2. FORMULARIO DE DONACIÓN
    ================================================================ */
 
-/* Contenedor de toda la página: fondo gris, flex columna */
+/* Contenedor de toda la página: fondo cálido, flex columna */
 .donate-page {
-  @apply min-h-screen bg-gray-50 flex flex-col;
+  @apply min-h-screen flex flex-col;
+  background: linear-gradient(180deg, #f0fdf4 0%, #ecfdf5 40%, #fffbeb 100%);
 }
 
 /* Contenedor centrado del formulario */
@@ -65,6 +66,11 @@
   @apply w-full max-w-lg;
 }
 
+/* Corazón decorativo del formulario */
+.donate-form-heart {
+  @apply w-12 h-12 mx-auto mb-4 rounded-full bg-gradient-to-br from-emerald-100 to-amber-100 flex items-center justify-center text-emerald-600;
+}
+
 /* Título de la página */
 .donate-form-title {
   @apply text-2xl sm:text-3xl font-bold text-gray-900;
@@ -75,9 +81,9 @@
   @apply text-sm text-gray-500 mt-2;
 }
 
-/* Card del formulario: fondo blanco, bordes redondeados, sombra */
+/* Card del formulario: fondo blanco, bordes redondeados, sombra suave */
 .donate-form-card {
-  @apply bg-white rounded-2xl shadow-lg border border-gray-200 p-6 sm:p-8 space-y-5;
+  @apply bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-emerald-100 p-6 sm:p-8 space-y-5;
 }
 
 /* Mensaje de error global */
@@ -111,12 +117,12 @@
 
 /* Botón de monto sugerido (estado base) */
 .donate-amount-btn {
-  @apply flex-1 py-2 rounded-lg text-xs font-semibold border transition-colors border-gray-200 text-gray-600 hover:border-emerald-300;
+  @apply flex-1 py-2.5 rounded-xl text-xs font-semibold border transition-all border-emerald-100 text-gray-600 hover:border-emerald-300 hover:bg-emerald-50;
 }
 
 /* Botón de monto sugerido (estado seleccionado) */
 .donate-amount-btn.active {
-  @apply bg-emerald-600 border-emerald-600 text-white;
+  @apply bg-gradient-to-r from-emerald-600 to-emerald-500 border-emerald-600 text-white shadow-md shadow-emerald-200;
 }
 
 /* ================================================================
@@ -135,7 +141,7 @@
 
 /* Card de opción seleccionada */
 .donate-payment-option.selected {
-  @apply border-emerald-500 bg-emerald-50 ring-1 ring-emerald-500;
+  @apply border-emerald-500 bg-gradient-to-r from-emerald-50 to-amber-50 ring-1 ring-emerald-500;
 }
 
 /* Icono de la opción de pago */
@@ -193,7 +199,7 @@
 
 /* Botón principal de donar */
 .donate-submit-btn {
-  @apply w-full h-12 flex items-center justify-center rounded-xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-60 disabled:cursor-not-allowed text-white text-sm font-bold transition-colors;
+  @apply w-full h-12 flex items-center justify-center rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 disabled:opacity-60 disabled:cursor-not-allowed text-white text-sm font-bold transition-all shadow-lg shadow-emerald-200 hover:shadow-xl hover:shadow-emerald-300;
 }
 
 /* Contenedor del spinner de carga */
@@ -207,7 +213,7 @@
 
 /* Card de confirmación de transferencia */
 .donate-transfer-card {
-  @apply w-full max-w-md bg-white rounded-2xl shadow-lg border border-gray-200 p-6 sm:p-8;
+  @apply w-full max-w-md bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-emerald-100 p-6 sm:p-8;
 }
 
 /* Encabezado de la confirmación */
