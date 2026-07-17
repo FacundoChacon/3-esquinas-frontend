@@ -1,51 +1,60 @@
 /**
  * App.jsx — Componente raíz de la aplicación
- * 
+ *
  * Configura el router principal y las rutas de la app.
  * - Rutas públicas: / (inicio), /login
- * - Rutas protegidas: /admin (dashboard)
- * 
- * Pertenece a: Estructura general del frontend
+ * - Rutas protegidas: /admin/* (dashboard con sidebar)
+ *
+ * Pertenece a: Fase 5 — Frontend Dashboard
  */
+import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { AuthProvider } from './context/AuthContext'
+import { AuthProvider, useAuth } from './context/AuthContext'
+import { setAccessTokenGetter } from './services/apiService'
 import ProtectedRoute from './components/ProtectedRoute'
+import AdminLayout from './components/AdminLayout'
 import LoginPage from './pages/LoginPage'
+import DashboardPage from './pages/DashboardPage'
+import DonacionesPage from './pages/DonacionesPage'
+import DatosPage from './pages/DatosPage'
 
-// Importar páginas que se vayan creando en el futuro
-// import HomePage from './pages/HomePage'
-// import DashboardPage from './pages/DashboardPage'
+function TokenBridge() {
+  const { accessToken } = useAuth()
+  useEffect(() => {
+    setAccessTokenGetter(() => accessToken)
+  }, [accessToken])
+  return null
+}
 
 export default function App() {
   return (
     <AuthProvider>
+      <TokenBridge />
       <BrowserRouter>
         <Routes>
           {/* ============================================= */}
-          {/* RUTAS PÚBLICAS (no requieren autenticación)   */}
+          {/* RUTAS PÚBLICAS                                */}
           {/* ============================================= */}
-          
-          {/* Página de inicio / landing page */}
+
           <Route path="/" element={<div className="p-8 text-center"><h1>3 Esquinas — Portal de Donaciones</h1><p>Próximamente</p></div>} />
-          
-          {/* Página de login */}
           <Route path="/login" element={<LoginPage />} />
 
           {/* ============================================= */}
-          {/* RUTAS PROTEGIDAS (requieren autenticación)     */}
+          {/* RUTAS PROTEGIDAS — ADMIN                      */}
           {/* ============================================= */}
-          
-          {/* Grupo de rutas protegidas del admin */}
+
           <Route element={<ProtectedRoute />}>
-            {/* Dashboard principal —placeholder */}
-            <Route path="/admin" element={<div className="p-8 text-center"><h1>Dashboard</h1><p>Próximamente — Fase 5</p></div>} />
-            
-            {/* Otras rutas del admin que se agregarán en Fase 5 */}
-            {/* <Route path="/admin/donaciones" element={<DonacionesPage />} /> */}
-            {/* <Route path="/admin/datos" element={<DatosPage />} /> */}
+            <Route element={<AdminLayout />}>
+              <Route path="/admin" element={<DashboardPage />} />
+              <Route path="/admin/donaciones" element={<DonacionesPage />} />
+              <Route path="/admin/datos" element={<DatosPage />} />
+            </Route>
           </Route>
 
-          {/* Ruta 404 — página no encontrada */}
+          {/* ============================================= */}
+          {/* 404                                            */}
+          {/* ============================================= */}
+
           <Route path="*" element={
             <div className="min-h-screen flex items-center justify-center bg-gray-50">
               <div className="text-center">
