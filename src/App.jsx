@@ -15,6 +15,7 @@ import { setAccessTokenGetter } from './services/apiService'
 import ProtectedRoute from './components/ProtectedRoute'
 import AdminLayout from './components/AdminLayout'
 import LoginPage from './pages/LoginPage'
+import RegisterPage from './pages/RegisterPage'
 import DashboardPage from './pages/DashboardPage'
 import DonacionesPage from './pages/DonacionesPage'
 import DatosPage from './pages/DatosPage'
@@ -40,6 +41,7 @@ export default function App() {
 
           <Route path="/" element={<div className="p-8 text-center"><h1>3 Esquinas — Portal de Donaciones</h1><p>Próximamente</p></div>} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
 
           {/* ============================================= */}
           {/* RUTAS PROTEGIDAS — ADMIN (todos los roles)     */}

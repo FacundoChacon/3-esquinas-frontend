@@ -75,6 +75,17 @@ export function AuthProvider({ children }) {
   }, [saveAuth])
 
   /**
+   * Función de registro.
+   * Llama al backend para crear un usuario con rol VIEWER,
+   * guarda el token y el usuario (login automático).
+   */
+  const register = useCallback(async (email, password, nombre) => {
+    const data = await authService.register(email, password, nombre)
+    saveAuth(data)
+    return data
+  }, [saveAuth])
+
+  /**
    * Función de logout.
    * Llama al backend para revocar el refresh token
    * y limpia el estado local.
@@ -119,6 +130,7 @@ export function AuthProvider({ children }) {
     isAuthenticated: !!user,  // true si hay usuario logueado
     checkSession,   // Verificar si hay sesión activa (llamado por ProtectedRoute)
     login,          // Función para iniciar sesión
+    register,       // Función para registrar un usuario
     logout,         // Función para cerrar sesión
     refresh,        // Función para renovar el token
   }

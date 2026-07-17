@@ -1,47 +1,27 @@
-/**
- * LoginPage.jsx — Página de inicio de sesión
- * 
- * Formulario que permite a los usuarios autenticarse en el sistema.
- * - Email + contraseña
- * - Muestra errores del backend
- * - Redirige al dashboard después del login exitoso
- * 
- * Pertenece a: Fase 4 — Frontend Auth
- */
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
-export default function LoginPage() {
-  // Estado del formulario
+export default function RegisterPage() {
+  const [nombre, setNombre] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  // Hook de navegación para redirigir después del login
   const navigate = useNavigate()
+  const { register } = useAuth()
 
-  // Context de autenticación para llamar al login
-  const { login } = useAuth()
-
-  /**
-   * Maneja el envío del formulario de login.
-   * Llama al servicio de auth y redirige al dashboard si es exitoso.
-   */
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
     setLoading(true)
 
     try {
-      // Llamar al servicio de login del backend
-      await login(email, password)
-      // Redirigir al dashboard después del login exitoso
+      await register(email, password, nombre)
       navigate('/admin')
     } catch (err) {
-      // Mostrar error del backend o mensaje genérico
-      setError(err.message || 'Credenciales incorrectas. Intente nuevamente.')
+      setError(err.message || 'No se pudo registrar. Intente nuevamente.')
     } finally {
       setLoading(false)
     }
@@ -49,29 +29,38 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-600 via-emerald-500 to-emerald-400 px-4">
-      {/* Contenedor del formulario de login */}
       <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8">
-        
-        {/* Logo y título */}
+
         <div className="text-center mb-8">
-          <img 
-            src="/images/logo-3esquinas.png" 
-            alt="3 Esquinas" 
+          <img
+            src="/images/logo-3esquinas.png"
+            alt="3 Esquinas"
             className="w-16 h-16 mx-auto mb-4 rounded-xl object-contain"
           />
-          <h1 className="text-2xl font-bold text-gray-900">3 Esquinas</h1>
-          <p className="text-gray-500 text-sm mt-1">Portal de Donaciones</p>
+          <h1 className="text-2xl font-bold text-gray-900">Crear cuenta</h1>
+          <p className="text-gray-500 text-sm mt-1">Registrarse en el Portal de Donaciones</p>
         </div>
 
-        {/* Formulario de login */}
         <form onSubmit={handleSubmit} className="space-y-5">
-          
-          {/* Campo de email */}
+
           <div>
-            <label 
-              htmlFor="email" 
-              className="block text-sm font-medium text-gray-700 mb-1"
-            >
+            <label htmlFor="nombre" className="block text-sm font-medium text-gray-700 mb-1">
+              Nombre completo
+            </label>
+            <input
+              id="nombre"
+              type="text"
+              value={nombre}
+              onChange={(e) => setNombre(e.target.value)}
+              required
+              autoComplete="name"
+              placeholder="Juan Pérez"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900 placeholder-gray-400"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
               Correo electrónico
             </label>
             <input
@@ -86,12 +75,8 @@ export default function LoginPage() {
             />
           </div>
 
-          {/* Campo de contraseña */}
           <div>
-            <label 
-              htmlFor="password" 
-              className="block text-sm font-medium text-gray-700 mb-1"
-            >
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
               Contraseña
             </label>
             <input
@@ -100,20 +85,19 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              autoComplete="current-password"
-              placeholder="••••••••"
+              autoComplete="new-password"
+              placeholder="Mínimo 8 caracteres"
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900 placeholder-gray-400"
             />
+            <p className="text-xs text-gray-400 mt-1">Debe contener al menos una mayúscula, una minúscula y un número</p>
           </div>
 
-          {/* Mensaje de error */}
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
               {error}
             </div>
           )}
 
-          {/* Botón de envío */}
           <button
             type="submit"
             disabled={loading}
@@ -121,26 +105,23 @@ export default function LoginPage() {
           >
             {loading ? (
               <>
-                {/* Spinner de carga */}
                 <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                 </svg>
-                Ingresando...
+                Registrando...
               </>
             ) : (
-              'Iniciar sesión'
+              'Crear cuenta'
             )}
           </button>
         </form>
 
-        {/* Footer del formulario */}
         <div className="mt-6 text-center text-sm text-gray-500">
-          <p>¿No tenés una cuenta?</p>
-          <Link to="/register" className="mt-2 inline-block text-emerald-600 hover:text-emerald-700 font-medium">
-            Crear cuenta
+          <p>¿Ya tenés una cuenta?</p>
+          <Link to="/login" className="mt-2 inline-block text-emerald-600 hover:text-emerald-700 font-medium">
+            Iniciar sesión
           </Link>
-          <p className="mt-3 text-xs text-gray-400">3 Esquinas — Maipú, Mendoza</p>
         </div>
       </div>
     </div>
