@@ -70,14 +70,16 @@ export default function LandingPage() {
       const containerCenter = scrollLeft + containerWidth / 2
       const cards = Array.from(container.children)
 
-      cards.forEach((card) => {
+      cards.forEach((card, i) => {
         const cardCenter = card.offsetLeft + card.offsetWidth / 2
         const distance = Math.abs(containerCenter - cardCenter)
         const cardWidth = card.offsetWidth
         const ratio = distance / cardWidth
 
+        const isCentered = ratio < 0.35
+
         let scale, opacity, glow
-        if (ratio < 0.35) {
+        if (isCentered) {
           scale = 1
           opacity = 1
           glow = '0 0 0 2px rgba(16,185,129,0.5), 0 0 20px rgba(16,185,129,0.25)'
@@ -94,6 +96,14 @@ export default function LandingPage() {
         card.style.transform = `scale(${scale})`
         card.style.opacity = opacity
         card.style.boxShadow = glow
+
+        // Reset flip on non-centered cards
+        if (!isCentered) {
+          const inner = card.querySelector('.landing-ods-card-inner')
+          if (inner && inner.classList.contains('flipped')) {
+            inner.classList.remove('flipped')
+          }
+        }
       })
     }
 
