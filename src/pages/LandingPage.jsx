@@ -493,16 +493,43 @@ export default function LandingPage() {
       {/* ===== FOOTER ===== */}
       <footer className="landing-footer">
         <div className="landing-footer-inner">
-          <div className="landing-footer-brand">
-            <img src="/images/logo-3esquinas.png" alt="3 Esquinas" className="landing-footer-logo" />
-            <span className="landing-footer-name">3 Esquinas</span>
+          <div className="landing-footer-main">
+            <div className="landing-footer-brand">
+              <img src="/images/logo-3esquinas.png" alt="3 Esquinas" className="landing-footer-logo" />
+              <span className="landing-footer-name">3 Esquinas</span>
+            </div>
+            <p className="landing-footer-desc">
+              Organización sin fines de lucro dedicada al desarrollo social,
+              educación y sustentabilidad en Maipú, Mendoza.
+            </p>
           </div>
-          <div className="landing-footer-social">
-            <span className="landing-footer-social-link">Facebook</span>
-            <span className="landing-footer-social-link">Instagram</span>
-            <span className="landing-footer-social-link">YouTube</span>
+
+          <div className="landing-footer-nav">
+            <span className="landing-footer-nav-title">Enlaces</span>
+            <div className="landing-footer-nav-links">
+              <a href="#hero" className="landing-footer-link">Inicio</a>
+              <a href="#somos" className="landing-footer-link">Quiénes somos</a>
+              <a href="#donar" className="landing-footer-link">Donar</a>
+              <a href="#contacto" className="landing-footer-link">Contacto</a>
+            </div>
           </div>
-          <div className="landing-footer-location">Maipú, Mendoza — Argentina</div>
+
+          <div className="landing-footer-contact-col">
+            <span className="landing-footer-nav-title">Contacto</span>
+            <div className="landing-footer-contact-items">
+              <span className="landing-footer-contact-item">info@3esquinas.org.ar</span>
+              <span className="landing-footer-contact-item">Maipú, Mendoza — Argentina</span>
+            </div>
+            <div className="landing-footer-social-row">
+              <span className="landing-footer-social-pill">Facebook</span>
+              <span className="landing-footer-social-pill">Instagram</span>
+              <span className="landing-footer-social-pill">YouTube</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="landing-footer-bottom">
+          <span>&copy; {new Date().getFullYear()} 3 Esquinas — Todos los derechos reservados</span>
         </div>
       </footer>
     </div>

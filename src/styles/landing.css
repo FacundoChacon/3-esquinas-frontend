@@ -646,40 +646,74 @@
 
 /* Fondo oscuro del footer */
 .landing-footer {
-  @apply px-6 py-8 text-sm bg-gray-900 text-gray-400;
+  @apply px-6 pt-10 pb-6 text-sm bg-gray-900 text-gray-400;
 }
 
-/* Contenedor interno del footer: responsive row/column */
+/* Layout principal: 3 columnas */
 .landing-footer-inner {
-  @apply max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4;
+  @apply max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8 pb-8 border-b border-gray-800;
 }
 
-/* Bloque del logo en el footer */
+/* Columna izquierda: logo + descripción */
+.landing-footer-main {
+  @apply space-y-3;
+}
+
 .landing-footer-brand {
   @apply flex items-center gap-2;
 }
 
-/* Imagen del logo en el footer */
 .landing-footer-logo {
   @apply w-7 h-7 rounded-xl object-contain;
 }
 
-/* Texto del nombre en el footer */
 .landing-footer-name {
-  @apply text-white font-semibold;
+  @apply text-white font-semibold text-base;
 }
 
-/* Links de redes sociales */
-.landing-footer-social {
-  @apply flex gap-4;
+.landing-footer-desc {
+  @apply text-xs leading-relaxed opacity-70 max-w-xs;
 }
 
-/* Cada link de redes sociales */
-.landing-footer-social-link {
-  @apply hover:text-white transition-colors cursor-default;
+/* Columna del medio: links de navegación */
+.landing-footer-nav {
+  @apply space-y-3;
 }
 
-/* Texto de ubicación */
-.landing-footer-location {
-  @apply text-xs;
+.landing-footer-nav-title {
+  @apply block text-white font-semibold text-xs uppercase tracking-wider;
+}
+
+.landing-footer-nav-links {
+  @apply flex flex-col gap-1.5;
+}
+
+.landing-footer-link {
+  @apply text-xs hover:text-white transition-colors cursor-pointer;
+}
+
+/* Columna derecha: contacto + redes */
+.landing-footer-contact-col {
+  @apply space-y-3;
+}
+
+.landing-footer-contact-items {
+  @apply flex flex-col gap-1.5;
+}
+
+.landing-footer-contact-item {
+  @apply text-xs opacity-70;
+}
+
+.landing-footer-social-row {
+  @apply flex gap-2 mt-1;
+}
+
+.landing-footer-social-pill {
+  @apply px-3 py-1 rounded-full bg-gray-800 text-xs text-gray-400 hover:bg-gray-700 hover:text-white transition-colors cursor-pointer;
+}
+
+/* Barra inferior de copyright */
+.landing-footer-bottom {
+  @apply max-w-5xl mx-auto text-center text-xs opacity-50 pt-5;
 }
