@@ -48,12 +48,12 @@ function ODSFlipCard({ ods, flipped, onToggle, dark }) {
   )
 }
 
-const ABOUT_SLIDES = [
-  { src: '/images/about/maipu-aerea.jpg', alt: 'Vista aérea de Mendoza, ciudad conectada con la naturaleza' },
-  { src: '/images/comunidad.jpg', alt: 'Comunidad de Maipú reunida en actividad' },
-  { src: '/images/about/equipo-trabajo.jpg', alt: 'Equipo de trabajo colaborando' },
-  { src: '/images/about/comunidad-local.jpg', alt: 'Familias de la comunidad participando' },
-  { src: '/images/about/voluntarios.jpg', alt: 'Voluntarios comprometidos con la causa' },
+const ABOUT_VIDEOS = [
+  { src: '/videos/mendoza-plaza-independencia.mp4', alt: 'Vista aérea de Plaza Independencia, Mendoza' },
+  { src: '/videos/mendoza-ciudad-aerea.mp4', alt: 'Vista aérea de la ciudad de Mendoza' },
+  { src: '/videos/parque-aereo.mp4', alt: 'Vista aérea de parque y naturaleza' },
+  { src: '/videos/equipo-mano.mp4', alt: 'Equipo de trabajo colaborando' },
+  { src: '/videos/voluntarios-reciclando.mp4', alt: 'Voluntarios reciclando en comunidad' },
 ]
 
 export default function LandingPage() {
@@ -63,6 +63,7 @@ export default function LandingPage() {
   const [contactForm, setContactForm] = useState({ nombre: '', email: '', mensaje: '' })
   const [contactSent, setContactSent] = useState(false)
   const carouselRef = useRef(null)
+  const videoRefs = useRef([])
   const [aboutSlide, setAboutSlide] = useState(0)
   const [aboutPaused, setAboutPaused] = useState(false)
 
@@ -107,7 +108,6 @@ export default function LandingPage() {
 
         if (inner) {
           inner.style.boxShadow = glow
-          // Reset flip on non-centered cards
           if (!isCentered && inner.classList.contains('flipped')) {
             inner.classList.remove('flipped')
           }
@@ -130,12 +130,26 @@ export default function LandingPage() {
   }, [])
 
   useEffect(() => {
-    if (aboutPaused) return
-    const timer = setInterval(() => {
-      setAboutSlide((prev) => (prev + 1) % ABOUT_SLIDES.length)
-    }, 3000)
-    return () => clearInterval(timer)
-  }, [aboutPaused])
+    videoRefs.current.forEach((v, i) => {
+      if (!v) return
+      if (i === aboutSlide) {
+        v.currentTime = 0
+        v.play().catch(() => {})
+      } else {
+        v.pause()
+        v.currentTime = 0
+      }
+    })
+  }, [aboutSlide])
+
+  useEffect(() => {
+    if (aboutPaused) {
+      videoRefs.current.forEach((v) => { if (v) v.pause() })
+    } else {
+      const current = videoRefs.current[aboutSlide]
+      if (current) current.play().catch(() => {})
+    }
+  }, [aboutPaused, aboutSlide])
 
   const toggleODS = (id) => {
     setFlippedODS((prev) => prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id])
@@ -175,8 +189,8 @@ export default function LandingPage() {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  const aboutNext = () => setAboutSlide((prev) => (prev + 1) % ABOUT_SLIDES.length)
-  const aboutPrev = () => setAboutSlide((prev) => (prev - 1 + ABOUT_SLIDES.length) % ABOUT_SLIDES.length)
+  const aboutNext = () => setAboutSlide((prev) => (prev + 1) % ABOUT_VIDEOS.length)
+  const aboutPrev = () => setAboutSlide((prev) => (prev - 1 + ABOUT_VIDEOS.length) % ABOUT_VIDEOS.length)
 
   const NAV_ITEMS = [
     { id: 'inicio', label: 'Inicio' },
@@ -273,9 +287,17 @@ export default function LandingPage() {
               onMouseEnter={() => setAboutPaused(true)}
               onMouseLeave={() => setAboutPaused(false)}
             >
-              {ABOUT_SLIDES.map((slide, i) => (
+              {ABOUT_VIDEOS.map((video, i) => (
                 <div key={i} className={`landing-about-carousel-slide ${i === aboutSlide ? 'active' : ''}`}>
-                  <img src={slide.src} alt={slide.alt} />
+                  <video
+                    ref={(el) => { videoRefs.current[i] = el }}
+                    src={video.src}
+                    muted
+                    loop={false}
+                    playsInline
+                    preload={i === 0 ? 'auto' : 'metadata'}
+                    onEnded={aboutNext}
+                  />
                 </div>
               ))}
               <button onClick={aboutPrev} className="landing-about-carousel-arrow landing-about-carousel-arrow--left" aria-label="Anterior">
@@ -289,12 +311,12 @@ export default function LandingPage() {
                 </svg>
               </button>
               <div className="landing-about-carousel-dots">
-                {ABOUT_SLIDES.map((_, i) => (
+                {ABOUT_VIDEOS.map((_, i) => (
                   <button
                     key={i}
                     onClick={() => setAboutSlide(i)}
                     className={`landing-about-carousel-dot ${i === aboutSlide ? 'active' : ''}`}
-                    aria-label={`Ir a imagen ${i + 1}`}
+                    aria-label={`Ir a video ${i + 1}`}
                   />
                 ))}
               </div>

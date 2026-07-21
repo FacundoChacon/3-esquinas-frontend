@@ -307,7 +307,8 @@
   pointer-events: auto;
 }
 
-.landing-about-carousel-slide img {
+.landing-about-carousel-slide img,
+.landing-about-carousel-slide video {
   @apply w-full h-full object-cover;
 }
 
