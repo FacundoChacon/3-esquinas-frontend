@@ -106,9 +106,10 @@
 
 .landing-hero {
   @apply relative px-6 py-12 sm:py-20 text-white;
-  background: linear-gradient(135deg, rgba(6,95,70,0.85) 0%, rgba(4,120,87,0.8) 30%, rgba(5,150,105,0.7) 60%, rgba(217,119,6,0.6) 100%),
-              url('/images/hero-maipu.jpg') center/cover no-repeat;
+  background: linear-gradient(135deg, rgba(6,95,70,0.55) 0%, rgba(4,120,87,0.50) 30%, rgba(5,150,105,0.45) 60%, rgba(217,119,6,0.35) 100%),
+              url('/images/about/maipu-aerea.jpg') center/cover no-repeat;
   animation: hero-emerge 0.7s ease-out both;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 
 /* Contenedor del hero: layout flexible, responsive column/row */
@@ -288,6 +289,55 @@
 /* Botón Conocenos */
 .landing-about-btn {
   @apply inline-flex items-center gap-2 px-6 py-2.5 rounded-full font-semibold text-sm bg-emerald-600 text-white hover:bg-emerald-700 transition-colors;
+}
+
+/* ================================================================
+   3b. CARRUSEL DE IMÁGENES — Quiénes somos
+   ================================================================ */
+
+.landing-about-carousel {
+  @apply relative w-full rounded-2xl overflow-hidden;
+  aspect-ratio: 4/3;
+  min-height: 300px;
+}
+
+.landing-about-carousel-slide {
+  @apply absolute inset-0 w-full h-full;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  pointer-events: none;
+}
+
+.landing-about-carousel-slide.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.landing-about-carousel-slide img {
+  @apply w-full h-full object-cover;
+}
+
+/* Flechas de navegación del carrusel */
+.landing-about-carousel-arrow {
+  @apply absolute top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm border border-white/20 shadow-lg flex items-center justify-center text-gray-700 hover:bg-white hover:text-emerald-700 transition-all cursor-pointer;
+}
+.landing-about-carousel-arrow--left {
+  @apply left-3;
+}
+.landing-about-carousel-arrow--right {
+  @apply right-3;
+}
+
+/* Indicadores (dots) */
+.landing-about-carousel-dots {
+  @apply absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-10;
+}
+
+.landing-about-carousel-dot {
+  @apply w-2.5 h-2.5 rounded-full bg-white/50 cursor-pointer transition-all;
+}
+.landing-about-carousel-dot.active {
+  @apply bg-white w-6;
 }
 
 /* ================================================================

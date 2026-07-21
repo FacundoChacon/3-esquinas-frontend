@@ -48,6 +48,14 @@ function ODSFlipCard({ ods, flipped, onToggle, dark }) {
   )
 }
 
+const ABOUT_SLIDES = [
+  { src: '/images/about/maipu-aerea.jpg', alt: 'Vista aérea de Mendoza, ciudad conectada con la naturaleza' },
+  { src: '/images/comunidad.jpg', alt: 'Comunidad de Maipú reunida en actividad' },
+  { src: '/images/about/equipo-trabajo.jpg', alt: 'Equipo de trabajo colaborando' },
+  { src: '/images/about/comunidad-local.jpg', alt: 'Familias de la comunidad participando' },
+  { src: '/images/about/voluntarios.jpg', alt: 'Voluntarios comprometidos con la causa' },
+]
+
 export default function LandingPage() {
   const { user, isAuthenticated, logout } = useAuth()
   const { dark, toggle: toggleDark } = useDarkMode()
@@ -55,6 +63,8 @@ export default function LandingPage() {
   const [contactForm, setContactForm] = useState({ nombre: '', email: '', mensaje: '' })
   const [contactSent, setContactSent] = useState(false)
   const carouselRef = useRef(null)
+  const [aboutSlide, setAboutSlide] = useState(0)
+  const [aboutPaused, setAboutPaused] = useState(false)
 
   useEffect(() => {
     const container = carouselRef.current
@@ -119,6 +129,14 @@ export default function LandingPage() {
     }
   }, [])
 
+  useEffect(() => {
+    if (aboutPaused) return
+    const timer = setInterval(() => {
+      setAboutSlide((prev) => (prev + 1) % ABOUT_SLIDES.length)
+    }, 3000)
+    return () => clearInterval(timer)
+  }, [aboutPaused])
+
   const toggleODS = (id) => {
     setFlippedODS((prev) => prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id])
   }
@@ -156,6 +174,9 @@ export default function LandingPage() {
   const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
+
+  const aboutNext = () => setAboutSlide((prev) => (prev + 1) % ABOUT_SLIDES.length)
+  const aboutPrev = () => setAboutSlide((prev) => (prev - 1 + ABOUT_SLIDES.length) % ABOUT_SLIDES.length)
 
   const NAV_ITEMS = [
     { id: 'inicio', label: 'Inicio' },
@@ -242,8 +263,38 @@ export default function LandingPage() {
       <section id="institucional" className="landing-about">
         <div className="landing-about-inner">
           <div className="landing-about-layout">
-            <div className="landing-about-image-col">
-              <img src="/images/comunidad.jpg" alt="Comunidad de Maipú" className="landing-about-image-placeholder" style={{width: '100%', height: '100%', objectFit: 'cover', borderRadius: '1rem'}} />
+            <div
+              className="landing-about-image-col"
+              onMouseEnter={() => setAboutPaused(true)}
+              onMouseLeave={() => setAboutPaused(false)}
+            >
+              <div className="landing-about-carousel">
+                {ABOUT_SLIDES.map((slide, i) => (
+                  <div key={i} className={`landing-about-carousel-slide ${i === aboutSlide ? 'active' : ''}`}>
+                    <img src={slide.src} alt={slide.alt} />
+                  </div>
+                ))}
+                <button onClick={aboutPrev} className="landing-about-carousel-arrow landing-about-carousel-arrow--left" aria-label="Anterior">
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                  </svg>
+                </button>
+                <button onClick={aboutNext} className="landing-about-carousel-arrow landing-about-carousel-arrow--right" aria-label="Siguiente">
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                  </svg>
+                </button>
+                <div className="landing-about-carousel-dots">
+                  {ABOUT_SLIDES.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setAboutSlide(i)}
+                      className={`landing-about-carousel-dot ${i === aboutSlide ? 'active' : ''}`}
+                      aria-label={`Ir a imagen ${i + 1}`}
+                    />
+                  ))}
+                </div>
+              </div>
             </div>
 
             <div className="landing-about-content-col">
