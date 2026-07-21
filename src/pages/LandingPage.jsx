@@ -518,19 +518,18 @@ export default function LandingPage() {
               <a href="#contacto" className="landing-footer-link">Contacto</a>
               <Link to="/donar" className="landing-footer-link">Donar</Link>
             </div>
+            <div className="landing-footer-social-row">
+              <a href="https://x.com/3esqfundacion" target="_blank" rel="noopener noreferrer" className="landing-footer-social-pill">X (Twitter)</a>
+              <a href="https://instagram.com/Tresesquinasfundacion" target="_blank" rel="noopener noreferrer" className="landing-footer-social-pill">Instagram</a>
+              <a href="https://youtube.com/@FundacionTresEsquinas" target="_blank" rel="noopener noreferrer" className="landing-footer-social-pill">YouTube</a>
+            </div>
           </div>
 
           <div className="landing-footer-contact-col">
             <span className="landing-footer-nav-title">Contacto</span>
             <div className="landing-footer-contact-items">
-              <span className="landing-footer-contact-item">info@3esquinas.org.ar</span>
+              <a href="mailto:Tresesquinasfundacion@gmail.com" className="landing-footer-contact-item">Tresesquinasfundacion@gmail.com</a>
               <span className="landing-footer-contact-item">Maipú, Mendoza — Argentina</span>
-            </div>
-            <div className="landing-footer-social-row">
-              <a href="https://x.com/3esqfundacion" target="_blank" rel="noopener noreferrer" className="landing-footer-social-pill">X (Twitter)</a>
-              <a href="https://instagram.com/Tresesquinasfundacion" target="_blank" rel="noopener noreferrer" className="landing-footer-social-pill">Instagram</a>
-              <a href="https://youtube.com/@FundacionTresEsquinas" target="_blank" rel="noopener noreferrer" className="landing-footer-social-pill">YouTube</a>
-              <a href="mailto:Tresesquinasfundacion@gmail.com" className="landing-footer-social-pill">Gmail</a>
             </div>
           </div>
         </div>
