@@ -273,6 +273,12 @@ export default function LandingPage() {
                 para construir soluciones concretas a los desafíos sociales, ambientales y económicos que enfrenta nuestra comunidad.
               </p>
 
+              <p className="landing-about-text">
+                Nuestro nombre rinde homenaje al distrito <strong>Tres Esquinas</strong>, en el departamento de Maipú,
+                y refleja la filosofía que nos guía: la articulación de tres grandes actores — <strong>la sociedad civil, el Estado y las empresas</strong> —
+                para impulsar la formación, capacitación y asesoramiento en los Objetivos de Desarrollo Sostenible de la ONU, en el marco del Plan de Agenda 2030.
+              </p>
+
               <div className="landing-about-grid">
                 <div className="landing-about-card">
                   <div className="landing-about-card-icon landing-about-card-icon--mission">
