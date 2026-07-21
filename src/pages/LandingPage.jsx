@@ -373,7 +373,7 @@ export default function LandingPage() {
                   </div>
                   <div>
                     <span className="landing-contact-channel-label">Email</span>
-                    <span className="landing-contact-channel-value">info@3esquinas.org.ar</span>
+                    <span className="landing-contact-channel-value">Tresesquinasfundacion@gmail.com</span>
                   </div>
                 </div>
 
