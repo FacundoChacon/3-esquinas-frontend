@@ -1,0 +1,724 @@
+/**
+ * landing.css — Estilos modulares de la Landing Page (página pública)
+ *
+ * Organizado por sección visual de la landing:
+ *   1. Navbar (barra de navegación sticky)
+ *   2. Hero (sección principal con gradiente)
+ *   3. Quiénes somos
+ *   4. ODS (tarjetas flip)
+ *   5. Donar (CTA de donación)
+ *   6. Contacto (formulario)
+ *   7. Footer
+ *
+ * Cada clase se importa en LandingPage.jsx y reemplaza los utilitarios inline.
+ * Modificar una sección solo toca este archivo.
+ */
+@import "tailwindcss";
+
+/* ================================================================
+   1. NAVBAR — Barra de navegación superior sticky con blur
+   ================================================================ */
+
+/* Contenedor principal del navbar: sticky arriba, borde inferior, fondo semitransparente con blur */
+.landing-nav {
+  @apply sticky top-0 z-30 border-b border-gray-200 bg-white/80 backdrop-blur-md;
+}
+:root.dark .landing-nav {
+  @apply border-gray-800 bg-gray-950/80;
+}
+
+/* Contenedor interno del navbar: alineado horizontalmente, centrado, con ancho máximo */
+.landing-nav-inner {
+  @apply flex items-center justify-between px-4 sm:px-6 h-14 max-w-6xl mx-auto;
+}
+
+/* Botón del logo: flex con ícono + texto, no se encoge */
+.landing-nav-logo {
+  @apply flex items-center gap-2 shrink-0;
+}
+
+/* Imagen del logo en el navbar */
+.landing-nav-logo-img {
+  @apply w-8 h-8 rounded-lg object-contain;
+}
+
+/* Texto del logo solo visible en sm+ */
+.landing-nav-logo-text {
+  @apply text-sm font-bold text-gray-900 hidden sm:inline;
+}
+:root.dark .landing-nav-logo-text {
+  @apply text-white;
+}
+
+/* Contenedor de links de navegación: scroll horizontal en móvil */
+.landing-nav-links {
+  @apply flex items-center gap-0 sm:gap-1 overflow-x-auto min-w-0;
+}
+
+/* Cada link del navbar: texto pequeño, responsive, redondeado, transición suave */
+.landing-nav-link {
+  @apply shrink-0 text-xs sm:text-sm whitespace-nowrap px-2 sm:px-3 py-1.5 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors;
+}
+:root.dark .landing-nav-link {
+  @apply text-gray-400 hover:text-white hover:bg-gray-800;
+}
+
+/* Contenedor de botones de acción (sesión + donar) */
+.landing-nav-actions {
+  @apply flex items-center gap-2 shrink-0;
+}
+
+/* Botón toggle modo oscuro */
+.landing-nav-dark-toggle {
+  @apply p-2 rounded-full text-gray-600 hover:bg-gray-100 transition-colors;
+}
+:root.dark .landing-nav-dark-toggle {
+  @apply text-gray-400 hover:bg-gray-800;
+}
+
+/* Botón outline genérico del navbar (sesión, admin, cerrar) */
+.landing-nav-btn-outline {
+  @apply shrink-0 text-xs sm:text-sm whitespace-nowrap px-3 sm:px-4 py-1.5 rounded-full font-semibold border text-gray-600 hover:bg-gray-100 border-gray-300 transition-all;
+}
+:root.dark .landing-nav-btn-outline {
+  @apply text-gray-300 hover:bg-gray-800 border-gray-700;
+}
+
+/* Botón primario verde del navbar (donar) */
+.landing-nav-btn-primary {
+  @apply shrink-0 text-xs sm:text-sm whitespace-nowrap px-3 sm:px-4 py-1.5 rounded-full font-semibold text-white bg-emerald-600 hover:bg-emerald-700 transition-colors;
+}
+
+/* ================================================================
+   2. HERO — Sección principal con gradiente verde
+   ================================================================ */
+
+@keyframes hero-emerge {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.landing-hero {
+  @apply px-6 py-12 sm:py-20 bg-gradient-to-br from-emerald-700 via-emerald-600 to-emerald-400 text-white;
+  animation: hero-emerge 0.7s ease-out both;
+}
+
+/* Contenedor del hero: layout flexible, responsive column/row */
+.landing-hero-inner {
+  @apply max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-12;
+}
+
+/* Bloque de texto del hero */
+.landing-hero-text-block {
+  @apply flex-1 text-center md:text-left;
+}
+
+/* Etiqueta inline del hero (logo + nombre) */
+.landing-hero-tag {
+  @apply inline-flex items-center gap-2 mb-4;
+}
+
+/* Imagen del logo en el hero */
+.landing-hero-tag-img {
+  @apply w-9 h-9 rounded-xl object-contain;
+}
+
+/* Texto de la etiqueta del hero */
+.landing-hero-tag-text {
+  @apply text-sm font-semibold tracking-wider uppercase opacity-80;
+}
+
+/* Título principal del hero: responsive, bold, con espacio inferior */
+.landing-hero-title {
+  @apply text-3xl sm:text-5xl font-bold leading-tight mb-4;
+}
+
+/* Párrafo descriptivo del hero */
+.landing-hero-desc {
+  @apply text-base sm:text-lg opacity-90 max-w-xl mb-6;
+}
+
+/* Botones de acción del hero */
+.landing-hero-actions {
+  @apply flex flex-wrap justify-center md:justify-start gap-3;
+}
+
+/* Botón primario del hero (blanco sobre verde) */
+.landing-hero-btn-primary {
+  @apply px-5 py-2 rounded-full text-sm font-semibold bg-white text-emerald-700;
+}
+
+/* Botón outline del hero (borde blanco translúcido) */
+.landing-hero-btn-outline {
+  @apply px-5 py-2 border border-white/40 text-white rounded-full text-sm font-semibold;
+}
+
+/* Placeholder de imagen del hero (cuando no hay foto) */
+.landing-hero-image-placeholder {
+  @apply aspect-[4/3] rounded-2xl border-2 border-dashed border-white/40 text-white/50 flex flex-col items-center justify-center gap-2;
+}
+
+/* Icono dentro del placeholder de imagen */
+.landing-hero-image-placeholder-icon {
+  @apply w-10 h-10 opacity-60;
+}
+
+/* Texto del placeholder de imagen */
+.landing-hero-image-placeholder-text {
+  @apply text-xs font-medium opacity-70;
+}
+
+/* ================================================================
+   3. QUIÉNES SOMOS — Sección institucional
+   ================================================================ */
+
+@keyframes about-slide-right {
+  from {
+    opacity: 0;
+    transform: translateX(80px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.landing-about {
+  @apply px-6 py-12 sm:py-20 bg-white;
+  animation: about-slide-right 1s ease-out both;
+}
+:root.dark .landing-about {
+  @apply bg-gray-950;
+}
+
+.landing-about-inner {
+  @apply max-w-6xl mx-auto;
+}
+
+/* Layout flex: imagen izquierda + contenido derecho */
+.landing-about-layout {
+  @apply flex flex-col md:flex-row items-start gap-10 md:gap-14;
+}
+
+.landing-about-image-col {
+  @apply w-full md:w-2/5 shrink-0;
+}
+
+.landing-about-image-placeholder {
+  @apply aspect-[4/3] rounded-2xl border-2 border-dashed border-gray-200 bg-gray-50 flex flex-col items-center justify-center gap-3 text-gray-400;
+}
+:root.dark .landing-about-image-placeholder {
+  @apply border-gray-700 bg-gray-900 text-gray-500;
+}
+
+.landing-about-image-text {
+  @apply text-sm font-medium;
+}
+
+.landing-about-content-col {
+  @apply flex-1 min-w-0;
+}
+
+.landing-about-title {
+  @apply text-2xl sm:text-3xl font-bold text-gray-900 mb-3;
+}
+:root.dark .landing-about-title {
+  @apply text-white;
+}
+
+.landing-about-divider {
+  @apply w-16 h-1 mb-6 rounded-full bg-emerald-600;
+}
+
+.landing-about-text {
+  @apply leading-relaxed text-gray-600 mb-8;
+}
+:root.dark .landing-about-text {
+  @apply text-gray-400;
+}
+
+/* Grid de tarjetas Misión / Visión / Cómo trabajamos — 2 columnas en content col */
+.landing-about-grid {
+  @apply grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8;
+}
+
+.landing-about-card {
+  @apply p-5 rounded-2xl border border-gray-100 bg-gray-50 text-left;
+}
+:root.dark .landing-about-card {
+  @apply bg-gray-900 border-gray-800;
+}
+
+.landing-about-card-icon {
+  @apply w-9 h-9 rounded-lg flex items-center justify-center mb-3;
+}
+.landing-about-card-icon--mission {
+  @apply bg-emerald-100 text-emerald-700;
+}
+:root.dark .landing-about-card-icon--mission {
+  @apply bg-emerald-900/40 text-emerald-400;
+}
+.landing-about-card-icon--vision {
+  @apply bg-blue-100 text-blue-700;
+}
+:root.dark .landing-about-card-icon--vision {
+  @apply bg-blue-900/40 text-blue-400;
+}
+.landing-about-card-icon--how {
+  @apply bg-amber-100 text-amber-700;
+}
+:root.dark .landing-about-card-icon--how {
+  @apply bg-amber-900/40 text-amber-400;
+}
+
+.landing-about-card-title {
+  @apply text-sm font-bold text-gray-900 mb-1;
+}
+:root.dark .landing-about-card-title {
+  @apply text-white;
+}
+
+.landing-about-card-text {
+  @apply text-xs leading-relaxed text-gray-500;
+}
+:root.dark .landing-about-card-text {
+  @apply text-gray-400;
+}
+
+/* Botón Conocenos */
+.landing-about-btn {
+  @apply inline-flex items-center gap-2 px-6 py-2.5 rounded-full font-semibold text-sm bg-emerald-600 text-white hover:bg-emerald-700 transition-colors;
+}
+
+/* ================================================================
+   4. ODS — Carrusel de tarjetas flip de los 17 ODS
+   ================================================================ */
+
+.landing-ods {
+  @apply px-6 py-10 sm:py-14 bg-gray-50;
+}
+:root.dark .landing-ods {
+  @apply bg-gray-900;
+}
+
+.landing-ods-inner {
+  @apply max-w-6xl mx-auto text-center;
+}
+
+.landing-ods-title {
+  @apply text-2xl sm:text-3xl font-bold text-gray-900 mb-1;
+}
+:root.dark .landing-ods-title {
+  @apply text-white;
+}
+
+.landing-ods-subtitle {
+  @apply text-sm mb-8 text-gray-500;
+}
+:root.dark .landing-ods-subtitle {
+  @apply text-gray-400;
+}
+
+/* Carrusel wrapper — relative para posicionar flechas */
+.landing-ods-carousel-wrapper {
+  @apply relative;
+}
+
+/* Contenedor scrollable horizontal con snap centrado */
+.landing-ods-carousel {
+  @apply flex gap-5 overflow-x-auto scroll-smooth pb-4;
+  scroll-snap-type: x mandatory;
+  padding-inline: calc(50% - 140px);
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.landing-ods-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+/* Flechas de navegación del carrusel */
+.landing-ods-arrow {
+  @apply absolute top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white border border-gray-200 shadow-md flex items-center justify-center text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-all;
+}
+:root.dark .landing-ods-arrow {
+  @apply bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white;
+}
+.landing-ods-arrow--left {
+  @apply -left-2 sm:-left-4;
+}
+.landing-ods-arrow--right {
+  @apply -right-2 sm:-right-4;
+}
+
+/* Tarjeta individual en el carrusel: ancho fijo, snap centrado */
+.landing-ods-card {
+  @apply snap-center shrink-0 w-[260px] sm:w-[280px] [perspective:1000px] cursor-pointer rounded-2xl;
+  transition: transform 0.4s ease, opacity 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Inner que rota */
+.landing-ods-card-inner {
+  @apply relative w-full h-[360px] [transform-style:preserve-3d] transition-transform duration-500 rounded-2xl;
+}
+.landing-ods-card-inner.flipped {
+  @apply [transform:rotateY(180deg)];
+}
+
+/* Cara frontal */
+.landing-ods-card-front {
+  @apply absolute inset-0 rounded-2xl p-5 text-white text-center flex flex-col items-center gap-2 [backface-visibility:hidden];
+}
+
+.landing-ods-card-number {
+  @apply text-lg font-bold;
+}
+
+/* Placeholder de foto ODS */
+.landing-ods-card-photo {
+  @apply w-full h-28 rounded-xl border-2 border-dashed border-white/30 flex items-center justify-center;
+}
+
+.landing-ods-card-label {
+  @apply text-sm font-semibold leading-tight mt-1;
+}
+
+.landing-ods-card-desc {
+  @apply text-xs leading-relaxed opacity-85 line-clamp-3;
+}
+
+/* Cara trasera — fondo claro u oscuro según modo */
+.landing-ods-card-back {
+  @apply absolute inset-0 rounded-2xl p-5 text-center flex flex-col items-center justify-center gap-3 [backface-visibility:hidden] [transform:rotateY(180deg)] bg-white border border-gray-200 shadow-sm;
+}
+.landing-ods-card-back.dark {
+  @apply bg-gray-900 border-gray-700;
+}
+
+.landing-ods-card-back-ods {
+  @apply text-xs font-bold uppercase tracking-wider text-emerald-600;
+}
+:root.dark .landing-ods-card-back-ods {
+  @apply text-emerald-400;
+}
+
+.landing-ods-card-back-title {
+  @apply text-sm font-bold text-gray-900;
+}
+:root.dark .landing-ods-card-back-title {
+  @apply text-white;
+}
+
+.landing-ods-card-back-desc {
+  @apply text-xs leading-relaxed text-gray-500;
+}
+:root.dark .landing-ods-card-back-desc {
+  @apply text-gray-400;
+}
+
+.landing-ods-card-back-hint {
+  @apply text-[10px] font-medium text-gray-400 mt-1;
+}
+:root.dark .landing-ods-card-back-hint {
+  @apply text-gray-500;
+}
+
+/* ================================================================
+   5. DONAR — Sección CTA de donación
+   ================================================================ */
+
+.landing-donate {
+  @apply relative px-6 py-14 sm:py-20 text-white text-center overflow-hidden;
+  background: linear-gradient(135deg, #065f46 0%, #047857 30%, #059669 60%, #d97706 100%);
+}
+
+.landing-contact-donate {
+  @apply relative mt-12 px-6 py-14 sm:py-20 text-white text-center overflow-hidden rounded-3xl mx-4 mb-8;
+  background: linear-gradient(135deg, #065f46 0%, #047857 30%, #059669 60%, #d97706 100%);
+}
+
+.landing-donate-bg {
+  @apply absolute inset-0 opacity-10;
+  background-image: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.3) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 20%, rgba(255,255,255,0.2) 0%, transparent 50%);
+}
+
+.landing-donate-inner {
+  @apply relative max-w-2xl mx-auto;
+}
+
+.landing-donate-heart {
+  @apply w-16 h-16 mx-auto mb-5 rounded-full bg-white/15 flex items-center justify-center text-white/80;
+}
+
+.landing-donate-title {
+  @apply text-2xl sm:text-3xl font-bold mb-3;
+}
+
+.landing-donate-desc {
+  @apply opacity-90 mb-6 text-sm sm:text-base leading-relaxed max-w-xl mx-auto;
+}
+
+.landing-donate-impact {
+  @apply flex justify-center mb-8;
+}
+
+.landing-donate-stat {
+  @apply px-5 py-2.5 rounded-full bg-white/15 backdrop-blur-sm;
+}
+
+.landing-donate-stat-number {
+  @apply text-lg font-bold;
+}
+
+.landing-donate-stat-label {
+  @apply text-xs opacity-80 ml-1.5;
+}
+
+.landing-donate-btn {
+  @apply inline-block px-10 py-3.5 rounded-full font-bold text-lg bg-white text-emerald-700 shadow-lg hover:shadow-xl hover:scale-105 transition-all;
+}
+
+/* ================================================================
+   6. CONTACTO — Sección de contacto expandida
+   ================================================================ */
+
+/* Fondo de la sección */
+.landing-contact {
+  @apply px-6 py-12 sm:py-16 bg-white;
+}
+:root.dark .landing-contact {
+  @apply bg-gray-950;
+}
+
+/* Contenedor centrado */
+.landing-contact-inner {
+  @apply max-w-5xl mx-auto;
+}
+
+/* Layout dos columnas: info | formulario */
+.landing-contact-layout {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 items-start;
+}
+
+/* --- Lado izquierdo: info --- */
+.landing-contact-info {
+  @apply space-y-6;
+}
+
+.landing-contact-title {
+  @apply text-2xl sm:text-3xl font-bold text-gray-900;
+}
+:root.dark .landing-contact-title {
+  @apply text-white;
+}
+
+.landing-contact-divider {
+  @apply w-12 h-1 bg-emerald-500 rounded-full;
+}
+
+.landing-contact-desc {
+  @apply text-sm sm:text-base text-gray-600 leading-relaxed;
+}
+:root.dark .landing-contact-desc {
+  @apply text-gray-400;
+}
+
+/* Canales de contacto */
+.landing-contact-channels {
+  @apply space-y-4 mt-4;
+}
+
+.landing-contact-channel {
+  @apply flex items-start gap-3;
+}
+
+.landing-contact-channel-icon {
+  @apply w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 shrink-0 mt-0.5;
+}
+:root.dark .landing-contact-channel-icon {
+  @apply bg-emerald-900/30 text-emerald-400;
+}
+
+.landing-contact-channel-label {
+  @apply block text-xs font-semibold uppercase tracking-wide text-gray-400;
+}
+:root.dark .landing-contact-channel-label {
+  @apply text-gray-500;
+}
+
+.landing-contact-channel-value {
+  @apply block text-sm text-gray-700 mt-0.5;
+}
+:root.dark .landing-contact-channel-value {
+  @apply text-gray-300;
+}
+
+/* Redes sociales */
+.landing-contact-socials {
+  @apply pt-4 border-t border-gray-100;
+}
+:root.dark .landing-contact-socials {
+  @apply border-gray-800;
+}
+
+.landing-contact-socials-label {
+  @apply block text-xs font-semibold uppercase tracking-wide text-gray-400 mb-3;
+}
+:root.dark .landing-contact-socials-label {
+  @apply text-gray-500;
+}
+
+.landing-contact-socials-links {
+  @apply flex gap-3;
+}
+
+.landing-contact-social-link {
+  @apply px-4 py-2 rounded-lg bg-gray-100 text-gray-600 text-sm font-medium hover:bg-emerald-50 hover:text-emerald-700 transition-colors cursor-pointer;
+}
+:root.dark .landing-contact-social-link {
+  @apply bg-gray-800 text-gray-400 hover:bg-emerald-900/30 hover:text-emerald-400;
+}
+
+/* --- Lado derecho: formulario --- */
+.landing-contact-form-wrapper {
+  @apply bg-gray-50 rounded-2xl p-6 sm:p-8 border border-gray-100;
+}
+:root.dark .landing-contact-form-wrapper {
+  @apply bg-gray-900 border-gray-800;
+}
+
+.landing-contact-form-title {
+  @apply text-lg font-bold text-gray-900 mb-4;
+}
+:root.dark .landing-contact-form-title {
+  @apply text-white;
+}
+
+/* Mensaje de éxito */
+.landing-contact-success {
+  @apply text-center py-8;
+}
+
+.landing-contact-success-text {
+  @apply text-emerald-700 font-semibold text-sm;
+}
+:root.dark .landing-contact-success-text {
+  @apply text-emerald-400;
+}
+
+.landing-contact-success-sub {
+  @apply text-gray-500 text-xs mt-1;
+}
+:root.dark .landing-contact-success-sub {
+  @apply text-gray-400;
+}
+
+/* Formulario */
+.landing-contact-form {
+  @apply space-y-3;
+}
+
+/* Input */
+.landing-contact-input {
+  @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900 placeholder-gray-400 bg-white;
+}
+:root.dark .landing-contact-input {
+  @apply bg-gray-800 border-gray-700 text-white placeholder-gray-500;
+}
+
+/* Textarea */
+.landing-contact-textarea {
+  @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900 placeholder-gray-400 resize-none bg-white;
+}
+:root.dark .landing-contact-textarea {
+  @apply bg-gray-800 border-gray-700 text-white placeholder-gray-500;
+}
+
+/* Botón enviar */
+.landing-contact-submit {
+  @apply w-full py-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition-colors;
+}
+
+/* ================================================================
+   7. FOOTER — Pie de página
+   ================================================================ */
+
+/* Fondo oscuro del footer */
+.landing-footer {
+  @apply px-6 pt-10 pb-6 text-sm bg-gray-900 text-gray-400;
+}
+
+/* Layout principal: 3 columnas */
+.landing-footer-inner {
+  @apply max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8 pb-8 border-b border-gray-800;
+}
+
+/* Columna izquierda: logo + descripción */
+.landing-footer-main {
+  @apply space-y-3;
+}
+
+.landing-footer-brand {
+  @apply flex items-center gap-2;
+}
+
+.landing-footer-logo {
+  @apply w-7 h-7 rounded-xl object-contain;
+}
+
+.landing-footer-name {
+  @apply text-white font-semibold text-base;
+}
+
+.landing-footer-desc {
+  @apply text-xs leading-relaxed opacity-70 max-w-xs;
+}
+
+/* Columna del medio: links de navegación */
+.landing-footer-nav {
+  @apply space-y-3;
+}
+
+.landing-footer-nav-title {
+  @apply block text-white font-semibold text-xs uppercase tracking-wider;
+}
+
+.landing-footer-nav-links {
+  @apply flex flex-col gap-1.5;
+}
+
+.landing-footer-link {
+  @apply text-xs hover:text-white transition-colors cursor-pointer;
+}
+
+/* Columna derecha: contacto + redes */
+.landing-footer-contact-col {
+  @apply space-y-3;
+}
+
+.landing-footer-contact-items {
+  @apply flex flex-col gap-1.5;
+}
+
+.landing-footer-contact-item {
+  @apply text-xs opacity-70;
+}
+
+.landing-footer-social-row {
+  @apply flex gap-2 mt-1;
+}
+
+.landing-footer-social-pill {
+  @apply px-3 py-1 rounded-full bg-gray-800 text-xs text-gray-400 hover:bg-gray-700 hover:text-white transition-colors cursor-pointer;
+}
+
+/* Barra inferior de copyright */
+.landing-footer-bottom {
+  @apply max-w-5xl mx-auto text-center text-xs opacity-50 pt-5;
+}

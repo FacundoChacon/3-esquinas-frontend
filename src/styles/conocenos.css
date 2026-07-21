@@ -1,0 +1,188 @@
+/**
+ * conocenos.css — Estilos de la página "Conocenos"
+ *
+ * Secciones:
+ *   1. Hero de la página
+ *   2. Origen e ideales
+ *   3. Equipo
+ */
+@import "tailwindcss";
+
+/* ================================================================
+   1. HERO — Cabecera de la página Conocenos
+   ================================================================ */
+
+.conocenos-hero {
+  @apply px-6 py-16 sm:py-24 bg-gradient-to-br from-emerald-700 via-emerald-600 to-emerald-400 text-white text-center;
+}
+
+.conocenos-hero-inner {
+  @apply max-w-3xl mx-auto;
+}
+
+.conocenos-hero-title {
+  @apply text-3xl sm:text-5xl font-bold mb-3;
+}
+
+.conocenos-hero-subtitle {
+  @apply text-base sm:text-lg opacity-90;
+}
+
+/* ================================================================
+   2. ORIGEN E IDEALES — Pilares fundacionales
+   ================================================================ */
+
+.conocenos-origin {
+  @apply px-6 py-12 sm:py-20 bg-white;
+}
+:root.dark .conocenos-origin {
+  @apply bg-gray-950;
+}
+
+.conocenos-origin-inner {
+  @apply max-w-5xl mx-auto;
+}
+
+.conocenos-origin-content {
+  @apply max-w-3xl mb-12;
+}
+
+.conocenos-section-title {
+  @apply text-2xl sm:text-3xl font-bold text-gray-900 mb-3;
+}
+:root.dark .conocenos-section-title {
+  @apply text-white;
+}
+
+.conocenos-section-divider {
+  @apply w-16 h-1 mb-6 rounded-full bg-emerald-600;
+}
+
+.conocenos-text {
+  @apply leading-relaxed text-gray-600 mb-4;
+}
+:root.dark .conocenos-text {
+  @apply text-gray-400;
+}
+
+.conocenos-text-center {
+  @apply leading-relaxed text-gray-600 mb-10 text-center max-w-2xl mx-auto;
+}
+:root.dark .conocenos-text-center {
+  @apply text-gray-400;
+}
+
+/* Pilares */
+.conocenos-pillars {
+  @apply grid grid-cols-1 md:grid-cols-3 gap-6;
+}
+
+.conocenos-pillar {
+  @apply p-6 rounded-2xl border border-gray-100 bg-gray-50;
+}
+:root.dark .conocenos-pillar {
+  @apply bg-gray-900 border-gray-800;
+}
+
+.conocenos-pillar-number {
+  @apply text-3xl font-bold text-emerald-600 mb-3;
+}
+:root.dark .conocenos-pillar-number {
+  @apply text-emerald-400;
+}
+
+.conocenos-pillar-title {
+  @apply text-base font-bold text-gray-900 mb-2;
+}
+:root.dark .conocenos-pillar-title {
+  @apply text-white;
+}
+
+.conocenos-pillar-text {
+  @apply text-sm leading-relaxed text-gray-500;
+}
+:root.dark .conocenos-pillar-text {
+  @apply text-gray-400;
+}
+
+/* ================================================================
+   3. EQUIPO — Tarjetas de integrantes + placeholders
+   ================================================================ */
+
+.conocenos-team {
+  @apply px-6 py-12 sm:py-20 bg-gray-50;
+}
+:root.dark .conocenos-team {
+  @apply bg-gray-900;
+}
+
+.conocenos-team-inner {
+  @apply max-w-5xl mx-auto text-center;
+}
+
+.conocenos-team-grid {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12;
+}
+
+/* Tarjeta de miembro del equipo */
+.conocenos-member-card {
+  @apply p-6 rounded-2xl bg-white border border-gray-100 text-center;
+}
+:root.dark .conocenos-member-card {
+  @apply bg-gray-800 border-gray-700;
+}
+
+.conocenos-member-photo {
+  @apply w-20 h-20 mx-auto rounded-full bg-gray-100 border-2 border-dashed border-gray-200 flex items-center justify-center mb-4;
+}
+:root.dark .conocenos-member-photo {
+  @apply bg-gray-700 border-gray-600;
+}
+
+.conocenos-member-name {
+  @apply text-base font-bold text-gray-900 mb-1;
+}
+:root.dark .conocenos-member-name {
+  @apply text-white;
+}
+
+.conocenos-member-role {
+  @apply text-xs font-semibold text-emerald-600 uppercase tracking-wider;
+}
+:root.dark .conocenos-member-role {
+  @apply text-emerald-400;
+}
+
+.conocenos-member-desc {
+  @apply text-xs leading-relaxed text-gray-500 mt-3;
+}
+:root.dark .conocenos-member-desc {
+  @apply text-gray-400;
+}
+
+/* Tarjeta placeholder */
+.conocenos-member-card--placeholder {
+  @apply border-dashed border-2 border-gray-200 bg-gray-50/50;
+}
+:root.dark .conocenos-member-card--placeholder {
+  @apply border-gray-700 bg-gray-800/50;
+}
+
+.conocenos-member-placeholder-label {
+  @apply text-sm font-medium text-gray-400;
+}
+:root.dark .conocenos-member-placeholder-label {
+  @apply text-gray-500;
+}
+
+/* Foto grupal placeholder */
+.conocenos-group-photo {
+  @apply w-full aspect-[16/7] rounded-2xl border-2 border-dashed border-gray-200 bg-white flex flex-col items-center justify-center gap-3 text-gray-400;
+}
+:root.dark .conocenos-group-photo {
+  @apply border-gray-700 bg-gray-800 text-gray-500;
+}
+
+.conocenos-group-photo-text {
+  @apply text-sm font-medium;
+}

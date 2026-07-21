@@ -1,0 +1,281 @@
+/**
+ * donate.css — Estilos modulares de la página de donación (/donar)
+ *
+ * Organizado por sección:
+ *   1. Navbar (compartido con landing, simplificado)
+ *   2. Formulario de donación
+ *   3. Selección de medio de pago (radio cards)
+ *   4. Datos del donante
+ *   5. Confirmación de transferencia (vista posterior)
+ *
+ * Cada clase se importa en DonatePage.jsx.
+ */
+@import "tailwindcss";
+
+/* ================================================================
+   1. NAVBAR — Barra de navegación de la página de donación
+   ================================================================ */
+
+/* Contenedor del navbar: sticky, blur, borde */
+.donate-nav {
+  @apply sticky top-0 z-30 border-b border-gray-200 bg-white/80 backdrop-blur-md;
+}
+
+/* Interior del navbar: alineado y centrado */
+.donate-nav-inner {
+  @apply flex items-center justify-between px-4 sm:px-6 h-14 max-w-6xl mx-auto;
+}
+
+/* Logo de la marca */
+.donate-nav-logo {
+  @apply flex items-center gap-2 shrink-0;
+}
+
+/* Imagen del logo */
+.donate-nav-logo-img {
+  @apply w-8 h-8 rounded-lg object-contain;
+}
+
+/* Nombre de la marca */
+.donate-nav-logo-text {
+  @apply text-sm font-bold text-gray-900;
+}
+
+/* Link "Volver" */
+.donate-nav-back {
+  @apply text-sm text-gray-600 hover:text-gray-900 transition-colors;
+}
+
+/* ================================================================
+   2. FORMULARIO DE DONACIÓN
+   ================================================================ */
+
+/* Contenedor de toda la página: fondo cálido, flex columna */
+.donate-page {
+  @apply min-h-screen flex flex-col;
+  background: linear-gradient(180deg, #f0fdf4 0%, #ecfdf5 40%, #fffbeb 100%);
+}
+
+/* Contenedor centrado del formulario */
+.donate-form-container {
+  @apply flex-1 flex items-start justify-center p-4 sm:py-10;
+}
+
+/* Wrapper del formulario */
+.donate-form-wrapper {
+  @apply w-full max-w-lg;
+}
+
+/* Corazón decorativo del formulario */
+.donate-form-heart {
+  @apply w-12 h-12 mx-auto mb-4 rounded-full bg-gradient-to-br from-emerald-100 to-amber-100 flex items-center justify-center text-emerald-600;
+}
+
+/* Título de la página */
+.donate-form-title {
+  @apply text-2xl sm:text-3xl font-bold text-gray-900;
+}
+
+/* Subtítulo de la página */
+.donate-form-subtitle {
+  @apply text-sm text-gray-500 mt-2;
+}
+
+/* Card del formulario: fondo blanco, bordes redondeados, sombra suave */
+.donate-form-card {
+  @apply bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-emerald-100 p-6 sm:p-8 space-y-5;
+}
+
+/* Mensaje de error global */
+.donate-form-error {
+  @apply bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm;
+}
+
+/* Label de cada campo del formulario */
+.donate-form-label {
+  @apply block text-sm font-semibold text-gray-700 mb-2;
+}
+
+/* Texto de "(opcional)" dentro de un label */
+.donate-form-label-optional {
+  @apply font-normal text-gray-400;
+}
+
+/* Input genérico del formulario */
+.donate-form-input {
+  @apply w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900 placeholder-gray-400;
+}
+
+/* ================================================================
+   3. SELECCIÓN DE MONTO
+   ================================================================ */
+
+/* Contenedor de botones de monto sugerido */
+.donate-amount-grid {
+  @apply flex gap-2 mb-2;
+}
+
+/* Botón de monto sugerido (estado base) */
+.donate-amount-btn {
+  @apply flex-1 py-2.5 rounded-xl text-xs font-semibold border transition-all border-emerald-100 text-gray-600 hover:border-emerald-300 hover:bg-emerald-50;
+}
+
+/* Botón de monto sugerido (estado seleccionado) */
+.donate-amount-btn.active {
+  @apply bg-gradient-to-r from-emerald-600 to-emerald-500 border-emerald-600 text-white shadow-md shadow-emerald-200;
+}
+
+/* ================================================================
+   4. SELECCIÓN DE MEDIO DE PAGO (Radio Cards)
+   ================================================================ */
+
+/* Contenedor de las opciones de pago */
+.donate-payment-options {
+  @apply space-y-2;
+}
+
+/* Cada card de opción de pago (estado base) */
+.donate-payment-option {
+  @apply flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all border-gray-200 hover:border-gray-300;
+}
+
+/* Card de opción seleccionada */
+.donate-payment-option.selected {
+  @apply border-emerald-500 bg-gradient-to-r from-emerald-50 to-amber-50 ring-1 ring-emerald-500;
+}
+
+/* Icono de la opción de pago */
+.donate-payment-icon {
+  @apply text-xl;
+}
+
+/* Contenedor del texto de la opción */
+.donate-payment-text {
+  @apply flex-1 min-w-0;
+}
+
+/* Título de la opción de pago */
+.donate-payment-label {
+  @apply text-sm font-semibold text-gray-900;
+}
+
+/* Descripción de la opción de pago */
+.donate-payment-desc {
+  @apply text-xs text-gray-500;
+}
+
+/* Radio button custom (círculo exterior) */
+.donate-payment-radio {
+  @apply w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 border-gray-300;
+}
+
+/* Radio button custom cuando está seleccionado */
+.donate-payment-radio.selected {
+  @apply border-emerald-500;
+}
+
+/* Punto interior del radio button seleccionado */
+.donate-payment-radio-dot {
+  @apply w-2 h-2 rounded-full bg-emerald-500;
+}
+
+/* ================================================================
+   5. DATOS DEL DONANTE
+   ================================================================ */
+
+/* Select de tipo de documento */
+.donate-doc-select {
+  @apply px-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900 text-sm bg-white;
+}
+
+/* Grid de documento: select + input lado a lado */
+.donate-doc-grid {
+  @apply grid grid-cols-3 gap-2;
+}
+
+/* ================================================================
+   6. BOTÓN DE ENVÍO
+   ================================================================ */
+
+/* Botón principal de donar */
+.donate-submit-btn {
+  @apply w-full h-12 flex items-center justify-center rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 disabled:opacity-60 disabled:cursor-not-allowed text-white text-sm font-bold transition-all shadow-lg shadow-emerald-200 hover:shadow-xl hover:shadow-emerald-300;
+}
+
+/* Contenedor del spinner de carga */
+.donate-submit-spinner {
+  @apply flex items-center gap-2;
+}
+
+/* ================================================================
+   7. CONFIRMACIÓN DE TRANSFERENCIA
+   ================================================================ */
+
+/* Card de confirmación de transferencia */
+.donate-transfer-card {
+  @apply w-full max-w-md bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-emerald-100 p-6 sm:p-8;
+}
+
+/* Encabezado de la confirmación */
+.donate-transfer-header {
+  @apply text-center mb-6;
+}
+
+/* Círculo verde con check */
+.donate-transfer-check {
+  @apply w-14 h-14 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3;
+}
+
+/* Título de la confirmación */
+.donate-transfer-title {
+  @apply text-xl font-bold text-gray-900;
+}
+
+/* Subtítulo de la confirmación */
+.donate-transfer-subtitle {
+  @apply text-sm text-gray-500 mt-1;
+}
+
+/* Contenedor de datos bancarios */
+.donate-transfer-data {
+  @apply space-y-3;
+}
+
+/* Aviso importante sobre la transferencia */
+.donate-transfer-warning {
+  @apply mt-6 p-3 bg-amber-50 border border-amber-200 rounded-xl;
+}
+
+/* Texto del aviso */
+.donate-transfer-warning-text {
+  @apply text-xs text-amber-700 leading-relaxed;
+}
+
+/* Botón de volver al inicio desde la confirmación */
+.donate-transfer-back {
+  @apply mt-5 w-full h-11 flex items-center justify-center rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition-colors;
+}
+
+/* ================================================================
+   8. FILA DE INFORMACIÓN (InfoRow)
+   ================================================================ */
+
+/* Cada fila de dato en la confirmación de transferencia */
+.donate-info-row {
+  @apply flex items-center justify-between py-2 border-b border-gray-100 last:border-0;
+}
+
+/* Label de la fila (izquierda) */
+.donate-info-label {
+  @apply text-xs text-gray-500 uppercase tracking-wider;
+}
+
+/* Valor de la fila (derecha) */
+.donate-info-value {
+  @apply text-sm font-medium text-gray-900 text-right;
+}
+
+/* Badge de estado (ej: "pendiente") */
+.donate-info-badge {
+  @apply text-sm font-semibold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full;
+}
