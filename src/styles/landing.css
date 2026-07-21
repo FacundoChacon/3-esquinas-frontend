@@ -209,9 +209,16 @@
   @apply mb-10;
 }
 
-/* Fila inferior: Descripción + Tarjetas */
+/* Fila inferior: Dos columnas */
 .landing-about-body {
-  @apply max-w-3xl mx-auto;
+  @apply grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start;
+}
+
+.landing-about-subtitle {
+  @apply text-lg font-bold text-gray-900 mb-3;
+}
+:root.dark .landing-about-subtitle {
+  @apply text-white;
 }
 
 .landing-about-title {
@@ -226,26 +233,26 @@
 }
 
 .landing-about-text {
-  @apply leading-relaxed text-gray-600 mb-8;
+  @apply leading-relaxed text-gray-600 mb-4;
 }
 :root.dark .landing-about-text {
   @apply text-gray-400;
 }
 
-/* Grid de tarjetas Misión / Visión / Cómo trabajamos — 2 columnas en content col */
-.landing-about-grid {
-  @apply grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8;
+/* Columna derecha: recorrido */
+.landing-about-cards {
+  @apply space-y-3 mb-6;
 }
 
 .landing-about-card {
-  @apply p-5 rounded-2xl border border-gray-100 bg-gray-50 text-left;
+  @apply flex items-start gap-4 p-4 rounded-2xl border border-gray-100 bg-gray-50 text-left;
 }
 :root.dark .landing-about-card {
   @apply bg-gray-900 border-gray-800;
 }
 
 .landing-about-card-icon {
-  @apply w-9 h-9 rounded-lg flex items-center justify-center mb-3;
+  @apply w-9 h-9 rounded-lg flex items-center justify-center shrink-0;
 }
 .landing-about-card-icon--mission {
   @apply bg-emerald-100 text-emerald-700;
