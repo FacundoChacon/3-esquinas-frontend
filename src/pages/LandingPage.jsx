@@ -406,9 +406,10 @@ export default function LandingPage() {
               <div className="landing-contact-socials">
                 <span className="landing-contact-socials-label">Seguinos en redes</span>
                 <div className="landing-contact-socials-links">
-                  <span className="landing-contact-social-link">Facebook</span>
-                  <span className="landing-contact-social-link">Instagram</span>
-                  <span className="landing-contact-social-link">YouTube</span>
+                  <a href="https://x.com/3esqfundacion" target="_blank" rel="noopener noreferrer" className="landing-contact-social-link">X (Twitter)</a>
+                  <a href="https://instagram.com/Tresesquinasfundacion" target="_blank" rel="noopener noreferrer" className="landing-contact-social-link">Instagram</a>
+                  <a href="https://youtube.com/@FundacionTresEsquinas" target="_blank" rel="noopener noreferrer" className="landing-contact-social-link">YouTube</a>
+                  <a href="mailto:Tresesquinasfundacion@gmail.com" className="landing-contact-social-link">Gmail</a>
                 </div>
               </div>
             </div>
@@ -520,9 +521,10 @@ export default function LandingPage() {
               <span className="landing-footer-contact-item">Maipú, Mendoza — Argentina</span>
             </div>
             <div className="landing-footer-social-row">
-              <span className="landing-footer-social-pill">Facebook</span>
-              <span className="landing-footer-social-pill">Instagram</span>
-              <span className="landing-footer-social-pill">YouTube</span>
+              <a href="https://x.com/3esqfundacion" target="_blank" rel="noopener noreferrer" className="landing-footer-social-pill">X (Twitter)</a>
+              <a href="https://instagram.com/Tresesquinasfundacion" target="_blank" rel="noopener noreferrer" className="landing-footer-social-pill">Instagram</a>
+              <a href="https://youtube.com/@FundacionTresEsquinas" target="_blank" rel="noopener noreferrer" className="landing-footer-social-pill">YouTube</a>
+              <a href="mailto:Tresesquinasfundacion@gmail.com" className="landing-footer-social-pill">Gmail</a>
             </div>
           </div>
         </div>
