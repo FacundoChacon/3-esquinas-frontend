@@ -206,7 +206,7 @@ export default function LandingPage() {
             ) : (
               <Link to="/login" className="landing-nav-btn-outline">Iniciar sesión</Link>
             )}
-            <button onClick={() => scrollTo('contacto')} className="landing-nav-btn-primary">
+            <button onClick={() => scrollTo('donar')} className="landing-nav-btn-primary">
               Donar
             </button>
           </div>
@@ -470,7 +470,7 @@ export default function LandingPage() {
         </div>
 
         {/* ===== DONAR (integrado en Contacto) ===== */}
-        <div className="landing-contact-donate">
+        <div id="donar" className="landing-contact-donate">
           <div className="landing-donate-inner">
             <div className="landing-donate-heart">
               <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
