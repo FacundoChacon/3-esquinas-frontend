@@ -312,29 +312,6 @@
   @apply w-full h-full object-cover;
 }
 
-/* Flechas de navegación del carrusel */
-.landing-about-carousel-arrow {
-  @apply absolute top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm border border-white/20 shadow-lg flex items-center justify-center text-gray-700 hover:bg-white hover:text-emerald-700 transition-all cursor-pointer;
-}
-.landing-about-carousel-arrow--left {
-  @apply left-3;
-}
-.landing-about-carousel-arrow--right {
-  @apply right-3;
-}
-
-/* Indicadores (dots) */
-.landing-about-carousel-dots {
-  @apply absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-10;
-}
-
-.landing-about-carousel-dot {
-  @apply w-2.5 h-2.5 rounded-full bg-white/50 cursor-pointer transition-all;
-}
-.landing-about-carousel-dot.active {
-  @apply bg-white w-6;
-}
-
 /* ================================================================
    4. ODS — Carrusel de tarjetas flip de los 17 ODS
    ================================================================ */

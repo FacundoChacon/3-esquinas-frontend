@@ -65,7 +65,6 @@ export default function LandingPage() {
   const carouselRef = useRef(null)
   const videoRefs = useRef([])
   const [aboutSlide, setAboutSlide] = useState(0)
-  const [aboutPaused, setAboutPaused] = useState(false)
 
   useEffect(() => {
     const container = carouselRef.current
@@ -142,15 +141,6 @@ export default function LandingPage() {
     })
   }, [aboutSlide])
 
-  useEffect(() => {
-    if (aboutPaused) {
-      videoRefs.current.forEach((v) => { if (v) v.pause() })
-    } else {
-      const current = videoRefs.current[aboutSlide]
-      if (current) current.play().catch(() => {})
-    }
-  }, [aboutPaused, aboutSlide])
-
   const toggleODS = (id) => {
     setFlippedODS((prev) => prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id])
   }
@@ -190,7 +180,6 @@ export default function LandingPage() {
   }
 
   const aboutNext = () => setAboutSlide((prev) => (prev + 1) % ABOUT_VIDEOS.length)
-  const aboutPrev = () => setAboutSlide((prev) => (prev - 1 + ABOUT_VIDEOS.length) % ABOUT_VIDEOS.length)
 
   const NAV_ITEMS = [
     { id: 'inicio', label: 'Inicio' },
@@ -282,11 +271,7 @@ export default function LandingPage() {
             <h2 className="landing-about-title">Quiénes somos</h2>
             <div className="landing-about-divider" />
 
-            <div
-              className="landing-about-carousel"
-              onMouseEnter={() => setAboutPaused(true)}
-              onMouseLeave={() => setAboutPaused(false)}
-            >
+            <div className="landing-about-carousel">
               {ABOUT_VIDEOS.map((video, i) => (
                 <div key={i} className={`landing-about-carousel-slide ${i === aboutSlide ? 'active' : ''}`}>
                   <video
@@ -300,26 +285,6 @@ export default function LandingPage() {
                   />
                 </div>
               ))}
-              <button onClick={aboutPrev} className="landing-about-carousel-arrow landing-about-carousel-arrow--left" aria-label="Anterior">
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-                </svg>
-              </button>
-              <button onClick={aboutNext} className="landing-about-carousel-arrow landing-about-carousel-arrow--right" aria-label="Siguiente">
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                </svg>
-              </button>
-              <div className="landing-about-carousel-dots">
-                {ABOUT_VIDEOS.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setAboutSlide(i)}
-                    className={`landing-about-carousel-dot ${i === aboutSlide ? 'active' : ''}`}
-                    aria-label={`Ir a video ${i + 1}`}
-                  />
-                ))}
-              </div>
             </div>
           </div>
 
