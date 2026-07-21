@@ -513,10 +513,10 @@ export default function LandingPage() {
           <div className="landing-footer-nav">
             <span className="landing-footer-nav-title">Enlaces</span>
             <div className="landing-footer-nav-links">
-              <a href="#hero" className="landing-footer-link">Inicio</a>
-              <a href="#somos" className="landing-footer-link">Quiénes somos</a>
-              <a href="#contacto" className="landing-footer-link">Donar</a>
+              <a href="#inicio" className="landing-footer-link">Inicio</a>
+              <a href="#institucional" className="landing-footer-link">Quiénes somos</a>
               <a href="#contacto" className="landing-footer-link">Contacto</a>
+              <Link to="/donar" className="landing-footer-link">Donar</Link>
             </div>
           </div>
 
