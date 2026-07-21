@@ -105,7 +105,9 @@
 }
 
 .landing-hero {
-  @apply px-6 py-12 sm:py-20 bg-gradient-to-br from-emerald-700 via-emerald-600 to-emerald-400 text-white;
+  @apply relative px-6 py-12 sm:py-20 text-white;
+  background: linear-gradient(135deg, rgba(6,95,70,0.85) 0%, rgba(4,120,87,0.8) 30%, rgba(5,150,105,0.7) 60%, rgba(217,119,6,0.6) 100%),
+              url('/images/hero-maipu.jpg') center/cover no-repeat;
   animation: hero-emerge 0.7s ease-out both;
 }
 
@@ -211,7 +213,7 @@
 }
 
 .landing-about-image-placeholder {
-  @apply aspect-[4/3] rounded-2xl border-2 border-dashed border-gray-200 bg-gray-50 flex flex-col items-center justify-center gap-3 text-gray-400;
+  @apply min-h-[500px] rounded-2xl border-2 border-dashed border-gray-200 bg-gray-50 flex flex-col items-center justify-center gap-3 text-gray-400;
 }
 :root.dark .landing-about-image-placeholder {
   @apply border-gray-700 bg-gray-900 text-gray-500;
@@ -381,7 +383,7 @@
 
 /* Placeholder de foto ODS */
 .landing-ods-card-photo {
-  @apply w-full h-28 rounded-xl border-2 border-dashed border-white/30 flex items-center justify-center;
+  @apply w-full h-28 rounded-xl overflow-hidden;
 }
 
 .landing-ods-card-label {
