@@ -149,7 +149,6 @@ export default function LandingPage() {
         v.play().catch(() => {})
       } else {
         v.pause()
-        v.currentTime = 0
       }
     })
   }, [aboutSlide])
