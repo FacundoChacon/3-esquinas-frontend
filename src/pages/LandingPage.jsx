@@ -136,8 +136,16 @@ export default function LandingPage() {
   useEffect(() => {
     videoRefs.current.forEach((v, i) => {
       if (!v) return
+      v.removeEventListener('timeupdate', v._timeUpdateHandler)
       if (i === aboutSlide) {
         v.currentTime = 0
+        v._timeUpdateHandler = () => {
+          if (v.duration && v.currentTime >= v.duration - 0.5) {
+            v.removeEventListener('timeupdate', v._timeUpdateHandler)
+            aboutNext()
+          }
+        }
+        v.addEventListener('timeupdate', v._timeUpdateHandler)
         v.play().catch(() => {})
       } else {
         v.pause()
@@ -286,7 +294,6 @@ export default function LandingPage() {
                     loop={false}
                     playsInline
                     preload={i === 0 ? 'auto' : 'metadata'}
-                    onEnded={aboutNext}
                   />
                 </div>
               ))}
