@@ -527,6 +527,9 @@ export default function LandingPage() {
         {/* ===== DONAR (integrado en Contacto) ===== */}
         <div id="donar" className="landing-contact-donate">
           <div className="landing-donate-inner">
+            <Link to="/donar" className="landing-donate-btn">
+              Donar ahora
+            </Link>
             <div className="landing-donate-heart-wrap">
               <div className="landing-donate-ripple-wrap">
                 <div className="landing-donate-ripple" />
@@ -551,9 +554,6 @@ export default function LandingPage() {
                 <span className="landing-donate-stat-label">de tu aporte se destina a proyectos</span>
               </div>
             </div>
-            <Link to="/donar" className="landing-donate-btn">
-              Donar ahora
-            </Link>
           </div>
         </div>
       </section>
