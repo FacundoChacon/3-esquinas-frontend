@@ -105,11 +105,28 @@
 }
 
 .landing-hero {
-  @apply relative px-6 py-12 sm:py-20 text-white;
-  background: linear-gradient(135deg, rgba(6,95,70,0.55) 0%, rgba(4,120,87,0.50) 30%, rgba(5,150,105,0.45) 60%, rgba(217,119,6,0.35) 100%),
-              url('/images/about/maipu-aerea.jpg') center/cover no-repeat;
+  @apply relative px-6 py-12 sm:py-20 text-white overflow-hidden;
   animation: hero-emerge 0.7s ease-out both;
   text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.landing-hero-video-bg {
+  @apply absolute inset-0 w-full h-full overflow-hidden;
+}
+
+.landing-hero-video {
+  @apply absolute inset-0 w-full h-full object-cover;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.landing-hero-video.active {
+  opacity: 1;
+}
+
+.landing-hero-overlay {
+  @apply absolute inset-0;
+  background: linear-gradient(135deg, rgba(6,95,70,0.55) 0%, rgba(4,120,87,0.50) 30%, rgba(5,150,105,0.45) 60%, rgba(217,119,6,0.35) 100%);
 }
 
 /* Contenedor del hero: layout flexible, responsive column/row */
@@ -292,32 +309,7 @@
   @apply inline-flex items-center gap-2 px-6 py-2.5 rounded-full font-semibold text-sm bg-emerald-600 text-white hover:bg-emerald-700 transition-colors;
 }
 
-/* ================================================================
-   3b. CARRUSEL DE IMÁGENES — Quiénes somos
-   ================================================================ */
 
-.landing-about-carousel {
-  @apply relative w-full rounded-2xl overflow-hidden mt-6;
-  aspect-ratio: 16/7;
-  min-height: 300px;
-}
-
-.landing-about-carousel-slide {
-  @apply absolute inset-0 w-full h-full;
-  opacity: 0;
-  transition: opacity 0.8s ease-in-out;
-  pointer-events: none;
-}
-
-.landing-about-carousel-slide.active {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.landing-about-carousel-slide img,
-.landing-about-carousel-slide video {
-  @apply w-full h-full object-cover;
-}
 
 /* ================================================================
    4. ODS — Carrusel de tarjetas flip de los 17 ODS

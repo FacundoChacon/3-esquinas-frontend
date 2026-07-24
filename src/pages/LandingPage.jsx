@@ -249,6 +249,21 @@ export default function LandingPage() {
 
       {/* ===== HERO ===== */}
       <section id="inicio" className="landing-hero">
+        <div className="landing-hero-video-bg">
+          {ABOUT_VIDEOS.map((video, i) => (
+            <video
+              key={i}
+              ref={(el) => { videoRefs.current[i] = el }}
+              src={video.src}
+              muted
+              loop={false}
+              playsInline
+              preload={i === 0 ? 'auto' : 'metadata'}
+              className={`landing-hero-video ${i === aboutSlide ? 'active' : ''}`}
+            />
+          ))}
+        </div>
+        <div className="landing-hero-overlay" />
         <div className="landing-hero-inner">
           <div className="landing-hero-text-block">
             <div className="landing-hero-tag">
@@ -278,26 +293,8 @@ export default function LandingPage() {
       <section id="institucional" className="landing-about">
         <div className="landing-about-inner">
 
-          {/* Fila superior: Título + Carrusel */}
-          <div className="landing-about-header">
-            <h2 className="landing-about-title">Quiénes somos</h2>
-            <div className="landing-about-divider" />
-
-            <div className="landing-about-carousel">
-              {ABOUT_VIDEOS.map((video, i) => (
-                <div key={i} className={`landing-about-carousel-slide ${i === aboutSlide ? 'active' : ''}`}>
-                  <video
-                    ref={(el) => { videoRefs.current[i] = el }}
-                    src={video.src}
-                    muted
-                    loop={false}
-                    playsInline
-                    preload={i === 0 ? 'auto' : 'metadata'}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+          <h2 className="landing-about-title">Quiénes somos</h2>
+          <div className="landing-about-divider" />
 
           {/* Fila inferior: Texto izquierda + Recorrido derecha */}
           <div className="landing-about-body">
