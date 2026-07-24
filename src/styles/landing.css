@@ -504,6 +504,7 @@
 }
 
 /* --- Animación de latido + ondas en sección Donar --- */
+/* Heartbeat: 1.2s, doble pum a los 14% (0.17s) y 42% (0.50s) */
 
 @keyframes donate-heartbeat {
   0%   { transform: scale(1); }
@@ -514,18 +515,21 @@
   100% { transform: scale(1); }
 }
 
-@keyframes donate-ripple {
-  0% {
-    transform: scale(0.5);
-    opacity: 0.6;
-  }
-  100% {
-    transform: scale(3);
-    opacity: 0;
-  }
+@keyframes donate-yellow-pulse {
+  0%   { background: rgba(255,255,255,0.15); box-shadow: none; }
+  13%  { background: rgba(255,255,255,0.15); box-shadow: none; }
+  14%  { background: rgba(251,191,36,0.85); box-shadow: 0 0 20px rgba(251,191,36,0.5), 0 0 40px rgba(251,191,36,0.25); }
+  28%  { background: rgba(255,255,255,0.15); box-shadow: none; }
+  41%  { background: rgba(255,255,255,0.15); box-shadow: none; }
+  42%  { background: rgba(251,191,36,0.85); box-shadow: 0 0 20px rgba(251,191,36,0.5), 0 0 40px rgba(251,191,36,0.25); }
+  70%  { background: rgba(255,255,255,0.15); box-shadow: none; }
+  100% { background: rgba(255,255,255,0.15); box-shadow: none; }
 }
 
-
+@keyframes donate-ripple {
+  0%   { transform: scale(0.5); opacity: 0.6; }
+  100% { transform: scale(3); opacity: 0; }
+}
 
 /* Contenedor de ondas: relativo para posicionar los anillos */
 .landing-donate-ripple-wrap {
@@ -541,24 +545,25 @@
   animation: none;
 }
 
-/* Hover en la sección → activar heart + ondas + fondo amarillo del círculo */
+/* Hover → latido + fondo amarillo + ondas sincronizadas al "pum" */
 .landing-contact-donate:hover .landing-donate-heart {
-  animation: donate-heartbeat 1.2s ease-in-out infinite;
-  background: rgba(251, 191, 36, 0.85);
-  box-shadow: 0 0 20px rgba(251, 191, 36, 0.5), 0 0 40px rgba(251, 191, 36, 0.25);
-  transition: background 0.3s ease, box-shadow 0.3s ease;
+  animation:
+    donate-heartbeat 1.2s ease-in-out infinite,
+    donate-yellow-pulse 1.2s ease-in-out infinite;
 }
 
-.landing-contact-donate:hover .landing-donate-ripple {
-  animation: donate-ripple 2s ease-out infinite;
+/* Ondas: 0.17s y 0.50s = momentos exactos del "pum" (14% y 42% de 1.2s) */
+.landing-contact-donate:hover .landing-donate-ripple:nth-child(1) {
+  animation: donate-ripple 1.2s ease-out infinite;
+  animation-delay: 0.17s;
 }
-
 .landing-contact-donate:hover .landing-donate-ripple:nth-child(2) {
-  animation-delay: 0.4s;
+  animation: donate-ripple 1.2s ease-out infinite;
+  animation-delay: 0.50s;
 }
-
 .landing-contact-donate:hover .landing-donate-ripple:nth-child(3) {
-  animation-delay: 0.8s;
+  animation: donate-ripple 1.2s ease-out infinite;
+  animation-delay: 0.67s;
 }
 
 
