@@ -504,7 +504,7 @@
 }
 
 /* --- Animación de latido + ondas en sección Donar --- */
-/* Heartbeat: 2.5s, doble pum a los 14% (0.35s) y 42% (1.05s) */
+/* Heartbeat: 2.0s, doble pum a los 14% (0.28s) y 42% (0.84s) */
 
 @keyframes donate-heartbeat {
   0%   { transform: scale(1); }
@@ -545,22 +545,22 @@
 /* Hover → latido + fondo amarillo + ondas sincronizadas al "pum" */
 .landing-contact-donate:hover .landing-donate-heart {
   animation:
-    donate-heartbeat 2.5s ease-in-out infinite,
-    donate-yellow-pulse 2.5s ease-in-out infinite;
+    donate-heartbeat 2s ease-in-out infinite,
+    donate-yellow-pulse 2s ease-in-out infinite;
 }
 
-/* Ondas: 0.35s y 1.05s = momentos exactos del "pum" (14% y 42% de 2.5s) */
+/* Ondas: 0.28s y 0.84s = momentos exactos del "pum" (14% y 42% de 2s) */
 .landing-contact-donate:hover .landing-donate-ripple:nth-child(1) {
-  animation: donate-ripple 2.5s ease-out infinite;
-  animation-delay: 0.35s;
+  animation: donate-ripple 2s ease-out infinite;
+  animation-delay: 0.28s;
 }
 .landing-contact-donate:hover .landing-donate-ripple:nth-child(2) {
-  animation: donate-ripple 2.5s ease-out infinite;
-  animation-delay: 1.05s;
+  animation: donate-ripple 2s ease-out infinite;
+  animation-delay: 0.84s;
 }
 .landing-contact-donate:hover .landing-donate-ripple:nth-child(3) {
-  animation: donate-ripple 2.5s ease-out infinite;
-  animation-delay: 1.40s;
+  animation: donate-ripple 2s ease-out infinite;
+  animation-delay: 1.12s;
 }
 
 
