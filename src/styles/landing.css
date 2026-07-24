@@ -131,7 +131,7 @@
 
 /* Contenedor del hero: layout flexible, responsive column/row */
 .landing-hero-inner {
-  @apply max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-12;
+  @apply relative max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-12 z-10;
 }
 
 /* Bloque de texto del hero */
