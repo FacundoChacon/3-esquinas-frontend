@@ -541,7 +541,7 @@
 
 /* Anillo de onda: círculo invisible que se expande y desvanece */
 .landing-donate-ripple {
-  @apply absolute rounded-full border-2 border-emerald-900/40;
+  @apply absolute rounded-full border-4 border-emerald-900/40;
   width: 80px;
   height: 80px;
   opacity: 0;
