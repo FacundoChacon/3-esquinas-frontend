@@ -525,11 +525,7 @@
   }
 }
 
-@keyframes donate-bg-pulse {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
+
 
 /* Contenedor de ondas: relativo para posicionar los anillos */
 .landing-donate-ripple-wrap {
@@ -545,16 +541,12 @@
   animation: none;
 }
 
-/* Hover en la sección → activar heart + ondas + fondo */
-.landing-contact-donate:hover {
-  background: linear-gradient(135deg, #d97706 0%, #f59e0b 30%, #fbbf24 60%, #fde68a 100%) !important;
-  background-size: 200% 200% !important;
-  animation: donate-bg-pulse 3s ease infinite;
-  transition: background 0.6s ease;
-}
-
+/* Hover en la sección → activar heart + ondas + fondo amarillo del círculo */
 .landing-contact-donate:hover .landing-donate-heart {
   animation: donate-heartbeat 1.2s ease-in-out infinite;
+  background: rgba(251, 191, 36, 0.85);
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.5), 0 0 40px rgba(251, 191, 36, 0.25);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .landing-contact-donate:hover .landing-donate-ripple {
@@ -569,10 +561,7 @@
   animation-delay: 0.8s;
 }
 
-/* Transición suave del fondo al salir del hover */
-.landing-contact-donate {
-  transition: background 0.6s ease;
-}
+
 
 /* ================================================================
    6. CONTACTO — Sección de contacto expandida
