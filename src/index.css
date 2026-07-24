@@ -17,11 +17,13 @@ body {
   margin: 0;
   background: #f8fafc;
   font-family: system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
 }
 
 /* Scroll suave para toda la aplicación */
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 /* Estilos para scrollbar personalizada (opcional) */
