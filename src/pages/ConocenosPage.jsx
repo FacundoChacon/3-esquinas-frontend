@@ -181,7 +181,7 @@ export default function ConocenosPage() {
             <a href="https://x.com/3esqfundacion" target="_blank" rel="noopener noreferrer" className="landing-footer-social-link">X (Twitter)</a>
             <a href="https://instagram.com/Tresesquinasfundacion" target="_blank" rel="noopener noreferrer" className="landing-footer-social-link">Instagram</a>
             <a href="https://youtube.com/@FundacionTresEsquinas" target="_blank" rel="noopener noreferrer" className="landing-footer-social-link">YouTube</a>
-            <a href="mailto:Tresesquinasfundacion@gmail.com" className="landing-footer-social-link">Gmail</a>
+            <a href="mailto:tresesquinasfundacion@gmail.com" className="landing-footer-social-link">Gmail</a>
           </div>
           <div className="landing-footer-location">Maipú, Mendoza — Argentina</div>
         </div>

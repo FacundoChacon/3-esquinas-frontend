@@ -85,7 +85,7 @@ Sección adicional para ofrecer cursos y seminarios online. Presupuesto por apar
 | X (Twitter) | [@3esqfundacion](https://x.com/3esqfundacion) |
 | Instagram | [@Tresesquinasfundacion](https://instagram.com/Tresesquinasfundacion) |
 | YouTube | [Fundación Tres Esquinas](https://youtube.com/@FundacionTresEsquinas) |
-| Gmail | Tresesquinasfundacion@gmail.com |
+| Gmail | tresesquinasfundacion@gmail.com |
 
 ## Seguridad
 - JWT stateless (sin sesiones HTTP)
