@@ -140,6 +140,9 @@ Sección adicional para ofrecer cursos y seminarios online. Presupuesto por apar
 
 ## Changelog
 
+### 2026-07-25
+- **fix:** Normalizado gmail a minúsculas (`Tresesquinasfundacion@gmail.com` → `tresesquinasfundacion@gmail.com`) en LandingPage, ConocenosPage y summary.md
+
 ### 2026-07-17
 - **feat:** Sección de donaciones integrada dentro de la sección de contacto (landing page unificada)
 - **feat:** Botón "Donar" del navbar ahora hace scroll a la sección de contacto
