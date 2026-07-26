@@ -339,9 +339,9 @@
   @apply text-gray-400;
 }
 
-/* Carrusel wrapper — relative para posicionar flechas, overflow-hidden para flechas */
+/* Carrusel wrapper — relative para posicionar flechas */
 .landing-ods-carousel-wrapper {
-  @apply relative overflow-hidden;
+  @apply relative;
 }
 
 /* Contenedor scrollable horizontal con snap centrado */
