@@ -18,9 +18,9 @@
    1. NAVBAR — Barra de navegación superior sticky con blur
    ================================================================ */
 
-/* Contenedor principal del navbar: estático, borde inferior, fondo semitransparente con blur */
+/* Contenedor principal del navbar: sticky arriba, borde inferior, fondo semitransparente con blur */
 .landing-nav {
-  @apply z-30 border-b border-gray-200 bg-white/80 backdrop-blur-md;
+  @apply sticky top-0 z-30 border-b border-gray-200 bg-white/80 backdrop-blur-md;
 }
 :root.dark .landing-nav {
   @apply border-gray-800 bg-gray-950/80;
