@@ -11,6 +11,14 @@ import { useDarkMode } from '../context/DarkModeContext'
 
 const EMPTY_FORM = { descripcion: '', valor: '', categoria: '' }
 
+const CATEGORIAS = [
+  { value: '', label: 'Todas las categorías' },
+  { value: 'general', label: 'General' },
+  { value: 'proyectos', label: 'Proyectos' },
+  { value: 'finanzas', label: 'Finanzas' },
+  { value: 'donantes', label: 'Donantes' },
+]
+
 export default function DatosTable() {
   const { dark } = useDarkMode()
   const [data, setData] = useState([])
@@ -25,16 +33,26 @@ export default function DatosTable() {
   const [filterCat, setFilterCat] = useState('')
   const mode = dark ? 'dark' : 'light'
 
-  const fetchData = useCallback(async () => {
+  const fetchData = useCallback(async (signal) => {
     setLoading(true)
     try {
       let res = filterCat ? await datosService.getByCategoria(filterCat) : await datosService.getAll(page, 10)
-      if (Array.isArray(res)) { setData(res); setTotalPages(1) }
-      else { setData(res.content || []); setTotalPages(res.totalPages || 1) }
-    } catch { setData([]) } finally { setLoading(false) }
+      if (!signal.aborted) {
+        if (Array.isArray(res)) { setData(res); setTotalPages(1) }
+        else { setData(res.content || []); setTotalPages(res.totalPages || 1) }
+      }
+    } catch {
+      if (!signal.aborted) setData([])
+    } finally {
+      if (!signal.aborted) setLoading(false)
+    }
   }, [page, filterCat])
 
-  useEffect(() => { fetchData() }, [fetchData])
+  useEffect(() => {
+    const controller = new AbortController()
+    fetchData(controller.signal)
+    return () => controller.abort()
+  }, [fetchData])
 
   const handleOpenNew = () => { setForm(EMPTY_FORM); setEditingId(null); setShowForm(true); setError('') }
   const handleEdit = (row) => { setForm({ descripcion: row.descripcion || '', valor: row.valor || '', categoria: row.categoria || '' }); setEditingId(row.id); setShowForm(true); setError('') }
@@ -68,11 +86,9 @@ export default function DatosTable() {
           onChange={(e) => { setFilterCat(e.target.value); setPage(0) }}
           className={`datos-filter-select ${mode}`}
         >
-          <option value="">Todas las categorías</option>
-          <option value="general">General</option>
-          <option value="proyectos">Proyectos</option>
-          <option value="finanzas">Finanzas</option>
-          <option value="donantes">Donantes</option>
+          {CATEGORIAS.map((c) => (
+            <option key={c.value} value={c.value}>{c.label}</option>
+          ))}
         </select>
       </div>
 
@@ -95,11 +111,9 @@ export default function DatosTable() {
               <div>
                 <label className={`datos-modal-label ${mode}`}>Categoría</label>
                 <select value={form.categoria} onChange={(e) => setForm({ ...form, categoria: e.target.value })} className={`datos-input ${mode}`}>
-                  <option value="">Sin categoría</option>
-                  <option value="general">General</option>
-                  <option value="proyectos">Proyectos</option>
-                  <option value="finanzas">Finanzas</option>
-                  <option value="donantes">Donantes</option>
+                  {CATEGORIAS.filter((c) => c.value !== '').map((c) => (
+                    <option key={c.value} value={c.value}>{c.label}</option>
+                  ))}
                 </select>
               </div>
               {error && <div className="bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-3 py-2 rounded-lg text-sm">{error}</div>}

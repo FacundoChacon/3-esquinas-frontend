@@ -34,11 +34,18 @@ export default function ProtectedRoute({ roles }) {
       setChecking(false)
       return
     }
+    let cancelled = false
     const verify = async () => {
-      await checkSession()
-      setChecking(false)
+      try {
+        await checkSession()
+      } catch {
+        // checkSession failed, user will be redirected
+      } finally {
+        if (!cancelled) setChecking(false)
+      }
     }
     verify()
+    return () => { cancelled = true }
   }, [isAuthenticated, checkSession])
 
   if (checking) {

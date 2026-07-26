@@ -13,7 +13,6 @@
  * Cada clase se importa en LandingPage.jsx y reemplaza los utilitarios inline.
  * Modificar una sección solo toca este archivo.
  */
-@import "tailwindcss";
 
 /* ================================================================
    1. NAVBAR — Barra de navegación superior sticky con blur

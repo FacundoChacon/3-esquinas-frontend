@@ -8,25 +8,20 @@
 import { useState, useEffect } from 'react'
 import { dashboardService } from '../services/apiService'
 import { useDarkMode } from '../context/DarkModeContext'
-
-function formatMonth(mes) {
-  if (!mes) return ''
-  const [, month] = mes.split('-')
-  const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
-  return months[parseInt(month, 10) - 1] || mes
-}
+import { formatMonth } from '../utils/formatters'
 
 export default function IncomeChart() {
   const { dark } = useDarkMode()
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
   const mode = dark ? 'dark' : 'light'
 
   useEffect(() => {
     let cancelled = false
     dashboardService.getIngresos()
       .then((res) => { if (!cancelled && Array.isArray(res)) setData(res) })
-      .catch(() => {})
+      .catch((err) => { if (!cancelled) setError(err.message) })
       .finally(() => { if (!cancelled) setLoading(false) })
     return () => { cancelled = true }
   }, [])
@@ -46,6 +41,7 @@ export default function IncomeChart() {
     <div className={`chart-container ${mode}`}>
       <h3 className={`chart-title ${mode}`}>Ingresos mensuales</h3>
 
+      {error && <div className="text-xs text-amber-500 mb-2">Error al cargar datos: {error}</div>}
       {data.length === 0 ? (
         <div className={`h-40 flex items-center justify-center text-sm ${dark ? 'text-gray-500' : 'text-gray-400'}`}>Sin datos de ingresos</div>
       ) : (

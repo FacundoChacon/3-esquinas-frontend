@@ -1,12 +1,4 @@
-/**
- * DarkModeContext.jsx — Context de modo oscuro
- *
- * Administra el estado del modo oscuro en toda la app.
- * Persiste la preferencia en localStorage.
- *
- * Pertenece a: Fase 5 — Dark mode
- */
-import { createContext, useContext, useState, useEffect, useCallback } from 'react'
+import { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react'
 
 const DarkModeContext = createContext(null)
 
@@ -26,8 +18,10 @@ export function DarkModeProvider({ children }) {
 
   const toggle = useCallback(() => setDark((d) => !d), [])
 
+  const value = useMemo(() => ({ dark, toggle }), [dark, toggle])
+
   return (
-    <DarkModeContext.Provider value={{ dark, toggle }}>
+    <DarkModeContext.Provider value={value}>
       {children}
     </DarkModeContext.Provider>
   )

@@ -10,23 +10,13 @@
 import { useState, useEffect } from 'react'
 import { dashboardService } from '../services/apiService'
 import { useDarkMode } from '../context/DarkModeContext'
+import { formatCurrency, formatDate } from '../utils/formatters'
 
 const FALLBACK_KPIS = {
   totalRecaudado: 0,
   donantesRegistrados: 0,
   cuponesEmitidos: 0,
   ultimaDonacion: null,
-}
-
-function formatCurrency(value) {
-  const num = Number(value) || 0
-  return '$' + num.toLocaleString('es-AR')
-}
-
-function formatDate(dateStr) {
-  if (!dateStr) return '—'
-  const d = new Date(dateStr)
-  return d.toLocaleDateString('es-AR', { day: 'numeric', month: 'short', year: 'numeric' })
 }
 
 const KPI_CONFIGS = [

@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { donacionService } from '../services/donacionService'
+import { useDarkMode } from '../context/DarkModeContext'
 
 const PASARELAS = [
   { id: 'transferencia', label: 'Transferencia bancaria', icon: '🏦', desc: 'Transferí directamente a nuestra cuenta' },
   { id: 'mercadopago', label: 'Mercado Pago', icon: '💳', desc: 'Pagá con tarjeta, débito o cuenta MP' },
-  { id: 'payPal', label: 'PayPal', icon: '🌐', desc: 'Donación internacional en USD' },
+  { id: 'paypal', label: 'PayPal', icon: '🌐', desc: 'Donación internacional en USD' },
 ]
 
 const MONTOS_SUGERIDOS = [1000, 2000, 5000, 10000]
@@ -21,6 +22,7 @@ export default function DonatePage() {
     donanteTipoDocumento: '',
     donanteNumeroDocumento: '',
   })
+  const { dark } = useDarkMode()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [transferencia, setTransferencia] = useState(null)
@@ -54,10 +56,11 @@ export default function DonatePage() {
         setTransferencia(res)
       } else if (form.pasarela === 'mercadopago') {
         const res = await donacionService.crearMercadoPago(payload)
-        window.location.href = res.init_point || res.sandbox_init_point
-      } else if (form.pasarela === 'payPal') {
+        const mpUrl = res.init_point || res.sandbox_init_point
+        if (mpUrl) { window.location.href = mpUrl } else { setError('No se pudo generar el enlace de pago. Intentá nuevamente.') }
+      } else if (form.pasarela === 'paypal') {
         const res = await donacionService.crearPayPal(payload)
-        window.location.href = res.approval_url
+        if (res.approval_url) { window.location.href = res.approval_url } else { setError('No se pudo generar el enlace de PayPal. Intentá nuevamente.') }
       }
     } catch (err) {
       setError(err.message || 'Error al procesar la donación')
@@ -66,10 +69,12 @@ export default function DonatePage() {
     }
   }
 
+  const mode = dark ? 'dark' : 'light'
+
   /* ========== VISTA: CONFIRMACIÓN DE TRANSFERENCIA ========== */
   if (transferencia) {
     return (
-      <div className="donate-page">
+      <div className={`donate-page ${mode}`}>
         <nav className="donate-nav">
           <div className="donate-nav-inner">
             <Link to="/" className="donate-nav-logo">
@@ -121,7 +126,7 @@ export default function DonatePage() {
 
   /* ========== VISTA: FORMULARIO DE DONACIÓN ========== */
   return (
-    <div className="donate-page">
+    <div className={`donate-page ${mode}`}>
       <nav className="donate-nav">
         <div className="donate-nav-inner">
           <Link to="/" className="donate-nav-logo">

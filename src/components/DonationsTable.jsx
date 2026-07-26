@@ -8,15 +8,7 @@
 import { useState, useEffect } from 'react'
 import { dashboardService } from '../services/apiService'
 import { useDarkMode } from '../context/DarkModeContext'
-
-function formatDate(dateStr) {
-  if (!dateStr) return '—'
-  return new Date(dateStr).toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric' })
-}
-
-function formatCurrency(value) {
-  return '$' + (Number(value) || 0).toLocaleString('es-AR')
-}
+import { formatCurrency, formatDate } from '../utils/formatters'
 
 const ESTADO_STYLES = {
   confirmado: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400',

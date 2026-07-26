@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useDarkMode } from '../context/DarkModeContext'
+import Footer from '../components/Footer'
 
 const TEAM_MEMBERS = [
   {
@@ -171,21 +172,7 @@ export default function ConocenosPage() {
       </section>
 
       {/* FOOTER */}
-      <footer className="landing-footer">
-        <div className="landing-footer-inner">
-          <div className="landing-footer-brand">
-            <img src="/images/logo-3esquinas.png" alt="3 Esquinas" className="landing-footer-logo" />
-            <span className="landing-footer-name">3 Esquinas</span>
-          </div>
-          <div className="landing-footer-social">
-            <a href="https://x.com/3esqfundacion" target="_blank" rel="noopener noreferrer" className="landing-footer-social-link">X (Twitter)</a>
-            <a href="https://instagram.com/Tresesquinasfundacion" target="_blank" rel="noopener noreferrer" className="landing-footer-social-link">Instagram</a>
-            <a href="https://youtube.com/@FundacionTresEsquinas" target="_blank" rel="noopener noreferrer" className="landing-footer-social-link">YouTube</a>
-            <a href="mailto:tresesquinasfundacion@gmail.com" className="landing-footer-social-link">Gmail</a>
-          </div>
-          <div className="landing-footer-location">Maipú, Mendoza — Argentina</div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

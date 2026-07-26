@@ -1,17 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
-
-function validateField(name, value) {
-  if (!value || !value.trim()) {
-    if (name === 'email') return 'El email es obligatorio'
-    if (name === 'password') return 'La contraseña es obligatoria'
-  }
-  if (name === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-    return 'El email debe ser válido'
-  }
-  return ''
-}
+import { validateField } from '../utils/validations'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
