@@ -278,3 +278,131 @@
 .donate-info-badge {
   @apply text-sm font-semibold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full;
 }
+
+/* ================================================================
+   9. MODO OSCURO
+   ================================================================ */
+
+.donate-page.dark {
+  background: linear-gradient(180deg, #0a1f12 0%, #0c1a10 40%, #1a1508 100%);
+}
+
+.donate-page.dark .donate-nav {
+  @apply border-gray-800 bg-gray-950/80;
+}
+
+.donate-page.dark .donate-nav-logo-text {
+  @apply text-white;
+}
+
+.donate-page.dark .donate-nav-back {
+  @apply text-gray-400 hover:text-white;
+}
+
+.donate-page.dark .donate-form-heart {
+  @apply bg-gray-800 text-emerald-400;
+}
+
+.donate-page.dark .donate-form-title {
+  @apply text-white;
+}
+
+.donate-page.dark .donate-form-subtitle {
+  @apply text-gray-400;
+}
+
+.donate-page.dark .donate-form-card {
+  @apply bg-gray-900/90 border-gray-800;
+}
+
+.donate-page.dark .donate-form-error {
+  @apply bg-red-900/30 border-red-800 text-red-300;
+}
+
+.donate-page.dark .donate-form-label {
+  @apply text-gray-300;
+}
+
+.donate-page.dark .donate-form-label-optional {
+  @apply text-gray-500;
+}
+
+.donate-page.dark .donate-form-input {
+  @apply bg-gray-800 border-gray-700 text-white placeholder-gray-500;
+}
+
+.donate-page.dark .donate-amount-btn {
+  @apply border-gray-700 text-gray-400 hover:border-emerald-600 hover:bg-gray-800;
+}
+
+.donate-page.dark .donate-amount-btn.active {
+  @apply bg-gradient-to-r from-emerald-600 to-emerald-500 border-emerald-600 text-white;
+}
+
+.donate-page.dark .donate-payment-option {
+  @apply border-gray-700 hover:border-gray-600;
+}
+
+.donate-page.dark .donate-payment-option.selected {
+  @apply border-emerald-500 bg-gradient-to-r from-emerald-900/30 to-amber-900/20;
+}
+
+.donate-page.dark .donate-payment-label {
+  @apply text-white;
+}
+
+.donate-page.dark .donate-payment-desc {
+  @apply text-gray-400;
+}
+
+.donate-page.dark .donate-payment-radio {
+  @apply border-gray-600;
+}
+
+.donate-page.dark .donate-doc-select {
+  @apply bg-gray-800 border-gray-700 text-white;
+}
+
+.donate-page.dark .donate-submit-btn {
+  @apply shadow-emerald-900/30;
+}
+
+.donate-page.dark .donate-transfer-card {
+  @apply bg-gray-900/90 border-gray-800;
+}
+
+.donate-page.dark .donate-transfer-check {
+  @apply bg-emerald-900/40;
+}
+
+.donate-page.dark .donate-transfer-title {
+  @apply text-white;
+}
+
+.donate-page.dark .donate-transfer-subtitle {
+  @apply text-gray-400;
+}
+
+.donate-page.dark .donate-transfer-warning {
+  @apply bg-amber-900/20 border-amber-800;
+}
+
+.donate-page.dark .donate-transfer-warning-text {
+  @apply text-amber-300;
+}
+
+.donate-page.dark .donate-info-row {
+  @apply border-gray-800;
+}
+
+.donate-page.dark .donate-info-label {
+  @apply text-gray-500;
+}
+
+.donate-page.dark .donate-info-value {
+  @apply text-white;
+}
+
+.donate-page.dark .donate-info-badge {
+  @apply text-amber-400 bg-amber-900/30;
+}
