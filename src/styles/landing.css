@@ -693,7 +693,7 @@
 }
 
 .landing-contact-socials-links {
-  @apply flex gap-3;
+  @apply flex flex-wrap gap-3;
 }
 
 .landing-contact-social-link {
@@ -829,7 +829,7 @@
 }
 
 .landing-footer-social-row {
-  @apply flex gap-2 mt-1;
+  @apply flex flex-wrap gap-2 mt-1;
 }
 
 .landing-footer-social-pill {
