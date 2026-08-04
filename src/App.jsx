@@ -13,6 +13,7 @@ import RegisterPage from './pages/RegisterPage'
 import DashboardPage from './pages/DashboardPage'
 import DonacionesPage from './pages/DonacionesPage'
 import DatosPage from './pages/DatosPage'
+import ContactosPage from './pages/ContactosPage'
 
 function TokenBridge() {
   const { accessToken, refresh } = useAuth()
@@ -50,6 +51,7 @@ export default function App() {
             <Route element={<AdminLayout />}>
               <Route path="/admin" element={<DashboardPage />} />
               <Route path="/admin/donaciones" element={<DonacionesPage />} />
+              <Route path="/admin/contactos" element={<ContactosPage />} />
               <Route path="/admin/datos" element={<DatosPage />} />
             </Route>
           </Route>

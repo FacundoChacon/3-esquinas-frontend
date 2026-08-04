@@ -49,4 +49,16 @@ export const contactService = {
       body: JSON.stringify(data),
     })
   },
+  listar(page = 0, size = 20) {
+    return apiRequest(`/contactos?page=${page}&size=${size}`)
+  },
+  contarNoLeidos() {
+    return apiRequest('/contactos/no-leidos')
+  },
+  marcarLeido(id) {
+    return apiRequest(`/contactos/${id}/leido`, { method: 'PATCH' })
+  },
+  eliminar(id) {
+    return apiRequest(`/contactos/${id}`, { method: 'DELETE' })
+  },
 }

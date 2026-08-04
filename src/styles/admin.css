@@ -656,3 +656,33 @@
 .table-pagination-info.dark {
   @apply text-gray-500;
 }
+
+/* ================================================================
+   14. TABLA DE CONTACTOS (bandeja de mensajes)
+   ================================================================ */
+
+/* Fila de encabezados de columnas */
+.contactos-table-head {
+  @apply grid grid-cols-7 gap-0 text-[10px] font-semibold uppercase tracking-wider px-5 py-2.5 border-b;
+}
+
+.contactos-table-head.light {
+  @apply bg-gray-50 text-gray-500 border-gray-100;
+}
+
+.contactos-table-head.dark {
+  @apply bg-gray-700/50 text-gray-400 border-gray-700;
+}
+
+/* Cada fila de datos */
+.contactos-table-row {
+  @apply grid grid-cols-7 gap-0 text-xs px-5 py-3 transition-colors items-center;
+}
+
+.contactos-table-row.light {
+  @apply text-gray-700 hover:bg-gray-50;
+}
+
+.contactos-table-row.dark {
+  @apply text-gray-300 hover:bg-gray-700/50;
+}
