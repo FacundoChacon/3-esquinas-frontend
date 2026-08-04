@@ -196,6 +196,22 @@ Sección adicional para ofrecer cursos y seminarios online. Presupuesto por apar
 
 ## Changelog
 
+### 2026-08-04 — Landing: sección de donaciones + contraste y responsive
+
+#### Sección de donaciones (`DonateSection.jsx` / `landing.css`)
+- **fix:** Eliminada la luz que recorría el borde del cuadro de donaciones (sistema `glows[]` removido del canvas)
+- **style:** El fondo ahora es más claro arriba a la izquierda y se oscurece hacia abajo a la derecha (gradiente invertido: `#0d9488` → `#052e24`)
+- **style:** En modo claro el gradiente tiene más contraste (arranca en teal brillante `#2dd4bf` y baja a verde casi negro `#042f2e`); en modo oscuro se mantiene el tono suave original vía `:root.dark`
+
+#### Contraste entre secciones del landing (modo claro)
+- **style:** Las secciones alternan ahora de forma diferenciable: Quiénes somos (blanco) → ODS (`gray-100`, luego `gray-200`) → Contactanos (blanco) → Colaborar (`gray-100`, luego `gray-200`) → Donaciones (tarjeta verde oscura) → Footer (`gray-900`)
+- **style:** Reforzados los contrastes internos de cada sección: tarjetas de "Quiénes somos" (`gray-100` + borde `gray-200` + sombra), caja del formulario de contacto (`gray-100` + borde `gray-200`), tarjeta de Colaborar (blanca, borde `gray-300` + sombra), reverso de tarjetas ODS y flechas del carrusel (borde `gray-300`), links de redes (con borde), campos de formulario (borde `gray-400`), íconos de canales de contacto (emerald más intenso)
+
+#### Responsive / overflow horizontal en móvil
+- **fix:** Línea blanca a la derecha en celulares: la fila de **redes sociales de Contactanos** no cabía en pantallas chicas (~58px de exceso) y desbordaba el ancho de la página
+- **fix:** Agregado `flex-wrap` a `.landing-contact-socials-links` y `.landing-footer-social-row`
+- **verificado:** Diagnóstico con navegador headless (CDP) en 320, 360, 390 y 412px: `scrollWidth` = viewport, sin elementos desbordados
+
 ### 2026-07-26 — Auditoría de Frontend + Backend
 
 #### Frontend — Code Review (6 rondas)
