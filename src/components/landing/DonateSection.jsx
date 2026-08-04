@@ -72,23 +72,12 @@ export default function DonateSection() {
 
     const bandWidth = Math.max(50, height * 0.16)
 
-    /* Brillo del sol: entra de forma aleatoria por distintos lados y con tamaño variable */
-    const SIDES = ['top', 'bottom', 'left', 'right']
-    const glow = { side: 'bottom', pos: 0.5, radius: 0.55, progress: 0, duration: 6 }
-
-    const pickGlow = () => {
-      glow.side = SIDES[Math.floor(Math.random() * SIDES.length)]
-      glow.pos = Math.random()
-      glow.radius = 0.2 + Math.random() * 0.25
-      glow.duration = 5 + Math.random() * 5
-      glow.progress = 0
-    }
-    pickGlow()
-    glow.progress = Math.random() * 0.6
+    /* Brillo: recorre el borde del cuadro creciendo y achicándose */
+    const glow = { p: Math.random(), speed: 1 / 14 } // p: posición en el perímetro (0..1), una vuelta cada ~14s
 
     const step = (dt) => {
-      glow.progress += dt / glow.duration
-      if (glow.progress >= 1) pickGlow()
+      glow.p += glow.speed * dt
+      if (glow.p >= 1) glow.p -= 1
 
       for (const p of particles) {
         p.y -= p.vy * dt
@@ -110,26 +99,37 @@ export default function DonateSection() {
 
       const by = height * 0.55 + Math.sin(t * 0.22) * height * 0.05
 
-      /* Glow: entra por un lado aleatorio y se acerca al centro, con fade in/out */
-      const { progress, side, pos } = glow
-      const fade = Math.min(1, progress * 4, (1 - progress) * 4)
-      const inward = Math.min(1, progress * 1.6)
-      let gx = width * pos
-      let gy = height * pos
-      if (side === 'top') gy = height * inward * 0.45
-      if (side === 'bottom') gy = height * (1 - inward * 0.45)
-      if (side === 'left') gx = width * inward * 0.45
-      if (side === 'right') gx = width * (1 - inward * 0.45)
-
-      if (fade > 0.01) {
-        const maxDim = Math.max(width, height)
-        const halo = ctx.createRadialGradient(gx, gy, 0, gx, gy, glow.radius * maxDim)
-        halo.addColorStop(0, `rgba(255, 196, 110, ${0.16 * fade})`)
-        halo.addColorStop(0.5, `rgba(255, 196, 110, ${0.07 * fade})`)
-        halo.addColorStop(1, 'rgba(255, 196, 110, 0)')
-        ctx.fillStyle = halo
-        ctx.fillRect(0, 0, width, height)
+      /* Glow: centro que rodea el borde del cuadro, creciendo y achicándose */
+      const maxDim = Math.max(width, height)
+      const inset = Math.max(10, Math.min(width, height) * 0.05)
+      const perim = 2 * (width + height)
+      const len = glow.p * perim
+      let gx
+      let gy
+      if (len < width) {
+        gx = len
+        gy = inset
+      } else if (len < width + height) {
+        gx = width - inset
+        gy = len - width
+      } else if (len < 2 * width + height) {
+        gx = width - (len - width - height)
+        gy = height - inset
+      } else {
+        gx = inset
+        gy = height - (len - 2 * width - height)
       }
+
+      const osc = 0.5 + 0.5 * Math.sin(glow.p * Math.PI * 4) // crece y se achica 2 veces por vuelta
+      const rad = (0.12 + 0.26 * osc) * maxDim
+      const alpha = 0.15 + 0.05 * (1 - osc)
+
+      const halo = ctx.createRadialGradient(gx, gy, 0, gx, gy, rad)
+      halo.addColorStop(0, `rgba(255, 196, 110, ${alpha})`)
+      halo.addColorStop(0.5, `rgba(255, 196, 110, ${alpha * 0.45})`)
+      halo.addColorStop(1, 'rgba(255, 196, 110, 0)')
+      ctx.fillStyle = halo
+      ctx.fillRect(0, 0, width, height)
 
       for (const p of particles) {
         const dist = Math.abs(p.y * height - by) / bandWidth
