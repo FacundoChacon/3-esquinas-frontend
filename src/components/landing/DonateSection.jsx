@@ -72,12 +72,44 @@ export default function DonateSection() {
 
     const bandWidth = Math.max(50, height * 0.16)
 
-    /* Brillo: recorre el borde del cuadro creciendo y achicándose */
-    const glow = { p: Math.random(), speed: 1 / 14 } // p: posición en el perímetro (0..1), una vuelta cada ~14s
+    /* Luces que recorren el borde del cuadro: brillan, se desvanecen al azar
+       y reaparecen en otra posición. De vez en cuando hay una segunda. */
+    const glows = []
+    const spawnGlow = (midLife) => {
+      const fadeIn = 0.8 + Math.random() * 1.2
+      const fadeOut = 1.2 + Math.random() * 1.6
+      const duration = 4.5 + Math.random() * 4
+      const g = {
+        p: Math.random(),
+        dir: Math.random() < 0.5 ? 1 : -1,
+        speed: 0.05 + Math.random() * 0.05,
+        phase: Math.random() * Math.PI * 2,
+        pulse: 2 + Math.random() * 2,
+        radius: 0.08 + Math.random() * 0.14,
+        alpha: 0.18 + Math.random() * 0.14,
+        fadeIn,
+        fadeOut,
+        duration,
+        life: midLife ? fadeIn + (duration - fadeIn - fadeOut) * 0.5 : 0,
+      }
+      glows.push(g)
+    }
+    spawnGlow(true)
 
     const step = (dt) => {
-      glow.p += glow.speed * dt
-      if (glow.p >= 1) glow.p -= 1
+      for (let i = glows.length - 1; i >= 0; i--) {
+        const g = glows[i]
+        g.life += dt
+        if (g.life >= g.duration) {
+          glows.splice(i, 1)
+        } else {
+          g.p += g.dir * g.speed * dt
+          if (g.p > 1) g.p -= 1
+          else if (g.p < 0) g.p += 1
+        }
+      }
+      if (glows.length === 0) spawnGlow()
+      else if (glows.length < 2 && Math.random() < dt * 0.12) spawnGlow()
 
       for (const p of particles) {
         p.y -= p.vy * dt
@@ -99,37 +131,43 @@ export default function DonateSection() {
 
       const by = height * 0.55 + Math.sin(t * 0.22) * height * 0.05
 
-      /* Glow: centro que rodea el borde del cuadro, creciendo y achicándose */
+      /* Luces que rodean el borde del cuadro, creciendo y achicándose */
       const minDim = Math.min(width, height)
       const inset = Math.max(10, minDim * 0.05)
       const perim = 2 * (width + height)
-      const len = glow.p * perim
-      let gx
-      let gy
-      if (len < width) {
-        gx = len
-        gy = inset
-      } else if (len < width + height) {
-        gx = width - inset
-        gy = len - width
-      } else if (len < 2 * width + height) {
-        gx = width - (len - width - height)
-        gy = height - inset
-      } else {
-        gx = inset
-        gy = height - (len - 2 * width - height)
+
+      for (const g of glows) {
+        const len = g.p * perim
+        let gx
+        let gy
+        if (len < width) {
+          gx = len
+          gy = inset
+        } else if (len < width + height) {
+          gx = width - inset
+          gy = len - width
+        } else if (len < 2 * width + height) {
+          gx = width - (len - width - height)
+          gy = height - inset
+        } else {
+          gx = inset
+          gy = height - (len - 2 * width - height)
+        }
+
+        const fade = Math.max(0, Math.min(1, g.life / g.fadeIn, (g.duration - g.life) / g.fadeOut))
+        if (fade <= 0.01) continue
+
+        const osc = 0.5 + 0.5 * Math.sin(g.p * Math.PI * g.pulse + g.phase)
+        const rad = g.radius * minDim * (0.7 + 0.6 * osc)
+        const a = Math.min(0.32, g.alpha * fade * (0.55 + 0.45 * osc))
+
+        const halo = ctx.createRadialGradient(gx, gy, 0, gx, gy, rad)
+        halo.addColorStop(0, `rgba(255, 196, 110, ${a})`)
+        halo.addColorStop(0.5, `rgba(255, 196, 110, ${a * 0.4})`)
+        halo.addColorStop(1, 'rgba(255, 196, 110, 0)')
+        ctx.fillStyle = halo
+        ctx.fillRect(0, 0, width, height)
       }
-
-      const osc = 0.5 + 0.5 * Math.sin(glow.p * Math.PI * 4) // crece y se achica 2 veces por vuelta
-      const rad = (0.08 + 0.14 * osc) * minDim
-      const alpha = 0.1 + 0.04 * (1 - osc)
-
-      const halo = ctx.createRadialGradient(gx, gy, 0, gx, gy, rad)
-      halo.addColorStop(0, `rgba(255, 196, 110, ${alpha})`)
-      halo.addColorStop(0.5, `rgba(255, 196, 110, ${alpha * 0.45})`)
-      halo.addColorStop(1, 'rgba(255, 196, 110, 0)')
-      ctx.fillStyle = halo
-      ctx.fillRect(0, 0, width, height)
 
       for (const p of particles) {
         const dist = Math.abs(p.y * height - by) / bandWidth
