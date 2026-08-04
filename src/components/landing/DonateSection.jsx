@@ -79,7 +79,7 @@ export default function DonateSection() {
     const pickGlow = () => {
       glow.side = SIDES[Math.floor(Math.random() * SIDES.length)]
       glow.pos = Math.random()
-      glow.radius = 0.35 + Math.random() * 0.5
+      glow.radius = 0.2 + Math.random() * 0.25
       glow.duration = 5 + Math.random() * 5
       glow.progress = 0
     }
