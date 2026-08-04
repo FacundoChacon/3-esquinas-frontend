@@ -6,6 +6,7 @@ const NAV_ITEMS = [
   { id: 'inicio', label: 'Inicio' },
   { id: 'institucional', label: 'Institucional' },
   { id: 'ods', label: 'ODS' },
+  { id: 'colaborar', label: 'Colaborar' },
   { id: 'contacto', label: 'Contacto' },
 ]
 

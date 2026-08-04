@@ -8,12 +8,14 @@ import AdminLayout from './components/AdminLayout'
 import LandingPage from './pages/LandingPage'
 import ConocenosPage from './pages/ConocenosPage'
 import DonatePage from './pages/DonatePage'
+import ColaborarPage from './pages/ColaborarPage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import DashboardPage from './pages/DashboardPage'
 import DonacionesPage from './pages/DonacionesPage'
 import DatosPage from './pages/DatosPage'
 import ContactosPage from './pages/ContactosPage'
+import VoluntariosPage from './pages/VoluntariosPage'
 
 function TokenBridge() {
   const { accessToken, refresh } = useAuth()
@@ -40,6 +42,7 @@ export default function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/conocenos" element={<ConocenosPage />} />
           <Route path="/donar" element={<DonatePage />} />
+          <Route path="/colaborar" element={<ColaborarPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
 
@@ -52,6 +55,7 @@ export default function App() {
               <Route path="/admin" element={<DashboardPage />} />
               <Route path="/admin/donaciones" element={<DonacionesPage />} />
               <Route path="/admin/contactos" element={<ContactosPage />} />
+              <Route path="/admin/voluntarios" element={<VoluntariosPage />} />
               <Route path="/admin/datos" element={<DatosPage />} />
             </Route>
           </Route>

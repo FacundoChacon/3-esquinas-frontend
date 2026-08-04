@@ -817,3 +817,89 @@
 .landing-footer-bottom {
   @apply max-w-5xl mx-auto text-center text-xs opacity-50 pt-5;
 }
+
+/* ================================================================
+   6.5 COLABORAR — Sección de voluntariado
+   ================================================================ */
+
+/* Fondo de la sección */
+.landing-colaborar {
+  @apply px-6 py-10 sm:py-14 bg-white;
+}
+:root.dark .landing-colaborar {
+  @apply bg-gray-950;
+}
+
+.landing-colaborar-inner {
+  @apply max-w-5xl mx-auto text-center;
+}
+
+.landing-colaborar-title {
+  @apply text-2xl sm:text-3xl font-bold text-gray-900 mb-1;
+}
+:root.dark .landing-colaborar-title {
+  @apply text-white;
+}
+
+.landing-colaborar-divider {
+  @apply w-16 h-1 bg-emerald-500 rounded-full mx-auto mt-3 mb-5;
+}
+
+.landing-colaborar-desc {
+  @apply text-sm text-gray-500 max-w-2xl mx-auto mb-10;
+}
+:root.dark .landing-colaborar-desc {
+  @apply text-gray-400;
+}
+
+/* Tarjeta principal: QR + CTA */
+.landing-colaborar-card {
+  @apply max-w-3xl mx-auto bg-gray-50 border border-gray-100 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-8 text-left;
+}
+:root.dark .landing-colaborar-card {
+  @apply bg-gray-900 border-gray-800;
+}
+
+/* Lado izquierdo: QR */
+.landing-colaborar-qr {
+  @apply flex flex-col items-center gap-3 shrink-0;
+}
+
+.landing-colaborar-qr-label {
+  @apply text-xs text-gray-500 max-w-[12rem] text-center;
+}
+:root.dark .landing-colaborar-qr-label {
+  @apply text-gray-400;
+}
+
+/* Lado derecho: beneficios + botón */
+.landing-colaborar-cta {
+  @apply flex flex-col gap-6 flex-1;
+}
+
+.landing-colaborar-benefits {
+  @apply space-y-3;
+}
+
+.landing-colaborar-benefit {
+  @apply flex items-start gap-3 text-sm text-gray-600;
+}
+:root.dark .landing-colaborar-benefit {
+  @apply text-gray-300;
+}
+
+.landing-colaborar-btn {
+  @apply inline-flex items-center justify-center px-6 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition-colors;
+}
+
+/* --- Página /colaborar --- */
+.landing-colaborar-page {
+  @apply px-6 py-10 sm:py-14 bg-gray-50;
+}
+:root.dark .landing-colaborar-page {
+  @apply bg-gray-950;
+}
+
+.landing-colaborar-page-inner {
+  @apply max-w-2xl mx-auto;
+}

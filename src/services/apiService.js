@@ -62,3 +62,21 @@ export const contactService = {
     return apiRequest(`/contactos/${id}`, { method: 'DELETE' })
   },
 }
+
+export const voluntarioService = {
+  crear(data) {
+    return apiRequest('/voluntarios', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    })
+  },
+  listar(page = 0, size = 20) {
+    return apiRequest(`/voluntarios?page=${page}&size=${size}`)
+  },
+  contar() {
+    return apiRequest('/voluntarios/total')
+  },
+  eliminar(id) {
+    return apiRequest(`/voluntarios/${id}`, { method: 'DELETE' })
+  },
+}
