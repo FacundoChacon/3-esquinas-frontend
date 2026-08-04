@@ -453,9 +453,12 @@
 
 .landing-contact-donate {
   @apply relative mt-12 px-6 py-14 sm:py-20 text-white text-center overflow-hidden rounded-3xl mx-4 mb-8;
-  background: linear-gradient(135deg, #0d9488 0%, #047857 35%, #065f46 70%, #052e24 100%);
+  background: linear-gradient(135deg, #2dd4bf 0%, #14b8a6 22%, #0d9488 48%, #0f766e 72%, #042f2e 100%);
   background-size: 300% 300%;
   animation: donate-water-bg 26s ease-in-out infinite;
+}
+:root.dark .landing-contact-donate {
+  background: linear-gradient(135deg, #0d9488 0%, #047857 35%, #065f46 70%, #052e24 100%);
 }
 
 /* Lienzo de destellos: brillo del sol sobre el agua */
