@@ -42,16 +42,20 @@ export default function DonateSection() {
     let height = 0
     let raf = 0
     let t = 0
+    let last = 0
 
+    /* Destellos: suben como burbujas de luz con velocidad propia */
     const particles = Array.from({ length: 170 }, () => ({
       x: Math.random(),
-      y: 0.04 + Math.random() * 0.92,
+      y: Math.random(),
       size: 0.8 + Math.random() * 2.6,
       phase: Math.random() * Math.PI * 2,
       speed: 0.8 + Math.random() * 2.2,
       drift: 0.4 + Math.random() * 1.6,
       base: 0.25 + Math.random() * 0.65,
       sprite: Math.random() < 0.55 ? 0 : 1,
+      vy: 0.06 + Math.random() * 0.3,
+      vx: (Math.random() - 0.5) * 0.1,
     }))
 
     const resize = () => {
@@ -68,6 +72,37 @@ export default function DonateSection() {
 
     const bandWidth = Math.max(50, height * 0.16)
 
+    /* Brillo del sol: entra de forma aleatoria por distintos lados y con tamaño variable */
+    const SIDES = ['top', 'bottom', 'left', 'right']
+    const glow = { side: 'bottom', pos: 0.5, radius: 0.55, progress: 0, duration: 6 }
+
+    const pickGlow = () => {
+      glow.side = SIDES[Math.floor(Math.random() * SIDES.length)]
+      glow.pos = Math.random()
+      glow.radius = 0.35 + Math.random() * 0.5
+      glow.duration = 5 + Math.random() * 5
+      glow.progress = 0
+    }
+    pickGlow()
+    glow.progress = Math.random() * 0.6
+
+    const step = (dt) => {
+      glow.progress += dt / glow.duration
+      if (glow.progress >= 1) pickGlow()
+
+      for (const p of particles) {
+        p.y -= p.vy * dt
+        p.x += p.vx * dt
+        if (p.y < -0.02) {
+          p.y = 1.02
+          p.x = Math.random()
+          p.phase = Math.random() * Math.PI * 2
+        }
+        if (p.x > 1.02) p.x = -0.02
+        else if (p.x < -0.02) p.x = 1.02
+      }
+    }
+
     const draw = () => {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
       ctx.clearRect(0, 0, width, height)
@@ -75,11 +110,26 @@ export default function DonateSection() {
 
       const by = height * 0.55 + Math.sin(t * 0.22) * height * 0.05
 
-      const halo = ctx.createRadialGradient(width / 2, by, 0, width / 2, by, Math.max(width, height) * 0.6)
-      halo.addColorStop(0, 'rgba(255, 196, 110, 0.10)')
-      halo.addColorStop(1, 'rgba(255, 196, 110, 0)')
-      ctx.fillStyle = halo
-      ctx.fillRect(0, 0, width, height)
+      /* Glow: entra por un lado aleatorio y se acerca al centro, con fade in/out */
+      const { progress, side, pos } = glow
+      const fade = Math.min(1, progress * 4, (1 - progress) * 4)
+      const inward = Math.min(1, progress * 1.6)
+      let gx = width * pos
+      let gy = height * pos
+      if (side === 'top') gy = height * inward * 0.45
+      if (side === 'bottom') gy = height * (1 - inward * 0.45)
+      if (side === 'left') gx = width * inward * 0.45
+      if (side === 'right') gx = width * (1 - inward * 0.45)
+
+      if (fade > 0.01) {
+        const maxDim = Math.max(width, height)
+        const halo = ctx.createRadialGradient(gx, gy, 0, gx, gy, glow.radius * maxDim)
+        halo.addColorStop(0, `rgba(255, 196, 110, ${0.16 * fade})`)
+        halo.addColorStop(0.5, `rgba(255, 196, 110, ${0.07 * fade})`)
+        halo.addColorStop(1, 'rgba(255, 196, 110, 0)')
+        ctx.fillStyle = halo
+        ctx.fillRect(0, 0, width, height)
+      }
 
       for (const p of particles) {
         const dist = Math.abs(p.y * height - by) / bandWidth
@@ -98,14 +148,16 @@ export default function DonateSection() {
 
       ctx.globalAlpha = 1
       ctx.globalCompositeOperation = 'source-over'
-
-      if (!reduceMotion) raf = requestAnimationFrame(draw)
     }
 
-    const start = performance.now()
     const loop = (now) => {
-      t = (now - start) / 1000
+      if (!last) last = now
+      const dt = Math.min(0.05, (now - last) / 1000)
+      last = now
+      t += dt
+      step(dt)
       draw()
+      if (!reduceMotion) raf = requestAnimationFrame(loop)
     }
     raf = requestAnimationFrame(loop)
 
