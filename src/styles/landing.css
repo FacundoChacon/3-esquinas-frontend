@@ -453,7 +453,7 @@
 
 .landing-contact-donate {
   @apply relative mt-12 px-6 py-14 sm:py-20 text-white text-center overflow-hidden rounded-3xl mx-4 mb-8;
-  background: linear-gradient(135deg, #052e24 0%, #065f46 35%, #047857 70%, #0d9488 100%);
+  background: linear-gradient(135deg, #0d9488 0%, #047857 35%, #065f46 70%, #052e24 100%);
   background-size: 300% 300%;
   animation: donate-water-bg 26s ease-in-out infinite;
 }
