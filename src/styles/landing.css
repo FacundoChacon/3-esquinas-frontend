@@ -507,6 +507,43 @@
   @apply text-xs opacity-80 ml-1.5;
 }
 
+/* --- Efecto de agua: olas animadas en la parte inferior --- */
+.landing-donate-water {
+  @apply absolute inset-x-0 bottom-0 pointer-events-none;
+  height: 70px;
+}
+
+.landing-donate-wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  animation: donate-wave-drift 10s linear infinite;
+}
+.landing-donate-wave path {
+  fill: rgba(255, 255, 255, 0.22);
+}
+
+.landing-donate-wave--front {
+  animation-duration: 6.5s;
+  animation-direction: reverse;
+}
+.landing-donate-wave--front path {
+  fill: rgba(255, 255, 255, 0.4);
+}
+
+@keyframes donate-wave-drift {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-donate-wave {
+    animation: none;
+  }
+}
+
 
 /* --- Animación de latido + ondas en sección Donar --- */
 /* Heartbeat: 2.0s, doble pum a los 14% (0.28s) y 42% (0.84s) */
