@@ -261,7 +261,7 @@
 }
 
 .landing-about-card {
-  @apply flex items-start gap-4 p-4 rounded-2xl border border-gray-100 bg-gray-50 text-left;
+  @apply flex items-start gap-4 p-4 rounded-2xl border border-gray-200 bg-gray-100 text-left shadow-sm;
 }
 :root.dark .landing-about-card {
   @apply bg-gray-900 border-gray-800;
@@ -358,7 +358,7 @@
 
 /* Flechas de navegación del carrusel */
 .landing-ods-arrow {
-  @apply absolute top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white border border-gray-200 shadow-md flex items-center justify-center text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-all;
+  @apply absolute top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white border border-gray-300 shadow-md flex items-center justify-center text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-all;
 }
 :root.dark .landing-ods-arrow {
   @apply bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white;
@@ -408,7 +408,7 @@
 
 /* Cara trasera — fondo claro u oscuro según modo */
 .landing-ods-card-back {
-  @apply absolute inset-0 rounded-2xl p-5 text-center flex flex-col items-center justify-center gap-3 [backface-visibility:hidden] [transform:rotateY(180deg)] bg-white border border-gray-200 shadow-sm;
+  @apply absolute inset-0 rounded-2xl p-5 text-center flex flex-col items-center justify-center gap-3 [backface-visibility:hidden] [transform:rotateY(180deg)] bg-white border border-gray-300 shadow-md;
 }
 .landing-ods-card-back.dark {
   @apply bg-gray-900 border-gray-700;
@@ -657,7 +657,7 @@
 }
 
 .landing-contact-channel-icon {
-  @apply w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 shrink-0 mt-0.5;
+  @apply w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 shrink-0 mt-0.5;
 }
 :root.dark .landing-contact-channel-icon {
   @apply bg-emerald-900/30 text-emerald-400;
@@ -697,7 +697,7 @@
 }
 
 .landing-contact-social-link {
-  @apply inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-gray-100 text-gray-600 text-sm font-medium hover:bg-emerald-50 hover:text-emerald-700 transition-colors cursor-pointer;
+  @apply inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-gray-100 border border-gray-200 text-gray-600 text-sm font-medium hover:bg-emerald-50 hover:text-emerald-700 transition-colors cursor-pointer;
 }
 :root.dark .landing-contact-social-link {
   @apply bg-gray-800 text-gray-400 hover:bg-emerald-900/30 hover:text-emerald-400;
@@ -705,7 +705,7 @@
 
 /* --- Lado derecho: formulario --- */
 .landing-contact-form-wrapper {
-  @apply bg-gray-50 rounded-2xl p-6 sm:p-8 border border-gray-100;
+  @apply bg-gray-100 rounded-2xl p-6 sm:p-8 border border-gray-200;
 }
 :root.dark .landing-contact-form-wrapper {
   @apply bg-gray-900 border-gray-800;
@@ -744,7 +744,7 @@
 
 /* Input */
 .landing-contact-input {
-  @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900 placeholder-gray-400 bg-white;
+  @apply w-full px-4 py-3 border border-gray-400 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900 placeholder-gray-400 bg-white;
 }
 :root.dark .landing-contact-input {
   @apply bg-gray-800 border-gray-700 text-white placeholder-gray-500;
@@ -752,7 +752,7 @@
 
 /* Textarea */
 .landing-contact-textarea {
-  @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900 placeholder-gray-400 resize-none bg-white;
+  @apply w-full px-4 py-3 border border-gray-400 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900 placeholder-gray-400 resize-none bg-white;
 }
 :root.dark .landing-contact-textarea {
   @apply bg-gray-800 border-gray-700 text-white placeholder-gray-500;
@@ -859,7 +859,7 @@
 
 /* Tarjeta dividida en 2 columnas: texto a la izquierda, QR a la derecha */
 .landing-colaborar-card {
-  @apply grid grid-cols-1 md:grid-cols-2 items-center gap-8 sm:gap-12 bg-gray-50 border border-gray-100 rounded-2xl p-6 sm:p-10 text-left;
+  @apply grid grid-cols-1 md:grid-cols-2 items-center gap-8 sm:gap-12 bg-white border border-gray-300 rounded-2xl p-6 sm:p-10 text-left shadow-md;
 }
 :root.dark .landing-colaborar-card {
   @apply bg-gray-900 border-gray-800;
