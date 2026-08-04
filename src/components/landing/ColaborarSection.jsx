@@ -56,7 +56,7 @@ export default function ColaborarSection() {
 
           <div className="landing-colaborar-qr">
             {qrUrl ? (
-              <img src={qrUrl} alt="Código QR para sumarse como voluntario" className="w-48 h-48 rounded-lg shadow-sm" />
+              <img src={qrUrl} alt="Código QR para sumarse como voluntario" className="w-48 h-48 rounded-lg bg-white p-2 shadow-sm" />
             ) : (
               <div className="w-48 h-48 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center text-xs text-gray-400">
                 Cargando QR...
