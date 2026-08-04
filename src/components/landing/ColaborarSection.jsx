@@ -30,26 +30,15 @@ export default function ColaborarSection() {
   return (
     <section id="colaborar" className="landing-colaborar">
       <div className="landing-colaborar-inner">
-        <h2 className="landing-colaborar-title">Colaborá con tu tiempo</h2>
-        <div className="landing-colaborar-divider" />
-        <p className="landing-colaborar-desc">
-          No hace falta donar dinero para transformar la comunidad. Sumate como voluntario
-          a las jornadas, talleres y proyectos que llevamos adelante en Maipú.
-        </p>
-
         <div className="landing-colaborar-card">
-          <div className="landing-colaborar-qr">
-            {qrUrl ? (
-              <img src={qrUrl} alt="Código QR para sumarse como voluntario" className="w-48 h-48 rounded-lg shadow-sm" />
-            ) : (
-              <div className="w-48 h-48 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center text-xs text-gray-400">
-                Cargando QR...
-              </div>
-            )}
-            <span className="landing-colaborar-qr-label">Escaneá y completá el formulario</span>
-          </div>
+          <div className="landing-colaborar-left">
+            <h2 className="landing-colaborar-title">Colaborá con tu tiempo</h2>
+            <div className="landing-colaborar-divider" />
+            <p className="landing-colaborar-desc">
+              No hace falta donar dinero para transformar la comunidad. Sumate como voluntario
+              a las jornadas, talleres y proyectos que llevamos adelante en Maipú.
+            </p>
 
-          <div className="landing-colaborar-cta">
             <ul className="landing-colaborar-benefits">
               {BENEFICIOS.map((beneficio) => (
                 <li key={beneficio} className="landing-colaborar-benefit">
@@ -63,6 +52,17 @@ export default function ColaborarSection() {
             <Link to="/colaborar" className="landing-colaborar-btn">
               Quiero colaborar
             </Link>
+          </div>
+
+          <div className="landing-colaborar-qr">
+            {qrUrl ? (
+              <img src={qrUrl} alt="Código QR para sumarse como voluntario" className="w-48 h-48 rounded-lg shadow-sm" />
+            ) : (
+              <div className="w-48 h-48 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center text-xs text-gray-400">
+                Cargando QR...
+              </div>
+            )}
+            <span className="landing-colaborar-qr-label">Escaneá y completá el formulario</span>
           </div>
         </div>
       </div>
