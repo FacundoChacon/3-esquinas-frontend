@@ -1,12 +1,13 @@
 /**
- * DonationsTable.jsx — Tabla de donaciones recientes
+ * DonationsTable.jsx — Tabla de donaciones
  *
- * Soporte dark mode. Datos del endpoint GET /api/dashboard/donantes.
+ * Soporte dark mode. Datos del endpoint GET /api/donaciones.
+ * En modo no-compacto permite confirmar/marcar como fallida donaciones pendientes.
  *
  * Pertenece a: Fase 5 — Frontend Dashboard
  */
-import { useState, useEffect } from 'react'
-import { dashboardService } from '../services/apiService'
+import { useState, useEffect, useCallback } from 'react'
+import { donacionService } from '../services/donacionService'
 import { useDarkMode } from '../context/DarkModeContext'
 import { formatCurrency, formatDate } from '../utils/formatters'
 
@@ -26,33 +27,64 @@ export default function DonationsTable({ compact = false }) {
   const [page, setPage] = useState(0)
   const [totalPages, setTotalPages] = useState(1)
   const [loading, setLoading] = useState(true)
+  const [actionError, setActionError] = useState('')
   const size = compact ? 5 : 10
   const mode = dark ? 'dark' : 'light'
 
-  useEffect(() => {
-    let cancelled = false
+  const fetchData = useCallback(async (signal) => {
     setLoading(true)
-    dashboardService.getDonantes(page, size)
-      .then((res) => {
-        if (!cancelled) {
-          if (Array.isArray(res)) { setData(res); setTotalPages(1) }
-          else { setData(res.content || []); setTotalPages(res.totalPages || 1) }
-        }
-      })
-      .catch(() => { if (!cancelled) setData([]) })
-      .finally(() => { if (!cancelled) setLoading(false) })
-    return () => { cancelled = true }
+    const aborted = () => signal && signal.aborted
+    try {
+      const res = await donacionService.listar(page, size)
+      if (!aborted()) {
+        if (Array.isArray(res)) { setData(res); setTotalPages(1) }
+        else { setData(res.content || []); setTotalPages(res.totalPages || 1) }
+      }
+    } catch {
+      if (!aborted()) setData([])
+    } finally {
+      if (!aborted()) setLoading(false)
+    }
   }, [page, size])
+
+  useEffect(() => {
+    const controller = new AbortController()
+    fetchData(controller.signal)
+    return () => controller.abort()
+  }, [fetchData])
+
+  const handleConfirmar = async (id) => {
+    setActionError('')
+    try {
+      await donacionService.confirmar(id)
+      fetchData()
+    } catch (err) {
+      setActionError(err.message || 'Error al confirmar la donación')
+    }
+  }
+
+  const handleFallida = async (id) => {
+    setActionError('')
+    try {
+      await donacionService.marcarFallida(id)
+      fetchData()
+    } catch (err) {
+      setActionError(err.message || 'Error al marcar la donación como fallida')
+    }
+  }
 
   return (
     <div className={`donations-table ${mode}`}>
       <div className={`donations-table-header ${mode}`}>
-        <h3 className={`donations-table-title ${mode}`}>Últimos ingresos</h3>
+        <h3 className={`donations-table-title ${mode}`}>{compact ? 'Últimos ingresos' : 'Historial de donaciones'}</h3>
       </div>
+
+      {actionError && <div className={`mx-4 mt-3 px-3 py-2 rounded-lg text-sm bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-400`}>{actionError}</div>}
 
       {/* Encabezados de columna */}
       <div className={`donations-table-head ${mode}`}>
         <span>Fecha</span><span>Donante</span><span>Concepto</span><span className="text-right">Monto</span><span className="text-right">Estado</span>
+        {!compact && <span className="text-right">Acciones</span>}
       </div>
 
       {loading ? (
@@ -69,6 +101,22 @@ export default function DonationsTable({ compact = false }) {
             <span className="text-right">
               <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-medium ${getEstadoStyle(row.estado)}`}>{row.estado || '—'}</span>
             </span>
+            {!compact && (
+              <span className="text-right space-x-2">
+                {row.estado === 'pendiente' ? (
+                  <>
+                    <button onClick={() => handleConfirmar(row.id)} className={`text-[11px] font-medium px-2 py-1 rounded-md transition-colors ${dark ? 'text-emerald-400 hover:bg-emerald-900/40' : 'text-emerald-700 hover:bg-emerald-50'}`} title="Confirmar donación">
+                      Confirmar
+                    </button>
+                    <button onClick={() => handleFallida(row.id)} className={`text-[11px] font-medium px-2 py-1 rounded-md transition-colors ${dark ? 'text-red-400 hover:bg-red-900/40' : 'text-red-700 hover:bg-red-50'}`} title="Marcar como fallida">
+                      Fallida
+                    </button>
+                  </>
+                ) : (
+                  <span className={`text-[11px] ${dark ? 'text-gray-600' : 'text-gray-400'}`}>—</span>
+                )}
+              </span>
+            )}
           </div>
         ))
       )}

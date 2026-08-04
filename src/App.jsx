@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { AuthProvider, useAuth } from './context/AuthContext'
 import { DarkModeProvider } from './context/DarkModeContext'
-import { setAccessTokenGetter } from './services/apiClient'
+import { setAccessTokenGetter, setRefreshHandler } from './services/apiClient'
 import ProtectedRoute from './components/ProtectedRoute'
 import AdminLayout from './components/AdminLayout'
 import LandingPage from './pages/LandingPage'
@@ -15,10 +15,13 @@ import DonacionesPage from './pages/DonacionesPage'
 import DatosPage from './pages/DatosPage'
 
 function TokenBridge() {
-  const { accessToken } = useAuth()
+  const { accessToken, refresh } = useAuth()
   useEffect(() => {
     setAccessTokenGetter(() => accessToken)
   }, [accessToken])
+  useEffect(() => {
+    setRefreshHandler(() => refresh)
+  }, [refresh])
   return null
 }
 

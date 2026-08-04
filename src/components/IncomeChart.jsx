@@ -26,7 +26,11 @@ export default function IncomeChart() {
     return () => { cancelled = true }
   }, [])
 
-  const max = Math.max(...data.map((d) => Number(d.total) || 0), 1)
+  const max = Math.max(
+    ...data.map((d) => Number(d.totalArs) || 0),
+    ...data.map((d) => Number(d.totalUsd) || 0),
+    1
+  )
 
   if (loading) {
     return (
@@ -37,9 +41,21 @@ export default function IncomeChart() {
     )
   }
 
+  const totalArs = data.reduce((sum, d) => sum + (Number(d.totalArs) || 0), 0)
+  const totalUsd = data.reduce((sum, d) => sum + (Number(d.totalUsd) || 0), 0)
+
   return (
     <div className={`chart-container ${mode}`}>
       <h3 className={`chart-title ${mode}`}>Ingresos mensuales</h3>
+
+      <div className="flex items-center gap-4 mb-3 text-xs">
+        <span className="flex items-center gap-1.5">
+          <span className="w-3 h-3 rounded-sm bg-emerald-500 inline-block" /> ARS
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="w-3 h-3 rounded-sm bg-sky-500 inline-block" /> USD
+        </span>
+      </div>
 
       {error && <div className="text-xs text-amber-500 mb-2">Error al cargar datos: {error}</div>}
       {data.length === 0 ? (
@@ -47,16 +63,23 @@ export default function IncomeChart() {
       ) : (
         <div className="chart-bars">
           {data.map((item, i) => {
-            const pct = Math.max((Number(item.total) || 0) / max * 100, 2)
+            const pctArs = Math.max((Number(item.totalArs) || 0) / max * 100, item.totalArs > 0 ? 2 : 0)
+            const pctUsd = Math.max((Number(item.totalUsd) || 0) / max * 100, item.totalUsd > 0 ? 2 : 0)
             return (
               <div key={item.mes || i} className="flex-1 flex flex-col items-center gap-1.5 min-w-0 group relative">
                 <div className="chart-tooltip">
-                  {formatMonth(item.mes)}: ${Number(item.total || 0).toLocaleString('es-AR')}
+                  {formatMonth(item.mes)} — ARS: ${Number(item.totalArs || 0).toLocaleString('es-AR')} · USD: ${Number(item.totalUsd || 0).toLocaleString('es-AR')}
                 </div>
-                <div
-                  className="chart-bar"
-                  style={{ height: `${pct}%`, opacity: 0.4 + (i / data.length) * 0.6 }}
-                />
+                <div className="flex items-end gap-0.5">
+                  <div
+                    className="chart-bar"
+                    style={{ height: `${pctArs}%`, background: '#10b981', opacity: 0.4 + (i / data.length) * 0.6 }}
+                  />
+                  <div
+                    className="chart-bar"
+                    style={{ height: `${pctUsd}%`, background: '#0ea5e9', opacity: 0.4 + (i / data.length) * 0.6 }}
+                  />
+                </div>
                 <span className={`chart-month-label ${mode}`}>
                   {formatMonth(item.mes)}
                 </span>
@@ -69,7 +92,7 @@ export default function IncomeChart() {
       <div className={`chart-footer ${mode}`}>
         <span className={`chart-footer-period ${mode}`}>Últimos {data.length} meses</span>
         <span className="chart-footer-total">
-          Total: ${data.reduce((sum, d) => sum + (Number(d.total) || 0), 0).toLocaleString('es-AR')}
+          Total: ${totalArs.toLocaleString('es-AR')} ARS · US$ {totalUsd.toLocaleString('es-AR')} USD
         </span>
       </div>
     </div>

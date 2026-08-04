@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { contactService } from '../../services/apiService'
 
 export default function ContactSection() {
   const [contactForm, setContactForm] = useState({ nombre: '', email: '', mensaje: '' })
@@ -12,12 +13,7 @@ export default function ContactSection() {
     setContactLoading(true)
     setContactError('')
     try {
-      const res = await fetch('/api/contactos', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(contactForm),
-      })
-      if (!res.ok) throw new Error('Error al enviar')
+      await contactService.enviar(contactForm)
       setContactForm({ nombre: '', email: '', mensaje: '' })
       setContactSent(true)
       setTimeout(() => setContactSent(false), 3000)

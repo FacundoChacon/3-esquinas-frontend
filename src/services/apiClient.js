@@ -1,9 +1,32 @@
 const API_BASE = '/api'
 
 let accessTokenGetter = null
+let refreshHandler = null
 
 export function setAccessTokenGetter(fn) {
   accessTokenGetter = fn
+}
+
+export function setRefreshHandler(fn) {
+  refreshHandler = fn
+}
+
+async function doRequest(url, config, retried) {
+  const response = await fetch(url, config)
+
+  // El access token expiró: se intenta renovar una vez y se reintenta la petición.
+  // Nunca se reintenta en endpoints de auth para evitar recursión infinita
+  // (p.ej. un 401 en /auth/refresh).
+  if (response.status === 401 && !retried && refreshHandler && !url.includes('/auth/')) {
+    const newToken = await refreshHandler()
+    config.headers = {
+      ...config.headers,
+      Authorization: `Bearer ${newToken}`,
+    }
+    return doRequest(url, config, true)
+  }
+
+  return response
 }
 
 export async function apiRequest(endpoint, options = {}) {
@@ -20,7 +43,7 @@ export async function apiRequest(endpoint, options = {}) {
     credentials: 'include',
   }
 
-  const response = await fetch(url, config)
+  const response = await doRequest(url, config, false)
 
   if (!response.ok) {
     let errorMessage = 'Error del servidor'

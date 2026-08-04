@@ -41,3 +41,12 @@ export const datosService = {
     return apiRequest(`/datos/${id}`, { method: 'DELETE' })
   },
 }
+
+export const contactService = {
+  enviar(data) {
+    return apiRequest('/contactos', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    })
+  },
+}

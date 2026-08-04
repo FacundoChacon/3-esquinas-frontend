@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { donacionService } from '../services/donacionService'
 import { useDarkMode } from '../context/DarkModeContext'
 
@@ -10,6 +10,21 @@ const PASARELAS = [
 ]
 
 const MONTOS_SUGERIDOS = [1000, 2000, 5000, 10000]
+
+const STATUS_MESSAGES = {
+  success: {
+    style: 'bg-emerald-50 dark:bg-emerald-900/30 border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-400',
+    text: '¡Gracias por tu donación! El pago se procesó correctamente.',
+  },
+  cancelled: {
+    style: 'bg-amber-50 dark:bg-amber-900/30 border-amber-200 dark:border-amber-800 text-amber-700 dark:text-amber-400',
+    text: 'El pago fue cancelado. Podés intentar nuevamente cuando quieras.',
+  },
+  error: {
+    style: 'bg-red-50 dark:bg-red-900/30 border-red-200 dark:border-red-800 text-red-700 dark:text-red-400',
+    text: 'Hubo un problema al procesar el pago. Intentá nuevamente.',
+  },
+}
 
 export default function DonatePage() {
   const [form, setForm] = useState({
@@ -26,6 +41,9 @@ export default function DonatePage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [transferencia, setTransferencia] = useState(null)
+  const [searchParams] = useSearchParams()
+  const status = searchParams.get('status')
+  const statusInfo = STATUS_MESSAGES[status]
 
   const update = (field, value) => setForm((p) => ({ ...p, [field]: value }))
 
@@ -150,6 +168,12 @@ export default function DonatePage() {
           </div>
 
           <form onSubmit={handleSubmit} className="donate-form-card">
+
+            {statusInfo && (
+              <div className={`px-4 py-3 rounded-lg border text-sm ${statusInfo.style}`}>
+                {statusInfo.text}
+              </div>
+            )}
 
             {error && <div className="donate-form-error">{error}</div>}
 

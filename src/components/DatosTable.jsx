@@ -35,16 +35,17 @@ export default function DatosTable() {
 
   const fetchData = useCallback(async (signal) => {
     setLoading(true)
+    const aborted = () => signal && signal.aborted
     try {
       let res = filterCat ? await datosService.getByCategoria(filterCat) : await datosService.getAll(page, 10)
-      if (!signal.aborted) {
+      if (!aborted()) {
         if (Array.isArray(res)) { setData(res); setTotalPages(1) }
         else { setData(res.content || []); setTotalPages(res.totalPages || 1) }
       }
     } catch {
-      if (!signal.aborted) setData([])
+      if (!aborted()) setData([])
     } finally {
-      if (!signal.aborted) setLoading(false)
+      if (!aborted()) setLoading(false)
     }
   }, [page, filterCat])
 
