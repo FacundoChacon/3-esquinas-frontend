@@ -100,8 +100,8 @@ export default function DonateSection() {
       const by = height * 0.55 + Math.sin(t * 0.22) * height * 0.05
 
       /* Glow: centro que rodea el borde del cuadro, creciendo y achicándose */
-      const maxDim = Math.max(width, height)
-      const inset = Math.max(10, Math.min(width, height) * 0.05)
+      const minDim = Math.min(width, height)
+      const inset = Math.max(10, minDim * 0.05)
       const perim = 2 * (width + height)
       const len = glow.p * perim
       let gx
@@ -121,8 +121,8 @@ export default function DonateSection() {
       }
 
       const osc = 0.5 + 0.5 * Math.sin(glow.p * Math.PI * 4) // crece y se achica 2 veces por vuelta
-      const rad = (0.12 + 0.26 * osc) * maxDim
-      const alpha = 0.15 + 0.05 * (1 - osc)
+      const rad = (0.08 + 0.14 * osc) * minDim
+      const alpha = 0.1 + 0.04 * (1 - osc)
 
       const halo = ctx.createRadialGradient(gx, gy, 0, gx, gy, rad)
       halo.addColorStop(0, `rgba(255, 196, 110, ${alpha})`)
