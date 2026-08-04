@@ -315,7 +315,7 @@
    ================================================================ */
 
 .landing-ods {
-  @apply px-6 py-10 sm:py-14 bg-gray-50;
+  @apply px-6 py-10 sm:py-14 bg-gray-100;
 }
 :root.dark .landing-ods {
   @apply bg-gray-900;
@@ -847,7 +847,7 @@
 
 /* Fondo de la sección */
 .landing-colaborar {
-  @apply px-6 py-8 bg-white;
+  @apply px-6 py-8 bg-gray-100;
 }
 :root.dark .landing-colaborar {
   @apply bg-gray-950;
