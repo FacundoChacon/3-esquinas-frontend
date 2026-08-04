@@ -12,16 +12,6 @@ import { Link } from 'react-router-dom'
 export default function DonateSection() {
   return (
     <section id="donar" className="landing-contact-donate">
-      {/* Efecto de agua: olas animadas en la parte inferior */}
-      <div className="landing-donate-water" aria-hidden="true">
-        <svg className="landing-donate-wave landing-donate-wave--back" preserveAspectRatio="none" viewBox="0 0 1200 60">
-          <path d="M0,36 C200,60 400,12 600,36 C800,60 1000,12 1200,36 L1200,60 L0,60 Z" />
-        </svg>
-        <svg className="landing-donate-wave landing-donate-wave--front" preserveAspectRatio="none" viewBox="0 0 1200 60">
-          <path d="M0,42 C250,60 500,24 750,42 C1000,60 1150,30 1200,42 L1200,60 L0,60 Z" />
-        </svg>
-      </div>
-
       <div className="landing-donate-inner">
         <Link to="/donar" className="landing-donate-btn">
           Donar ahora
