@@ -824,37 +824,37 @@
 
 /* Fondo de la sección */
 .landing-colaborar {
-  @apply px-6 py-10 sm:py-14 bg-white;
+  @apply px-6 py-8 bg-white;
 }
 :root.dark .landing-colaborar {
   @apply bg-gray-950;
 }
 
 .landing-colaborar-inner {
-  @apply max-w-5xl mx-auto text-center;
+  @apply max-w-6xl mx-auto text-center;
 }
 
 .landing-colaborar-title {
-  @apply text-2xl sm:text-3xl font-bold text-gray-900 mb-1;
+  @apply text-2xl sm:text-3xl font-bold text-gray-900;
 }
 :root.dark .landing-colaborar-title {
   @apply text-white;
 }
 
 .landing-colaborar-divider {
-  @apply w-16 h-1 bg-emerald-500 rounded-full mx-auto mt-3 mb-5;
+  @apply w-16 h-1 bg-emerald-500 rounded-full mx-auto mt-3 mb-4;
 }
 
 .landing-colaborar-desc {
-  @apply text-sm text-gray-500 max-w-2xl mx-auto mb-10;
+  @apply text-sm text-gray-500 max-w-2xl mx-auto mb-6;
 }
 :root.dark .landing-colaborar-desc {
   @apply text-gray-400;
 }
 
-/* Tarjeta principal: QR + CTA */
+/* Tarjeta principal: QR + CTA (ancho completo) */
 .landing-colaborar-card {
-  @apply max-w-3xl mx-auto bg-gray-50 border border-gray-100 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-8 text-left;
+  @apply bg-gray-50 border border-gray-100 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-8 sm:gap-12 text-left;
 }
 :root.dark .landing-colaborar-card {
   @apply bg-gray-900 border-gray-800;
@@ -872,13 +872,13 @@
   @apply text-gray-400;
 }
 
-/* Lado derecho: beneficios + botón */
+/* Lado derecho: beneficios + botón distribuidos en horizontal */
 .landing-colaborar-cta {
-  @apply flex flex-col gap-6 flex-1;
+  @apply flex flex-col sm:flex-row items-center gap-6 sm:gap-10 flex-1;
 }
 
 .landing-colaborar-benefits {
-  @apply space-y-3;
+  @apply space-y-3 flex-1;
 }
 
 .landing-colaborar-benefit {
@@ -889,7 +889,7 @@
 }
 
 .landing-colaborar-btn {
-  @apply inline-flex items-center justify-center px-6 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition-colors;
+  @apply inline-flex items-center justify-center px-6 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition-colors shrink-0;
 }
 
 /* --- Página /colaborar --- */
