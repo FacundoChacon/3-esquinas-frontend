@@ -454,34 +454,69 @@
 .landing-contact-donate {
   @apply relative mt-12 px-6 py-14 sm:py-20 text-white text-center overflow-hidden rounded-3xl mx-4 mb-8;
   background: linear-gradient(135deg, #065f46 0%, #047857 30%, #059669 60%, #d97706 100%);
-  background-size: 250% 250%;
-  animation: donate-water-bg 16s ease-in-out infinite;
+  background-size: 300% 300%;
+  animation: donate-water-bg 18s ease-in-out infinite;
 }
 
-/* Brillos / causticas que flotan sobre el gradiente (efecto de agua) */
+/* Destellos grandes: el brillo del sol reflejado en el agua */
 .landing-contact-donate::before {
   content: '';
   position: absolute;
-  inset: 0;
+  inset: -50% -70%;
   pointer-events: none;
   background:
-    radial-gradient(circle at 20% 25%, rgba(255, 255, 255, 0.12) 0%, transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.10) 0%, transparent 40%),
-    radial-gradient(circle at 50% 55%, rgba(255, 255, 255, 0.06) 0%, transparent 50%);
-  background-size: 200% 200%;
-  animation: donate-water-bg 11s ease-in-out infinite reverse;
+    radial-gradient(ellipse 22% 15% at 25% 35%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 65%),
+    radial-gradient(ellipse 16% 11% at 70% 70%, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 65%),
+    radial-gradient(ellipse 26% 18% at 45% 55%, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 60%);
+  background-size: 220% 220%, 280% 260%, 300% 240%;
+  animation: donate-glint-a 9s ease-in-out infinite;
 }
 
-/* El gradiente se desplaza suavemente por todo el fondo */
+/* Destellos chicos: centelleo errático de la superficie del agua */
+.landing-contact-donate::after {
+  content: '';
+  position: absolute;
+  inset: -40%;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 8% 6% at 28% 22%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 65%),
+    radial-gradient(ellipse 5% 4% at 72% 32%, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 65%),
+    radial-gradient(ellipse 9% 7% at 52% 82%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 65%),
+    radial-gradient(ellipse 5% 4% at 18% 68%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 65%),
+    radial-gradient(ellipse 8% 6% at 88% 55%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 65%);
+  background-size: 260% 240%;
+  animation: donate-glint-b 6s ease-in-out infinite reverse;
+}
+
+/* El gradiente de fondo recorre toda la sección de forma irregular */
 @keyframes donate-water-bg {
   0%   { background-position: 0% 0%; }
-  50%  { background-position: 100% 100%; }
+  20%  { background-position: 85% 20%; }
+  35%  { background-position: 30% 80%; }
+  55%  { background-position: 100% 60%; }
+  75%  { background-position: 15% 30%; }
+  90%  { background-position: 70% 90%; }
   100% { background-position: 0% 0%; }
+}
+
+@keyframes donate-glint-a {
+  0%, 100% { background-position: 0% 0%; }
+  25% { background-position: 90% 30%; }
+  50% { background-position: 35% 85%; }
+  75% { background-position: 100% 55%; }
+}
+
+@keyframes donate-glint-b {
+  0%, 100% { background-position: 0% 0%; }
+  30% { background-position: 75% 85%; }
+  60% { background-position: 20% 35%; }
+  85% { background-position: 95% 15%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .landing-contact-donate,
-  .landing-contact-donate::before {
+  .landing-contact-donate::before,
+  .landing-contact-donate::after {
     animation: none;
   }
 }
@@ -493,7 +528,7 @@
 }
 
 .landing-donate-inner {
-  @apply relative max-w-2xl mx-auto flex flex-col items-center;
+  @apply relative z-10 max-w-2xl mx-auto flex flex-col items-center;
 }
 
 .landing-donate-heart-wrap {
