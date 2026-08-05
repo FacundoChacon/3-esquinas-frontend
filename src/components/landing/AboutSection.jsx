@@ -9,7 +9,6 @@ export default function AboutSection() {
 
         <div className="landing-about-body">
           <div className="landing-about-body-left">
-            <h3 className="landing-about-subtitle">Quiénes somos</h3>
             <p className="landing-about-text">
               <strong>3 Esquinas</strong> es una organización comunitaria independiente, nacida en Maipú, Mendoza,
               con la vocación de generar un cambio real en la vida de las personas y los territorios que habitamos.
