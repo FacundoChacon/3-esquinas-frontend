@@ -3,6 +3,8 @@ import { ODS_LIST } from './odsData'
 import ODSFlipCard from './ODSFlipCard'
 import { useDarkMode } from '../../context/DarkModeContext'
 
+const COPIES = 3
+
 export default function OdsSection() {
   const { dark } = useDarkMode()
   const [flippedODS, setFlippedODS] = useState([])
@@ -12,19 +14,28 @@ export default function OdsSection() {
     setFlippedODS((prev) => prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id])
   }, [])
 
-  const handleODSClick = useCallback((id, index) => {
+  const handleODSClick = useCallback((id) => {
     const container = carouselRef.current
     if (!container) return
-    const card = container.children[index]
-    if (!card) return
-    const containerCenter = container.scrollLeft + container.clientWidth / 2
-    const cardCenter = card.offsetLeft + card.offsetWidth / 2
-    const distance = Math.abs(containerCenter - cardCenter)
+    const cards = Array.from(container.querySelectorAll(`[data-ods-id="${id}"]`))
+    if (!cards.length) return
 
-    if (distance < card.offsetWidth * 0.35) {
+    const containerCenter = container.scrollLeft + container.clientWidth / 2
+    let closest = cards[0]
+    let minDistance = Infinity
+    cards.forEach((card) => {
+      const cardCenter = card.offsetLeft + card.offsetWidth / 2
+      const distance = Math.abs(containerCenter - cardCenter)
+      if (distance < minDistance) {
+        minDistance = distance
+        closest = card
+      }
+    })
+
+    if (minDistance < closest.offsetWidth * 0.35) {
       toggleODS(id)
     } else {
-      const scrollTarget = card.offsetLeft - container.clientWidth / 2 + card.offsetWidth / 2
+      const scrollTarget = closest.offsetLeft - container.clientWidth / 2 + closest.offsetWidth / 2
       container.scrollTo({ left: scrollTarget, behavior: 'smooth' })
     }
   }, [toggleODS])
@@ -40,6 +51,8 @@ export default function OdsSection() {
     if (!container) return
 
     let rafId = null
+    let setWidth = 0
+    let initialScroll = 0
 
     const updateCards = () => {
       const scrollLeft = container.scrollLeft
@@ -84,15 +97,33 @@ export default function OdsSection() {
     }
 
     const onScroll = () => {
+      const scrollLeft = container.scrollLeft
+      if (setWidth > 0 && (scrollLeft >= initialScroll + setWidth || scrollLeft <= initialScroll - setWidth)) {
+        container.scrollLeft = initialScroll
+      }
       if (rafId) cancelAnimationFrame(rafId)
       rafId = requestAnimationFrame(updateCards)
     }
 
+    const measure = () => {
+      const cards = Array.from(container.children)
+      const count = ODS_LIST.length
+      const first = cards[0]
+      const second = cards[count]
+      if (!first || !second) return
+      setWidth = second.offsetLeft - first.offsetLeft
+      initialScroll = second.offsetLeft - (container.clientWidth - first.offsetWidth) / 2
+      container.scrollLeft = initialScroll
+      updateCards()
+    }
+
     container.addEventListener('scroll', onScroll, { passive: true })
-    updateCards()
+    measure()
+    window.addEventListener('resize', measure)
 
     return () => {
       container.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', measure)
       if (rafId) cancelAnimationFrame(rafId)
     }
   }, [])
@@ -109,9 +140,17 @@ export default function OdsSection() {
             </svg>
           </button>
           <div ref={carouselRef} className="landing-ods-carousel">
-            {ODS_LIST.map((ods, index) => (
-              <ODSFlipCard key={ods.id} ods={ods} flipped={flippedODS.includes(ods.id)} onToggle={() => handleODSClick(ods.id, index)} dark={dark} />
-            ))}
+            {Array.from({ length: COPIES }).flatMap((_, copy) =>
+              ODS_LIST.map((ods) => (
+                <ODSFlipCard
+                  key={`${ods.id}-${copy}`}
+                  ods={ods}
+                  flipped={flippedODS.includes(ods.id)}
+                  onToggle={() => handleODSClick(ods.id)}
+                  dark={dark}
+                />
+              ))
+            )}
           </div>
           <button onClick={() => scrollCarousel('right')} className="landing-ods-arrow landing-ods-arrow--right" aria-label="Siguiente">
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">

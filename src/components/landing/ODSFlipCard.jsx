@@ -1,6 +1,6 @@
 export default function ODSFlipCard({ ods, flipped, onToggle, dark }) {
   return (
-    <div className="landing-ods-card" onClick={onToggle}>
+    <div className="landing-ods-card" data-ods-id={ods.id} onClick={onToggle}>
       <div className={`landing-ods-card-inner ${flipped ? 'flipped' : ''}`}>
         <div className="landing-ods-card-front" style={{ backgroundColor: ods.color }}>
           <div className="landing-ods-card-number">{String(ods.id).padStart(2, '0')}</div>
