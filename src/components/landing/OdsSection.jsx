@@ -20,6 +20,12 @@ export default function OdsSection() {
   const wheelRef = useRef(null)
   const dragRef = useRef(null)
   const suppressClickRef = useRef(false)
+  const rotationRef = useRef(0)
+
+  const applyRotation = useCallback((next) => {
+    rotationRef.current = next
+    setRotation(next)
+  }, [])
 
   useEffect(() => {
     const wheel = wheelRef.current
@@ -51,39 +57,40 @@ export default function OdsSection() {
     const index = ODS_LIST.findIndex((o) => o.id === id)
     if (index === -1) return
     const target = index * STEP
-    let delta = ((target - rotation) % 360 + 540) % 360 - 180
+    const current = rotationRef.current
+    let delta = ((target - current) % 360 + 540) % 360 - 180
     if (Math.abs(delta) < STEP * 0.45) {
       toggleODS(id)
     } else {
-      setRotation((r) => r + delta)
+      applyRotation(current + delta)
     }
-  }, [rotation, toggleODS])
+  }, [toggleODS, applyRotation])
 
   const rotate = useCallback((dir) => {
-    setRotation((r) => r + dir * STEP)
-  }, [])
+    applyRotation(rotationRef.current + dir * STEP)
+  }, [applyRotation])
 
   const handlePointerDown = useCallback((e) => {
-    dragRef.current = { startX: e.clientX, startRotation: rotation, moved: false }
+    dragRef.current = { startX: e.clientX, startRotation: rotationRef.current, moved: false }
     setIsDragging(true)
-  }, [rotation])
+  }, [])
 
   const handlePointerMove = useCallback((e) => {
     const drag = dragRef.current
     if (!drag) return
     const dx = e.clientX - drag.startX
     if (Math.abs(dx) > 4) drag.moved = true
-    setRotation(drag.startRotation + dx * 0.35)
-  }, [])
+    applyRotation(drag.startRotation + dx * 0.35)
+  }, [applyRotation])
 
   const handlePointerUp = useCallback(() => {
     if (!dragRef.current) return
     const moved = dragRef.current.moved
     dragRef.current = null
     setIsDragging(false)
-    setRotation((r) => Math.round(r / STEP) * STEP)
+    applyRotation(Math.round(rotationRef.current / STEP) * STEP)
     if (moved) suppressClickRef.current = true
-  }, [])
+  }, [applyRotation])
 
   const worldAngle = (index) => {
     let a = ((index * STEP - rotation) % 360 + 360) % 360
