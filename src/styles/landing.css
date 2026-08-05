@@ -352,10 +352,11 @@
   @apply relative;
 }
 
-/* Contenedor scrollable horizontal con snap centrado */
+/* Contenedor scrollable horizontal con snap centrado y perspectiva 3D circular */
 .landing-ods-carousel {
   @apply flex gap-5 overflow-x-auto scroll-smooth pb-4;
   scroll-snap-type: x mandatory;
+  perspective: 1200px;
   padding-inline: calc(50% - 140px);
   -ms-overflow-style: none;
   scrollbar-width: none;
