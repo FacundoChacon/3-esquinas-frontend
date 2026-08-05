@@ -347,24 +347,38 @@
   @apply text-gray-400;
 }
 
-/* Carrusel wrapper — relative para posicionar flechas */
-.landing-ods-carousel-wrapper {
+/* Rueda wrapper — relative para posicionar flechas */
+.landing-ods-wheel-wrapper {
   @apply relative;
 }
 
-/* Contenedor scrollable horizontal con snap centrado */
-.landing-ods-carousel {
-  @apply flex gap-5 overflow-x-auto scroll-smooth pb-4;
-  scroll-snap-type: x mandatory;
-  padding-inline: calc(50% - 140px);
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+/* Rueda 3D — las tarjetas giran alrededor de un anillo */
+.landing-ods-wheel {
+  position: relative;
+  height: 380px;
+  overflow: hidden;
+  perspective: 1400px;
+  perspective-origin: 50% 50%;
+  touch-action: pan-y;
+  user-select: none;
+  cursor: grab;
 }
-.landing-ods-carousel::-webkit-scrollbar {
-  display: none;
+.landing-ods-wheel:active {
+  cursor: grabbing;
 }
 
-/* Flechas de navegación del carrusel */
+.landing-ods-wheel-stage {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.landing-ods-wheel-stage--dragging {
+  transition: none;
+}
+
+/* Flechas de navegación de la rueda */
 .landing-ods-arrow {
   @apply absolute top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white border border-gray-300 shadow-md flex items-center justify-center text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-all;
 }
@@ -378,15 +392,19 @@
   @apply -right-2 sm:-right-4;
 }
 
-/* Tarjeta individual en el carrusel: ancho fijo, snap centrado */
+/* Tarjeta individual en la rueda: anclada al centro, posicionada en 3D */
 .landing-ods-card {
-  @apply snap-center shrink-0 w-[260px] sm:w-[280px] [perspective:1000px] cursor-pointer rounded-2xl;
-  transition: transform 0.4s ease, opacity 0.4s ease, box-shadow 0.4s ease;
+  @apply absolute left-1/2 top-1/2 w-[260px] sm:w-[280px] [perspective:1000px] cursor-pointer rounded-2xl;
+  transition: opacity 0.4s ease;
+  will-change: transform;
 }
 
 /* Inner que rota */
 .landing-ods-card-inner {
   @apply relative w-full h-[360px] [transform-style:preserve-3d] transition-transform duration-500 rounded-2xl;
+}
+.landing-ods-card-inner--active {
+  box-shadow: 0 0 0 2px rgba(16,185,129,0.5), 0 0 20px rgba(16,185,129,0.25);
 }
 .landing-ods-card-inner.flipped {
   @apply [transform:rotateY(180deg)];
