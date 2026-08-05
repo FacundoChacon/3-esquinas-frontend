@@ -54,7 +54,7 @@ export default function HeroSection({ scrollTo }) {
             <span className="landing-hero-tag-text">3 Esquinas</span>
           </div>
           <h1 className="landing-hero-title">
-            Construyendo un futuro sostenible desde Maipú, Mendoza
+            Construyendo un futuro sostenible desde Mendoza
           </h1>
           <p className="landing-hero-desc">
             Somos una organización comprometida con los 17 Objetivos de Desarrollo Sostenible de la ONU.
