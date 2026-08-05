@@ -47,7 +47,6 @@ export default function HeroSection({ scrollTo }) {
           />
         ))}
       </div>
-      <div className="landing-hero-overlay" />
       <div className="landing-hero-inner">
         <div className="landing-hero-text-block">
           <div className="landing-hero-tag">

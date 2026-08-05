@@ -123,11 +123,6 @@
   opacity: 1;
 }
 
-.landing-hero-overlay {
-  @apply absolute inset-0;
-  background: linear-gradient(135deg, rgba(6,95,70,0.55) 0%, rgba(4,120,87,0.50) 30%, rgba(5,150,105,0.45) 60%, rgba(217,119,6,0.35) 100%);
-}
-
 /* Contenedor del hero: layout flexible, responsive column/row */
 .landing-hero-inner {
   @apply relative max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-12 z-10;
