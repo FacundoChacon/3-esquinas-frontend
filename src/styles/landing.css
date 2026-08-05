@@ -103,6 +103,17 @@
   }
 }
 
+@keyframes hero-text-fade-up {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-60px);
+  }
+}
+
 .landing-hero {
   @apply relative px-6 py-12 sm:py-20 text-white overflow-hidden;
   animation: hero-emerge 0.7s ease-out both;
@@ -131,6 +142,8 @@
 /* Bloque de texto del hero */
 .landing-hero-text-block {
   @apply flex-1 text-center md:text-left;
+  animation: hero-text-fade-up 1s ease-in forwards;
+  animation-delay: 15s;
 }
 
 /* Etiqueta inline del hero (logo + nombre) */
