@@ -120,7 +120,7 @@ export default function OdsSection() {
           >
             <div
               className={`landing-ods-wheel-stage ${isDragging ? 'landing-ods-wheel-stage--dragging' : ''}`}
-              style={{ transform: `rotateY(${rotation}deg) scale(${wheelScale})` }}
+              style={{ transform: `rotateY(${-rotation}deg) scale(${wheelScale})` }}
             >
               {ODS_LIST.map((ods, index) => {
                 const angle = worldAngle(index)
