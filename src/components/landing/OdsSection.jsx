@@ -80,7 +80,7 @@ export default function OdsSection() {
     if (!drag) return
     const dx = e.clientX - drag.startX
     if (Math.abs(dx) > 4) drag.moved = true
-    applyRotation(drag.startRotation + dx * 0.35)
+    applyRotation(drag.startRotation - dx * 0.35)
   }, [applyRotation])
 
   const handlePointerUp = useCallback(() => {
