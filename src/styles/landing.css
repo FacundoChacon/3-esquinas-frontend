@@ -357,7 +357,7 @@
   position: relative;
   height: 380px;
   overflow: hidden;
-  perspective: 1400px;
+  perspective: 2000px;
   perspective-origin: 50% 50%;
   touch-action: pan-y;
   user-select: none;

@@ -1,19 +1,43 @@
-import { useRef, useState, useCallback } from 'react'
+import { useRef, useState, useCallback, useEffect } from 'react'
 import { ODS_LIST } from './odsData'
 import ODSFlipCard from './ODSFlipCard'
 import { useDarkMode } from '../../context/DarkModeContext'
 
 const CARD_COUNT = ODS_LIST.length
 const STEP = 360 / CARD_COUNT
-const RADIUS = 520
+const CARD_WIDTH = 280
+const CARD_HEIGHT = 360
+const RADIUS = 820
+const PERSPECTIVE = 2000
 
 export default function OdsSection() {
   const { dark } = useDarkMode()
   const [flippedODS, setFlippedODS] = useState([])
   const [rotation, setRotation] = useState(0)
   const [isDragging, setIsDragging] = useState(false)
+  const [wheelScale, setWheelScale] = useState(1)
+  const [wheelHeight, setWheelHeight] = useState(380)
+  const wheelRef = useRef(null)
   const dragRef = useRef(null)
   const suppressClickRef = useRef(false)
+
+  useEffect(() => {
+    const wheel = wheelRef.current
+    if (!wheel) return
+
+    const measure = () => {
+      const width = wheel.clientWidth
+      const magnification = PERSPECTIVE / (PERSPECTIVE - RADIUS)
+      const baseFrontWidth = CARD_WIDTH * magnification
+      const scale = Math.min(1, width / baseFrontWidth)
+      setWheelScale(scale)
+      setWheelHeight(Math.round(CARD_HEIGHT * magnification * scale))
+    }
+
+    measure()
+    window.addEventListener('resize', measure)
+    return () => window.removeEventListener('resize', measure)
+  }, [])
 
   const toggleODS = useCallback((id) => {
     setFlippedODS((prev) => prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id])
@@ -79,7 +103,9 @@ export default function OdsSection() {
             </svg>
           </button>
           <div
+            ref={wheelRef}
             className="landing-ods-wheel"
+            style={{ height: wheelHeight }}
             onPointerDown={handlePointerDown}
             onPointerMove={handlePointerMove}
             onPointerUp={handlePointerUp}
@@ -87,7 +113,7 @@ export default function OdsSection() {
           >
             <div
               className={`landing-ods-wheel-stage ${isDragging ? 'landing-ods-wheel-stage--dragging' : ''}`}
-              style={{ transform: `rotateY(${rotation}deg)` }}
+              style={{ transform: `rotateY(${rotation}deg) scale(${wheelScale})` }}
             >
               {ODS_LIST.map((ods, index) => {
                 const angle = worldAngle(index)
