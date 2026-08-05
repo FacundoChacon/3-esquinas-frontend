@@ -59,7 +59,6 @@ export default function OdsSection() {
       const containerWidth = container.clientWidth
       const containerCenter = scrollLeft + containerWidth / 2
       const cards = Array.from(container.children)
-      const maxRotate = 65
 
       cards.forEach((card) => {
         const cardCenter = card.offsetLeft + card.offsetWidth / 2
@@ -70,25 +69,23 @@ export default function OdsSection() {
         const isCentered = ratio < 0.35
         const inner = card.querySelector('.landing-ods-card-inner')
 
-        let scale, opacity, glow, rotate, zIndex
+        let scale, opacity, glow
         if (isCentered) {
           scale = 1
           opacity = 1
           glow = '0 0 0 2px rgba(16,185,129,0.5), 0 0 20px rgba(16,185,129,0.25)'
-          rotate = 0
-          zIndex = 100
-        } else {
-          const t = Math.min(ratio / 1.3, 1)
-          scale = 1 - t * 0.3
-          opacity = Math.max(0, 1 - (ratio - 0.35) / 2.2)
+        } else if (ratio < 1.3) {
+          scale = 0.82
+          opacity = 0.5
           glow = 'none'
-          rotate = t * maxRotate * (cardCenter < containerCenter ? 1 : -1)
-          zIndex = Math.max(1, Math.round((1 - Math.min(ratio, 2)) * 100))
+        } else {
+          scale = 0.7
+          opacity = 0.25
+          glow = 'none'
         }
 
-        card.style.transform = `rotateY(${rotate}deg) scale(${scale})`
+        card.style.transform = `scale(${scale})`
         card.style.opacity = opacity
-        card.style.zIndex = zIndex
 
         if (inner) {
           inner.style.boxShadow = glow
