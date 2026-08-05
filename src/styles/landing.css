@@ -104,9 +104,9 @@
 }
 
 .landing-hero {
-  @apply relative px-6 py-12 sm:py-20 text-white overflow-hidden;
+  @apply relative px-6 py-12 sm:py-20 text-emerald-950 overflow-hidden;
   animation: hero-emerge 0.7s ease-out both;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  text-shadow: 0 1px 2px rgba(255,255,255,0.5);
 }
 
 .landing-hero-video-bg {
@@ -145,7 +145,7 @@
 
 /* Texto de la etiqueta del hero */
 .landing-hero-tag-text {
-  @apply text-sm font-semibold tracking-wider uppercase opacity-80;
+  @apply text-sm font-semibold tracking-wider uppercase opacity-90;
 }
 
 /* Título principal del hero: responsive, bold, con espacio inferior */
@@ -168,14 +168,14 @@
   @apply px-5 py-2 rounded-full text-sm font-semibold bg-white text-emerald-700;
 }
 
-/* Botón outline del hero (borde blanco translúcido) */
+/* Botón outline del hero (borde oscuro translúcido) */
 .landing-hero-btn-outline {
-  @apply px-5 py-2 border border-white/40 text-white rounded-full text-sm font-semibold;
+  @apply px-5 py-2 border border-emerald-950/40 text-emerald-950 rounded-full text-sm font-semibold;
 }
 
 /* Placeholder de imagen del hero (cuando no hay foto) */
 .landing-hero-image-placeholder {
-  @apply aspect-[4/3] rounded-2xl border-2 border-dashed border-white/40 text-white/50 flex flex-col items-center justify-center gap-2;
+  @apply aspect-[4/3] rounded-2xl border-2 border-dashed border-emerald-950/40 text-emerald-950/60 flex flex-col items-center justify-center gap-2;
 }
 
 /* Icono dentro del placeholder de imagen */
