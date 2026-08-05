@@ -233,9 +233,9 @@
   @apply mb-10;
 }
 
-/* Fila inferior: Dos columnas */
+/* Contenido uniforme: texto arriba, recorrido abajo */
 .landing-about-body {
-  @apply grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start;
+  @apply grid grid-cols-1 gap-8;
 }
 
 .landing-about-subtitle {
@@ -257,15 +257,15 @@
 }
 
 .landing-about-text {
-  @apply leading-relaxed text-gray-600 mb-4;
+  @apply leading-relaxed text-gray-600 mb-4 text-justify;
 }
 :root.dark .landing-about-text {
   @apply text-gray-400;
 }
 
-/* Columna derecha: recorrido */
+/* Recorrido */
 .landing-about-cards {
-  @apply space-y-3 mb-6;
+  @apply grid grid-cols-1 md:grid-cols-3 gap-4 mb-6;
 }
 
 .landing-about-card {
