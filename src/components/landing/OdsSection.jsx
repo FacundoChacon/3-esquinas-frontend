@@ -5,9 +5,9 @@ import { useDarkMode } from '../../context/DarkModeContext'
 
 const CARD_COUNT = ODS_LIST.length
 const STEP = 360 / CARD_COUNT
-const CARD_WIDTH = 220
-const CARD_HEIGHT = 290
-const RADIUS = 720
+const CARD_WIDTH = 190
+const CARD_HEIGHT = 260
+const RADIUS = 620
 const PERSPECTIVE = 2000
 
 export default function OdsSection() {

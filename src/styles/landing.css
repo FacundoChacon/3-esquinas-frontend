@@ -394,14 +394,14 @@
 
 /* Tarjeta individual en la rueda: anclada al centro, posicionada en 3D */
 .landing-ods-card {
-  @apply absolute left-1/2 top-1/2 w-[220px] [perspective:1000px] cursor-pointer rounded-2xl;
+  @apply absolute left-1/2 top-1/2 w-[190px] [perspective:1000px] cursor-pointer rounded-2xl;
   transition: opacity 0.4s ease;
   will-change: transform;
 }
 
 /* Inner que rota */
 .landing-ods-card-inner {
-  @apply relative w-full h-[290px] [transform-style:preserve-3d] transition-transform duration-500 rounded-2xl;
+  @apply relative w-full h-[260px] [transform-style:preserve-3d] transition-transform duration-500 rounded-2xl;
 }
 .landing-ods-card-inner--active {
   box-shadow: 0 0 0 2px rgba(16,185,129,0.5), 0 0 20px rgba(16,185,129,0.25);
@@ -412,7 +412,7 @@
 
 /* Cara frontal */
 .landing-ods-card-front {
-  @apply absolute inset-0 rounded-2xl p-5 text-white text-center flex flex-col items-center gap-2 [backface-visibility:hidden];
+  @apply absolute inset-0 rounded-2xl p-4 text-white text-center flex flex-col items-center gap-2 [backface-visibility:hidden];
 }
 
 .landing-ods-card-number {
@@ -421,7 +421,7 @@
 
 /* Placeholder de foto ODS */
 .landing-ods-card-photo {
-  @apply w-full h-28 rounded-xl overflow-hidden;
+  @apply w-full h-20 rounded-xl overflow-hidden;
 }
 
 .landing-ods-card-label {
@@ -434,7 +434,7 @@
 
 /* Cara trasera — fondo claro u oscuro según modo */
 .landing-ods-card-back {
-  @apply absolute inset-0 rounded-2xl p-5 text-center flex flex-col items-center justify-center gap-3 [backface-visibility:hidden] [transform:rotateY(180deg)] bg-white border border-gray-300 shadow-md;
+  @apply absolute inset-0 rounded-2xl p-4 text-center flex flex-col items-center justify-center gap-3 [backface-visibility:hidden] [transform:rotateY(180deg)] bg-white border border-gray-300 shadow-md;
 }
 .landing-ods-card-back.dark {
   @apply bg-gray-900 border-gray-700;
