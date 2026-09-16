@@ -10,6 +10,21 @@ const CARD_HEIGHT = 260
 const RADIUS = 620
 const PERSPECTIVE = 2000
 
+const LINKS_DE_INTERES = [
+  {
+    href: 'https://repositorio.cepal.org/server/api/core/bitstreams/cb30a4de-7d87-4e79-8e7a-ad5279038718/content',
+    label: 'Agenda 2030 para el Desarrollo Sostenible — CEPAL (repositorio)',
+  },
+  {
+    href: 'https://www.un.org/sustainabledevelopment/es/2015/09/la-asamblea-general-adopta-la-agenda-2030-para-el-desarrollo-sostenible/',
+    label: 'La Asamblea General adopta la Agenda 2030 — ONU',
+  },
+  {
+    href: 'https://ods.uam.es/agenda-2030-y-ods/',
+    label: 'Agenda 2030 y ODS — Universidad Autónoma de Madrid',
+  },
+]
+
 export default function OdsSection() {
   const { dark } = useDarkMode()
   const [flippedODS, setFlippedODS] = useState([])
@@ -148,6 +163,23 @@ export default function OdsSection() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
             </svg>
           </button>
+        </div>
+
+        <div className="landing-ods-links">
+          <h3 className="landing-ods-links-title">Links de interés</h3>
+          <div className="landing-ods-links-list">
+            {LINKS_DE_INTERES.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="landing-ods-link"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </section>
