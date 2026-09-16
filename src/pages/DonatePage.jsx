@@ -119,7 +119,7 @@ export default function DonatePage() {
             <div className="donate-transfer-data">
               <InfoRow label="Monto" value={`$${Number(transferencia.monto).toLocaleString('es-AR')}`} />
               <InfoRow label="Estado" value={transferencia.estado} badge />
-              <InfoRow label="CVU" value={transferencia.cvu} />
+              <InfoRow label="CBU" value={transferencia.cbu} />
               <InfoRow label="Alias" value={transferencia.alias} />
               <InfoRow label="Banco" value={transferencia.banco} />
               <InfoRow label="Titular" value={transferencia.titular} />
