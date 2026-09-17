@@ -158,17 +158,17 @@
 
 /* Texto de la etiqueta del hero */
 .landing-hero-tag-text {
-  @apply text-base font-semibold tracking-wider uppercase opacity-90;
+  @apply text-lg font-semibold tracking-wider uppercase opacity-90;
 }
 
 /* Título principal del hero: responsive, bold, con espacio inferior */
 .landing-hero-title {
-  @apply text-4xl sm:text-6xl font-bold leading-tight mb-4;
+  @apply text-5xl sm:text-7xl font-bold leading-tight mb-4;
 }
 
 /* Párrafo descriptivo del hero */
 .landing-hero-desc {
-  @apply text-lg sm:text-xl opacity-90 max-w-xl mb-6;
+  @apply text-xl sm:text-2xl opacity-90 max-w-xl mb-6;
 }
 
 /* Botones de acción del hero */
@@ -178,12 +178,12 @@
 
 /* Botón primario del hero (blanco sobre verde) */
 .landing-hero-btn-primary {
-  @apply px-5 py-2 rounded-full text-base font-semibold bg-white text-emerald-700;
+  @apply px-5 py-2 rounded-full text-lg font-semibold bg-white text-emerald-700;
 }
 
 /* Botón outline del hero (borde blanco translúcido) */
 .landing-hero-btn-outline {
-  @apply px-5 py-2 border border-white/40 text-white rounded-full text-base font-semibold;
+  @apply px-5 py-2 border border-white/40 text-white rounded-full text-lg font-semibold;
 }
 
 /* Placeholder de imagen del hero (cuando no hay foto) */
