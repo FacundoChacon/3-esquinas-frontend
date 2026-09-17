@@ -49,7 +49,7 @@
 - **Footer:** Redes sociales y ubicación (componente compartido con Conocenos)
 
 ### Sistema de Donaciones (`/donar`)
-- **Transferencia bancaria:** Muestra CVU, alias, banco, titular y CUIT
+- **Transferencia bancaria:** Muestra CBU, alias, banco, titular y CUIT
 - **MercadoPago:** Redirección al checkout de MercadoPago (sandbox)
 - **PayPal:** Redirección al checkout de PayPal (sandbox)
 - **Dark Mode:** Completo (navbar, formulario, cards, inputs, confirmación)
@@ -177,7 +177,7 @@ Sección adicional para ofrecer cursos y seminarios online. Presupuesto por apar
 
 - [ ] Integrar MercadoPago con credenciales reales (sacar de sandbox)
 - [ ] Integrar PayPal con credenciales reales (sacar de sandbox)
-- [ ] Configurar datos bancarios reales (CVU, alias, banco, CUIT)
+- [ ] Configurar datos bancarios reales (CBU, alias, banco, CUIT)
 - [ ] Configurar dominio propio (ej: `api.3esquinas.org.ar`)
 - [ ] Cambiar contraseña del admin después del primer login
 - [ ] Agregar más usuarios con roles EDITOR/VIEWER según necesidad
@@ -195,6 +195,16 @@ Sección adicional para ofrecer cursos y seminarios online. Presupuesto por apar
 - **Cuidado al modificar migraciones de Flyway:** si una migración ya fue aplicada, cambiarla causa checksum mismatch. Usar migración nueva (V+n) para correcciones.
 
 ## Changelog
+
+### 2026-09-16 — Sync contrato backend (cvu → cbu) + Links de interés en ODS
+
+#### Donaciones — contrato de transferencia (`DonatePage.jsx`)
+- **fix:** La confirmación de transferencia ahora lee `transferencia.cbu` en lugar de `transferencia.cvu` (el backend H7 `80243ce` renombró el campo en `TransferenciaResponse`). La etiqueta pasó de "CVU" a "CBU".
+
+#### Landing — Sección ODS (`OdsSection.jsx` / `landing.css`)
+- **feat:** Nuevo bloque "Links de interés" debajo de la rueda 3D de ODS con 3 enlaces oficiales: Agenda 2030 CEPAL (repositorio), Asamblea General ONU (Agenda 2030) y Agenda 2030 y ODS de la UAM. Abren en pestaña nueva (`target="_blank"` + `rel="noopener noreferrer"`).
+- **fix:** Corregido el 3er link de la UAM que llegó duplicado (se usa `https://ods.uam.es/agenda-2030-y-ods/`).
+- **style:** Estilos `.landing-ods-links*` con soporte dark mode.
 
 ### 2026-08-04 — Landing: sección de donaciones + contraste y responsive
 
