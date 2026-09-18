@@ -8,6 +8,11 @@ export default function HeroSection({ scrollTo }) {
   const aboutNext = () => setAboutSlide((prev) => (prev + 1) % ABOUT_VIDEOS.length)
 
   useEffect(() => {
+    if (ABOUT_VIDEOS[aboutSlide]?.type === 'image') {
+      const duration = ABOUT_VIDEOS[aboutSlide].duration ?? 6000
+      const timer = setTimeout(aboutNext, duration)
+      return () => clearTimeout(timer)
+    }
     const handlers = []
     videoRefs.current.forEach((v, i) => {
       if (!v) return
@@ -34,18 +39,27 @@ export default function HeroSection({ scrollTo }) {
   return (
     <section id="inicio" className="landing-hero">
       <div className="landing-hero-video-bg">
-        {ABOUT_VIDEOS.map((video, i) => (
-          <video
-            key={i}
-            ref={(el) => { videoRefs.current[i] = el }}
-            src={video.src}
-            muted
-            loop={false}
-            playsInline
-            preload={i === 0 ? 'auto' : 'metadata'}
-            className={`landing-hero-video ${i === aboutSlide ? 'active' : ''}`}
-          />
-        ))}
+        {ABOUT_VIDEOS.map((slide, i) =>
+          slide.type === 'image' ? (
+            <img
+              key={i}
+              src={slide.src}
+              alt={slide.alt}
+              className={`landing-hero-video ${i === aboutSlide ? 'active' : ''}`}
+            />
+          ) : (
+            <video
+              key={i}
+              ref={(el) => { videoRefs.current[i] = el }}
+              src={slide.src}
+              muted
+              loop={false}
+              playsInline
+              preload={i === 0 ? 'auto' : 'metadata'}
+              className={`landing-hero-video ${i === aboutSlide ? 'active' : ''}`}
+            />
+          )
+        )}
       </div>
       <div className="landing-hero-inner">
         <div className="landing-hero-text-block">
