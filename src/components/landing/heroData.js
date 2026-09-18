@@ -1,6 +1,6 @@
 const ABOUT_VIDEOS = [
   { type: 'image', src: '/images/hero/maipu-vinedos.jpg', alt: 'Viñedos de Fray Luis Beltrán, departamento de Maipú', duration: 6000 },
-  { type: 'image', src: '/images/hero/maipu-vinedos-ciclismo.jpg', alt: 'Ciclismo entre viñedos de Maipú, Mendoza', duration: 6000 },
+  { type: 'image', src: '/images/hero/olivo-historico-mendoza.jpg', alt: 'Olivo histórico en Mendoza', duration: 6000 },
   { src: '/videos/mendoza-plaza-independencia.mp4', alt: 'Vista aérea de Plaza Independencia, Mendoza' },
   { src: '/videos/mendoza-ciudad-aerea.mp4', alt: 'Vista aérea de la ciudad de Mendoza' },
   { src: '/videos/parque-aereo.mp4', alt: 'Vista aérea de parque y naturaleza' },
