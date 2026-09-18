@@ -8,10 +8,9 @@ Fotos del hero — zona de Maipú (Mendoza), obtenidas de Wikimedia Commons con 
    - Descripción: Viñedos de la variedad Torrontés Riojano en el distrito de Fray Luis
      Beltrán, departamento de Maipú, Mendoza, Argentina. 2011.
 
-2. olivo-historico-mendoza.jpg
-   - Título: "Olivo historico.jpg"
-   - Fuente: https://commons.wikimedia.org/wiki/File:Olivo_historico.jpg
-   - Autor: Laprofeeslamastop
-   - Licencia: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)
-   - Descripción: Olivo histórico de Mendoza bajo el cual descansó el Libertador José de
-     San Martín. San Martín, Mendoza, Argentina.
+2. maipu-vinedos-ciclismo.jpg
+   - Título: "Ciclismo entre viñedos de Maipú, Mendoza, Argentina.png"
+   - Fuente: https://commons.wikimedia.org/wiki/File:Ciclismo_entre_vi%C3%B1edos_de_Maip%C3%BA,_Mendoza,_Argentina.png
+   - Autor: MendozaGuide
+   - Licencia: CC0 1.0 Dominio público (https://creativecommons.org/publicdomain/zero/1.0/)
+   - Descripción: Ciclismo entre viñedos de Maipú, Mendoza, Argentina. 2025.
