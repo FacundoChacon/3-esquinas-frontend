@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Rutas privadas del panel: no deben indexarse
+Disallow: /admin
+
+Sitemap: /sitemap.xml
