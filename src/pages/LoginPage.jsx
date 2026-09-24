@@ -48,7 +48,13 @@ export default function LoginPage() {
     setLoading(true)
     try {
       const result = await login(email, password)
-      navigate(result.user?.rol === 'ADMIN' ? '/admin' : '/')
+      navigate(
+        result.user?.rol === 'ADMIN'
+          ? '/admin'
+          : result.user?.rol === 'EDITOR'
+            ? '/admin/datos'
+            : '/'
+      )
     } catch (err) {
       setError(err.message || 'Credenciales incorrectas. Intente nuevamente.')
     } finally {

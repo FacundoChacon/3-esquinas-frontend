@@ -48,7 +48,9 @@ export default function App() {
           <Route path="/register" element={<RegisterPage />} />
 
           {/* ============================================= */}
-          {/* RUTAS PROTEGIDAS — ADMIN SOLO                 */}
+          {/* RUTAS PROTEGIDAS — PANEL                       */}
+          {/* ADMIN: dashboard, donaciones, mensajes, volunt. */}
+          {/* ADMIN + EDITOR: control de datos               */}
           {/* ============================================= */}
 
           <Route element={<ProtectedRoute roles={['ADMIN']} />}>
@@ -57,6 +59,11 @@ export default function App() {
               <Route path="/admin/donaciones" element={<DonacionesPage />} />
               <Route path="/admin/contactos" element={<ContactosPage />} />
               <Route path="/admin/voluntarios" element={<VoluntariosPage />} />
+            </Route>
+          </Route>
+
+          <Route element={<ProtectedRoute roles={['ADMIN', 'EDITOR']} />}>
+            <Route element={<AdminLayout />}>
               <Route path="/admin/datos" element={<DatosPage />} />
             </Route>
           </Route>

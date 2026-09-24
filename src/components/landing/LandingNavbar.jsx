@@ -33,6 +33,8 @@ export default function LandingNavbar({ scrollTo }) {
   const authAction = isAuthenticated ? (
     user?.rol === 'ADMIN' ? (
       <Link to="/admin" onClick={() => setMenuOpen(false)} className="landing-nav-btn-outline">Admin</Link>
+    ) : user?.rol === 'EDITOR' ? (
+      <Link to="/admin/datos" onClick={() => setMenuOpen(false)} className="landing-nav-btn-outline">Panel</Link>
     ) : (
       <button onClick={logout} className="landing-nav-btn-outline">Cerrar sesión</button>
     )
