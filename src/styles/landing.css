@@ -557,44 +557,87 @@
   @apply text-gray-400;
 }
 
-.landing-contenido-grid {
-  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8;
+/* Lista vertical de contenido */
+.landing-contenido-list {
+  @apply flex flex-col gap-4;
 }
 
+/* Tarjeta de contenido (video, noticia, redes) */
 .landing-contenido-card {
-  @apply flex flex-col items-center justify-center gap-3 p-8 rounded-2xl border-2 border-dashed border-gray-300 bg-white shadow-sm;
+  @apply flex flex-col gap-4 p-4 rounded-2xl border-2 border-dashed border-gray-300 bg-white shadow-sm text-left sm:flex-row sm:items-center;
 }
 :root.dark .landing-contenido-card {
   @apply bg-gray-800/50 border-gray-600;
 }
 
-.landing-contenido-card-icon {
-  @apply w-10 h-10 text-gray-400;
+/* Media placeholder: bloque de video/foto/publicación */
+.landing-contenido-card-media {
+  @apply sm:w-60 shrink-0 aspect-video sm:aspect-[4/3] rounded-xl bg-gray-100 border border-gray-200 flex flex-col items-center justify-center gap-1 text-gray-400;
 }
-:root.dark .landing-contenido-card-icon {
-  @apply text-gray-500;
+:root.dark .landing-contenido-card-media {
+  @apply bg-gray-700/40 border-gray-600 text-gray-500;
 }
 
-.landing-contenido-card-label {
-  @apply text-sm font-semibold text-gray-700;
+.landing-contenido-card-media-type {
+  @apply text-xs font-semibold uppercase tracking-wider text-gray-600;
 }
-:root.dark .landing-contenido-card-label {
-  @apply text-gray-300;
+:root.dark .landing-contenido-card-media-type {
+  @apply text-gray-400;
+}
+
+.landing-contenido-card-body {
+  @apply flex-1 flex flex-col gap-2;
+}
+
+.landing-contenido-card-title {
+  @apply text-base font-bold text-gray-900;
+}
+:root.dark .landing-contenido-card-title {
+  @apply text-white;
+}
+
+.landing-contenido-card-desc {
+  @apply text-sm leading-relaxed text-gray-600;
+}
+:root.dark .landing-contenido-card-desc {
+  @apply text-gray-400;
+}
+
+.landing-contenido-card-links {
+  @apply flex flex-wrap gap-2;
+}
+
+.landing-contenido-card-link {
+  @apply inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700 hover:bg-emerald-200 transition-colors;
+}
+:root.dark .landing-contenido-card-link {
+  @apply bg-emerald-900/40 text-emerald-400 hover:bg-emerald-900/60;
 }
 
 .landing-contenido-card-badge {
-  @apply text-xs font-medium text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full;
+  @apply self-start text-xs font-medium text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full;
 }
 :root.dark .landing-contenido-card-badge {
   @apply text-emerald-400 bg-emerald-900/40;
 }
 
-.landing-contenido-actions {
-  @apply flex justify-center;
+/* Barra expandible: cruza de borde a borde de la sección */
+.landing-contenido-bar {
+  @apply w-full flex items-center gap-4 py-3 rounded-xl hover:bg-gray-50 text-gray-600 transition-colors;
+}
+:root.dark .landing-contenido-bar {
+  @apply hover:bg-gray-800/60 text-gray-400;
 }
 
-.landing-contenido-btn {
-  @apply inline-flex items-center gap-2 px-6 py-2.5 rounded-full font-semibold text-sm bg-emerald-600 text-white hover:bg-emerald-700 transition-colors;
+.landing-contenido-bar-line {
+  @apply flex-1 h-px bg-gray-300;
+}
+:root.dark .landing-contenido-bar-line {
+  @apply bg-gray-700;
+}
+
+.landing-contenido-bar-label {
+  @apply text-sm font-semibold whitespace-nowrap inline-flex items-center gap-1.5;
 }
 
 /* ================================================================
