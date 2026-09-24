@@ -9,7 +9,7 @@ const ABOUT_VIDEOS = [
   { src: '/videos/17128972-uhd_3840_2160_30fps.mp4', alt: 'Vista de un viñedo' },
   { src: '/videos/10576689-hd_3840_2160_30fps.mp4', alt: 'Máquina agrícola transportando mandarinas' },
   { src: '/videos/10636161-uhd_3840_2160_30fps.mp4', alt: 'Empleados manipulando aceitunas hacia una máquina' },
-  { src: '/videos/13113325-hd_1920_1080_30fps.mp4', alt: 'Video seleccionado por el cliente' },
+  { src: '/videos/13113325-hd_1920_1080_30fps.mp4', alt: 'Río entre montañas' },
   { src: '/videos/15525654_1920_1080_30fps.mp4', alt: 'Video seleccionado por el cliente' },
 ]
 
