@@ -49,9 +49,9 @@
   @apply text-white;
 }
 
-/* Contenedor de links de navegación: scroll horizontal en móvil */
+/* Contenedor de links de navegación: solo visible en desktop (menú hamburguesa en móvil) */
 .landing-nav-links {
-  @apply flex items-center gap-0 sm:gap-1 overflow-x-auto min-w-0;
+  @apply hidden md:flex items-center gap-1 min-w-0;
 }
 
 /* Cada link del navbar: texto pequeño, responsive, redondeado, transición suave */
@@ -73,6 +73,44 @@
 }
 :root.dark .landing-nav-dark-toggle {
   @apply text-gray-400 hover:bg-gray-800;
+}
+
+/* Botón hamburguesa del menú móvil: solo visible en <md */
+.landing-nav-menu-toggle {
+  @apply md:hidden p-2 rounded-full text-gray-600 hover:bg-gray-100 transition-colors;
+}
+:root.dark .landing-nav-menu-toggle {
+  @apply text-gray-400 hover:bg-gray-800;
+}
+
+/* Acciones del navbar (sesión + donar): solo en desktop, en móvil van al panel */
+.landing-nav-actions-desktop {
+  @apply hidden md:flex items-center gap-2;
+}
+
+/* Panel desplegable del menú móvil */
+.landing-nav-mobile {
+  @apply md:hidden flex flex-col gap-1 px-4 pb-4 pt-2 border-t border-gray-200 bg-white/95 backdrop-blur-md;
+}
+:root.dark .landing-nav-mobile {
+  @apply bg-gray-950/95 border-gray-800;
+}
+
+/* Links del panel mobile: full width para toques más grandes */
+.landing-nav-mobile .landing-nav-link {
+  @apply w-full text-left;
+}
+
+/* Acciones dentro del panel mobile: comparten el ancho */
+.landing-nav-mobile-actions {
+  @apply flex items-stretch gap-2 mt-2 pt-3 border-t border-gray-100;
+}
+:root.dark .landing-nav-mobile-actions {
+  @apply border-gray-800;
+}
+.landing-nav-mobile-actions .landing-nav-btn-outline,
+.landing-nav-mobile-actions .landing-nav-btn-primary {
+  flex: 1 1 auto;
 }
 
 /* Botón outline genérico del navbar (sesión, admin, cerrar) */

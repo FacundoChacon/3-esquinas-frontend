@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { useDarkMode } from '../../context/DarkModeContext'
@@ -13,18 +14,49 @@ const NAV_ITEMS = [
 export default function LandingNavbar({ scrollTo }) {
   const { user, isAuthenticated, logout } = useAuth()
   const { dark, toggle: toggleDark } = useDarkMode()
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  useEffect(() => {
+    if (!menuOpen) return
+    const onKey = (e) => {
+      if (e.key === 'Escape') setMenuOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [menuOpen])
+
+  const go = (id) => {
+    setMenuOpen(false)
+    scrollTo(id)
+  }
+
+  const authAction = isAuthenticated ? (
+    user?.rol === 'ADMIN' ? (
+      <Link to="/admin" onClick={() => setMenuOpen(false)} className="landing-nav-btn-outline">Admin</Link>
+    ) : (
+      <button onClick={logout} className="landing-nav-btn-outline">Cerrar sesión</button>
+    )
+  ) : (
+    <Link to="/login" onClick={() => setMenuOpen(false)} className="landing-nav-btn-outline">Iniciar sesión</Link>
+  )
+
+  const donarAction = (
+    <button onClick={() => go('donar')} className="landing-nav-btn-primary">
+      Donar
+    </button>
+  )
 
   return (
     <nav className="landing-nav">
       <div className="landing-nav-inner">
-        <button onClick={() => scrollTo('inicio')} className="landing-nav-logo">
+        <button onClick={() => go('inicio')} className="landing-nav-logo">
           <img src="/images/logo-3esquinas.png" alt="3 Esquinas" className="landing-nav-logo-img" />
           <span className="landing-nav-logo-text">3 Esquinas</span>
         </button>
 
         <div className="landing-nav-links">
           {NAV_ITEMS.map((item) => (
-            <button key={item.id} onClick={() => scrollTo(item.id)} className="landing-nav-link">
+            <button key={item.id} onClick={() => go(item.id)} className="landing-nav-link">
               {item.label}
             </button>
           ))}
@@ -42,20 +74,42 @@ export default function LandingNavbar({ scrollTo }) {
               </svg>
             )}
           </button>
-          {isAuthenticated ? (
-            user?.rol === 'ADMIN' ? (
-              <Link to="/admin" className="landing-nav-btn-outline">Admin</Link>
+          <div className="landing-nav-actions-desktop">
+            {authAction}
+            {donarAction}
+          </div>
+          <button
+            onClick={() => setMenuOpen((open) => !open)}
+            className="landing-nav-menu-toggle"
+            aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
+            aria-expanded={menuOpen}
+          >
+            {menuOpen ? (
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
             ) : (
-              <button onClick={logout} className="landing-nav-btn-outline">Cerrar sesión</button>
-            )
-          ) : (
-            <Link to="/login" className="landing-nav-btn-outline">Iniciar sesión</Link>
-          )}
-          <button onClick={() => scrollTo('donar')} className="landing-nav-btn-primary">
-            Donar
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
+            )}
           </button>
         </div>
       </div>
+
+      {menuOpen && (
+        <div className="landing-nav-mobile">
+          {NAV_ITEMS.map((item) => (
+            <button key={item.id} onClick={() => go(item.id)} className="landing-nav-link">
+              {item.label}
+            </button>
+          ))}
+          <div className="landing-nav-mobile-actions">
+            {authAction}
+            {donarAction}
+          </div>
+        </div>
+      )}
     </nav>
   )
 }
