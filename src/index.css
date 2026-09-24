@@ -5,6 +5,11 @@
  */
 @import "tailwindcss";
 
+/* Tokens de marca: una sola tipografía + paleta (primario emerald, acento amber) */
+@theme {
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
 /* Estilos modulares por página/componente */
 @import "./styles/landing.css";
 @import "./styles/donate.css";
@@ -16,7 +21,7 @@
 body {
   margin: 0;
   background: #f8fafc;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: var(--font-sans);
 }
 
 /* Scroll suave para toda la aplicación */
