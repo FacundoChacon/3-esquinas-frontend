@@ -146,7 +146,7 @@
 }
 
 .conocenos-member-role {
-  @apply text-xs font-semibold text-emerald-600 uppercase tracking-wider;
+  @apply text-xs font-semibold text-emerald-700 uppercase tracking-wider;
 }
 :root.dark .conocenos-member-role {
   @apply text-emerald-400;

@@ -377,7 +377,7 @@
 }
 
 .landing-ods-subtitle {
-  @apply text-sm mb-8 text-gray-500;
+  @apply text-sm mb-8 text-gray-600;
 }
 :root.dark .landing-ods-subtitle {
   @apply text-gray-400;
@@ -498,10 +498,10 @@
 }
 
 .landing-ods-card-back-hint {
-  @apply text-[10px] font-medium text-gray-400 mt-1;
+  @apply text-xs font-medium text-gray-600 mt-1;
 }
 :root.dark .landing-ods-card-back-hint {
-  @apply text-gray-500;
+  @apply text-gray-400;
 }
 
 /* Links de interés — enlaces a fuentes oficiales sobre Agenda 2030/ODS */
@@ -746,10 +746,10 @@
 }
 
 .landing-contact-channel-label {
-  @apply block text-xs font-semibold uppercase tracking-wide text-gray-400;
+  @apply block text-xs font-semibold uppercase tracking-wide text-gray-600;
 }
 :root.dark .landing-contact-channel-label {
-  @apply text-gray-500;
+  @apply text-gray-400;
 }
 
 .landing-contact-channel-value {
@@ -768,10 +768,10 @@
 }
 
 .landing-contact-socials-label {
-  @apply block text-xs font-semibold uppercase tracking-wide text-gray-400 mb-3;
+  @apply block text-xs font-semibold uppercase tracking-wide text-gray-600 mb-3;
 }
 :root.dark .landing-contact-socials-label {
-  @apply text-gray-500;
+  @apply text-gray-400;
 }
 
 .landing-contact-socials-links {
@@ -877,7 +877,7 @@
 }
 
 .landing-footer-desc {
-  @apply text-xs leading-relaxed opacity-70 max-w-xs;
+  @apply text-xs leading-relaxed max-w-xs;
 }
 
 /* Columna del medio: links de navegación */
@@ -907,7 +907,7 @@
 }
 
 .landing-footer-contact-item {
-  @apply text-xs opacity-70;
+  @apply text-xs;
 }
 
 .landing-footer-social-row {
@@ -920,7 +920,7 @@
 
 /* Barra inferior de copyright */
 .landing-footer-bottom {
-  @apply max-w-5xl mx-auto text-center text-xs opacity-50 pt-5;
+  @apply max-w-5xl mx-auto text-center text-xs pt-5;
 }
 
 /* ================================================================
