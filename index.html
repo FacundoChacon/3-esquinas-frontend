@@ -2,10 +2,59 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#065f46" />
+
+    <!--
+      TODO DEPLOY: el sitio aún no está publicado. Cuando exista un dominio real,
+      reemplazar "https://3esquinas.invalid" en canonical, og:url, og:image y JSON-LD,
+      y actualizar la constante SITE_URL en src/config/site.js (deben coincidir).
+    -->
+    <title>3 Esquinas — Portal de Donaciones</title>
+    <meta name="description" content="Asociación civil 3 Esquinas de Maipú, Mendoza. Sumate con tu donación o como voluntario y colaborá con proyectos de impacto social y desarrollo sostenible." />
+    <link rel="canonical" href="https://3esquinas.invalid/" />
+    <meta name="author" content="Asociación Civil 3 Esquinas" />
+
+    <!-- Open Graph / Redes sociales -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="3 Esquinas" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:title" content="3 Esquinas — Portal de Donaciones" />
+    <meta property="og:description" content="Sumate con tu donación o como voluntario. Proyectos de impacto social y desarrollo sostenible en Maipú, Mendoza." />
+    <meta property="og:url" content="https://3esquinas.invalid/" />
+    <meta property="og:image" content="https://3esquinas.invalid/images/hero-maipu.jpg" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="960" />
+    <meta property="og:image:alt" content="Viñedos de la zona de Tres Esquinas, Maipú, Mendoza" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="3 Esquinas — Portal de Donaciones" />
+    <meta name="twitter:description" content="Sumate con tu donación o como voluntario. Proyectos de impacto social y desarrollo sostenible en Maipú, Mendoza." />
+    <meta name="twitter:image" content="https://3esquinas.invalid/images/hero-maipu.jpg" />
+
     <!-- Favicon: logo de 3 Esquinas en formato PNG -->
     <link rel="icon" type="image/png" href="/images/logo-3esquinas.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3 Esquinas — Portal de Donaciones</title>
+    <link rel="apple-touch-icon" href="/images/logo-3esquinas.png" />
+
+    <!-- JSON-LD: datos estructurados -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "3 Esquinas",
+      "url": "https://3esquinas.invalid",
+      "logo": "https://3esquinas.invalid/images/logo-3esquinas.png",
+      "description": "Asociación civil de Maipú, Mendoza. Donaciones y voluntariado para proyectos de impacto social y desarrollo sostenible.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Maipú",
+        "addressRegion": "Mendoza",
+        "addressCountry": "AR"
+      },
+      "sameAs": []
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>
