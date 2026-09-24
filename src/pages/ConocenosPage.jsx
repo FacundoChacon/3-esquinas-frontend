@@ -59,7 +59,7 @@ export default function ConocenosPage() {
               para los sectores más vulnerables, y decidimos actuar.
             </p>
             <p className="conocenos-text">
-              Nuestro nombre proviene de la pujante y productiva zona de maipu que nos da identidad, <strong>Tres Esquinas</strong>, caracteristica por sus viñedos, olivares y huertas
+              Nuestro nombre proviene de la pujante y productiva zona de maipu que nos da identidad, <strong>Tres Esquinas</strong>, caracteristica por sus viñedos, olivares y huertas,
               . Al mismo tiempo, refleja la esencia de nuestra fundación: la articulación de
               <strong> tres grandes actores — la sociedad civil, el Estado y las empresas</strong> — trabajando de manera
               conjunta para cumplir con el objeto de formación, capacitación y asesoramiento en los Objetivos de
