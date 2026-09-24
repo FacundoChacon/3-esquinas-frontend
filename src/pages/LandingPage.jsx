@@ -3,6 +3,7 @@ import LandingNavbar from '../components/landing/LandingNavbar'
 import HeroSection from '../components/landing/HeroSection'
 import AboutSection from '../components/landing/AboutSection'
 import OdsSection from '../components/landing/OdsSection'
+import ContenidoSection from '../components/landing/ContenidoSection'
 import ColaborarSection from '../components/landing/ColaborarSection'
 import ContactSection from '../components/landing/ContactSection'
 import DonateSection from '../components/landing/DonateSection'
@@ -21,6 +22,7 @@ export default function LandingPage() {
       <HeroSection scrollTo={scrollTo} />
       <AboutSection />
       <OdsSection />
+      <ContenidoSection />
       <ContactSection />
       <ColaborarSection />
       <DonateSection />

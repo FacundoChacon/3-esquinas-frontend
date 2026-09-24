@@ -525,6 +525,79 @@
 }
 
 /* ================================================================
+   4.5 CONTENIDO — Sección de contenido en preparación
+   ================================================================ */
+
+.landing-contenido {
+  @apply px-6 py-10 sm:py-14 bg-gray-100;
+}
+:root.dark .landing-contenido {
+  @apply bg-gray-900;
+}
+
+.landing-contenido-inner {
+  @apply max-w-6xl mx-auto text-center;
+}
+
+.landing-contenido-title {
+  @apply text-2xl sm:text-3xl font-bold text-gray-900 mb-2;
+}
+:root.dark .landing-contenido-title {
+  @apply text-white;
+}
+
+.landing-contenido-divider {
+  @apply w-16 h-1 mb-4 rounded-full bg-emerald-600 mx-auto;
+}
+
+.landing-contenido-subtitle {
+  @apply text-sm mb-8 text-gray-600;
+}
+:root.dark .landing-contenido-subtitle {
+  @apply text-gray-400;
+}
+
+.landing-contenido-grid {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8;
+}
+
+.landing-contenido-card {
+  @apply flex flex-col items-center justify-center gap-3 p-8 rounded-2xl border-2 border-dashed border-gray-300 bg-white shadow-sm;
+}
+:root.dark .landing-contenido-card {
+  @apply bg-gray-800/50 border-gray-600;
+}
+
+.landing-contenido-card-icon {
+  @apply w-10 h-10 text-gray-400;
+}
+:root.dark .landing-contenido-card-icon {
+  @apply text-gray-500;
+}
+
+.landing-contenido-card-label {
+  @apply text-sm font-semibold text-gray-700;
+}
+:root.dark .landing-contenido-card-label {
+  @apply text-gray-300;
+}
+
+.landing-contenido-card-badge {
+  @apply text-xs font-medium text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full;
+}
+:root.dark .landing-contenido-card-badge {
+  @apply text-emerald-400 bg-emerald-900/40;
+}
+
+.landing-contenido-actions {
+  @apply flex justify-center;
+}
+
+.landing-contenido-btn {
+  @apply inline-flex items-center gap-2 px-6 py-2.5 rounded-full font-semibold text-sm bg-emerald-600 text-white hover:bg-emerald-700 transition-colors;
+}
+
+/* ================================================================
    5. DONAR — Sección CTA de donación
    ================================================================ */
 
