@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { donacionService } from '../services/donacionService'
 import { useDarkMode } from '../context/DarkModeContext'
+import Seo from '../components/Seo'
 
 const PASARELAS = [
   { id: 'transferencia', label: 'Transferencia bancaria', icon: '🏦', desc: 'Transferí directamente a nuestra cuenta' },
@@ -145,6 +146,11 @@ export default function DonatePage() {
   /* ========== VISTA: FORMULARIO DE DONACIÓN ========== */
   return (
     <div className={`donate-page ${mode}`}>
+      <Seo
+        title="Sumate con tu donación"
+        path="/donar"
+        description="Doná a 3 Esquinas por transferencia, Mercado Pago o PayPal. Tu aporte financia proyectos de impacto social en Maipú, Mendoza."
+      />
       <nav className="donate-nav">
         <div className="donate-nav-inner">
           <Link to="/" className="donate-nav-logo">

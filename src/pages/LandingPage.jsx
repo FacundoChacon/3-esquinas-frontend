@@ -8,6 +8,7 @@ import ColaborarSection from '../components/landing/ColaborarSection'
 import ContactSection from '../components/landing/ContactSection'
 import DonateSection from '../components/landing/DonateSection'
 import Footer from '../components/Footer'
+import Seo from '../components/Seo'
 
 export default function LandingPage() {
   const { dark } = useDarkMode()
@@ -18,6 +19,10 @@ export default function LandingPage() {
 
   return (
     <div className={`min-h-screen ${dark ? 'dark bg-gray-950' : 'bg-white'}`}>
+      <Seo
+        path="/"
+        description="Asociación civil 3 Esquinas de Maipú, Mendoza. Sumate con tu donación o como voluntario y colaborá con proyectos de impacto social y desarrollo sostenible."
+      />
       <LandingNavbar scrollTo={scrollTo} />
       <HeroSection scrollTo={scrollTo} />
       <AboutSection />

@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom'
 import { voluntarioService } from '../services/apiService'
 import { useDarkMode } from '../context/DarkModeContext'
 import Footer from '../components/Footer'
+import Seo from '../components/Seo'
 
 const COMO_SE_ENTERO_OPTIONS = [
   { value: 'redes_sociales', label: 'Redes sociales' },
@@ -63,6 +64,11 @@ export default function ColaborarPage() {
 
   return (
     <div className={`min-h-screen ${dark ? 'dark bg-gray-950' : 'bg-white'}`}>
+      <Seo
+        title="Sumate como voluntario"
+        path="/colaborar"
+        description="Sumate como voluntario de 3 Esquinas. Cargá el formulario y aportá tu tiempo y talento a los proyectos de desarrollo sostenible en Maipú, Mendoza."
+      />
       {/* NAVBAR */}
       <nav className="landing-nav">
         <div className="landing-nav-inner">

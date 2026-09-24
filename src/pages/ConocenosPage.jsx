@@ -1,12 +1,18 @@
 import { Link } from 'react-router-dom'
 import { useDarkMode } from '../context/DarkModeContext'
 import Footer from '../components/Footer'
+import Seo from '../components/Seo'
 
 export default function ConocenosPage() {
   const { dark, toggle: toggleDark } = useDarkMode()
 
   return (
     <div className={`min-h-screen ${dark ? 'dark bg-gray-950' : 'bg-white'}`}>
+      <Seo
+        title="Conocenos"
+        path="/conocenos"
+        description="Conocé la historia, el origen y los pilares de 3 Esquinas, la asociación civil de Maipú, Mendoza que articula sociedad civil, Estado y empresas."
+      />
 
       {/* NAVBAR */}
       <nav className="landing-nav">
@@ -53,7 +59,7 @@ export default function ConocenosPage() {
               para los sectores más vulnerables, y decidimos actuar.
             </p>
             <p className="conocenos-text">
-              Nuestro nombre proviene de la pujante y productiva zona de maipu que nos da identidad, <strong>Tres Esquinas</strong>, caracteristica por sus viñedos, olivares y huertas,
+              Nuestro nombre proviene de la pujante y productiva zona de maipu que nos da identidad, <strong>Tres Esquinas</strong>, caracteristica por sus viñedos, olivares y huertas
               . Al mismo tiempo, refleja la esencia de nuestra fundación: la articulación de
               <strong> tres grandes actores — la sociedad civil, el Estado y las empresas</strong> — trabajando de manera
               conjunta para cumplir con el objeto de formación, capacitación y asesoramiento en los Objetivos de

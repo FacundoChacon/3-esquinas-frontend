@@ -16,6 +16,7 @@ import DonacionesPage from './pages/DonacionesPage'
 import DatosPage from './pages/DatosPage'
 import ContactosPage from './pages/ContactosPage'
 import VoluntariosPage from './pages/VoluntariosPage'
+import Seo from './components/Seo'
 
 function TokenBridge() {
   const { accessToken, refresh } = useAuth()
@@ -66,6 +67,7 @@ export default function App() {
 
           <Route path="*" element={
             <div className="min-h-screen flex items-center justify-center bg-gray-50">
+              <Seo title="Página no encontrada" path="/404" noIndex />
               <div className="text-center">
                 <h1 className="text-6xl font-bold text-gray-300">404</h1>
                 <p className="mt-4 text-gray-500">Página no encontrada</p>

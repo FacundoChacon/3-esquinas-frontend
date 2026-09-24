@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { validateField } from '../utils/validations'
+import Seo from '../components/Seo'
 
 export default function RegisterPage() {
   const [fields, setFields] = useState({ nombre: '', apellido: '', email: '', password: '' })
@@ -65,6 +66,7 @@ export default function RegisterPage() {
 
   return (
     <div className="auth-page">
+      <Seo title="Crear cuenta" path="/register" noIndex description="Creá una cuenta en el portal de donaciones de 3 Esquinas." />
       <div className="auth-card">
 
         <div className="auth-header">

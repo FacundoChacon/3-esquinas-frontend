@@ -10,6 +10,7 @@ import { useState } from 'react'
 import { Outlet, NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useDarkMode } from '../context/DarkModeContext'
+import Seo from './Seo'
 
 const NAV_ITEMS = [
   {
@@ -82,6 +83,7 @@ export default function AdminLayout() {
 
   return (
     <div className={`admin-layout ${mode}`}>
+      <Seo title="Panel de administración" path="/admin" noIndex />
       {/* Overlay del sidebar en móvil */}
       {sidebarOpen && (
         <div className="admin-sidebar-overlay" onClick={() => setSidebarOpen(false)} />

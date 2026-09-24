@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { validateField } from '../utils/validations'
+import Seo from '../components/Seo'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -57,6 +58,7 @@ export default function LoginPage() {
 
   return (
     <div className="auth-page">
+      <Seo title="Iniciar sesión" path="/login" noIndex description="Ingresá al portal de donaciones de 3 Esquinas con tu cuenta." />
       <div className="auth-card">
 
         <div className="auth-header">
