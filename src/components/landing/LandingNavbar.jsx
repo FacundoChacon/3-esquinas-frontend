@@ -36,9 +36,7 @@ export default function LandingNavbar({ scrollTo }) {
     ) : (
       <button onClick={logout} className="landing-nav-btn-outline">Cerrar sesión</button>
     )
-  ) : (
-    <Link to="/login" onClick={() => setMenuOpen(false)} className="landing-nav-btn-outline">Iniciar sesión</Link>
-  )
+  ) : null
 
   const donarAction = (
     <button onClick={() => go('donar')} className="landing-nav-btn-primary">
