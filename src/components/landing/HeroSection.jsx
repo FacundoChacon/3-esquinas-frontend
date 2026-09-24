@@ -71,15 +71,14 @@ export default function HeroSection({ scrollTo }) {
             Construyendo un futuro sostenible desde Mendoza
           </h1>
           <p className="landing-hero-desc">
-            Somos una organización comprometida con los 17 Objetivos de Desarrollo Sostenible de la ONU.
-            Trabajamos para generar impacto social, económico y ambiental en nuestra comunidad.
+            Trabajamos por los 17 Objetivos de Desarrollo Sostenible de la ONU en Mendoza.
           </p>
           <div className="landing-hero-actions">
-            <button onClick={() => scrollTo('institucional')} className="landing-hero-btn-primary">
-              Conocé más
+            <button onClick={() => scrollTo('donar')} className="landing-hero-btn-primary">
+              Donar
             </button>
-            <button onClick={() => scrollTo('contacto')} className="landing-hero-btn-outline">
-              Contactanos
+            <button onClick={() => scrollTo('colaborar')} className="landing-hero-btn-outline">
+              Sumate como voluntario
             </button>
           </div>
         </div>
