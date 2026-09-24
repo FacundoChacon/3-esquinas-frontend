@@ -1,6 +1,22 @@
 export default function ODSFlipCard({ ods, flipped, onToggle, dark, active = false, style }) {
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      onToggle()
+    }
+  }
+
   return (
-    <div className="landing-ods-card" onClick={onToggle} style={style}>
+    <div
+      className="landing-ods-card"
+      onClick={onToggle}
+      onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={active ? 0 : -1}
+      aria-pressed={flipped}
+      aria-label={`ODS ${String(ods.id).padStart(2, '0')} — ${ods.label}. ${flipped ? 'Volteado. ' : ''}Presiona para voltear`}
+      style={style}
+    >
       <div className={`landing-ods-card-inner ${active ? 'landing-ods-card-inner--active' : ''} ${flipped ? 'flipped' : ''}`}>
         <div className="landing-ods-card-front" style={{ backgroundColor: ods.color }}>
           <div className="landing-ods-card-number">{String(ods.id).padStart(2, '0')}</div>

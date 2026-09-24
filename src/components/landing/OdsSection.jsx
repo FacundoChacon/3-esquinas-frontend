@@ -33,6 +33,7 @@ export default function OdsSection() {
   const [wheelScale, setWheelScale] = useState(1)
   const [wheelHeight, setWheelHeight] = useState(380)
   const wheelRef = useRef(null)
+  const wheelWrapperRef = useRef(null)
   const dragRef = useRef(null)
   const suppressClickRef = useRef(false)
   const rotationRef = useRef(0)
@@ -85,6 +86,22 @@ export default function OdsSection() {
     applyRotation(rotationRef.current + dir * STEP)
   }, [applyRotation])
 
+  useEffect(() => {
+    const wrapper = wheelWrapperRef.current
+    if (!wrapper) return
+    const onKeyDown = (e) => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault()
+        rotate(-1)
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault()
+        rotate(1)
+      }
+    }
+    wrapper.addEventListener('keydown', onKeyDown)
+    return () => wrapper.removeEventListener('keydown', onKeyDown)
+  }, [rotate])
+
   const handlePointerDown = useCallback((e) => {
     dragRef.current = { startX: e.clientX, startRotation: rotationRef.current, moved: false }
     setIsDragging(true)
@@ -118,7 +135,7 @@ export default function OdsSection() {
       <div className="landing-ods-inner">
         <h2 className="landing-ods-title">Objetivos de Desarrollo Sostenible</h2>
         <p className="landing-ods-subtitle">Agenda 2030 — ONU</p>
-        <div className="landing-ods-wheel-wrapper">
+        <div className="landing-ods-wheel-wrapper" ref={wheelWrapperRef}>
           <button onClick={() => rotate(-1)} className="landing-ods-arrow landing-ods-arrow--left" aria-label="Anterior">
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
