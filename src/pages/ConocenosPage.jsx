@@ -2,24 +2,6 @@ import { Link } from 'react-router-dom'
 import { useDarkMode } from '../context/DarkModeContext'
 import Footer from '../components/Footer'
 
-const TEAM_MEMBERS = [
-  {
-    name: 'Nombre Apellido',
-    role: 'Directora Ejecutiva',
-    desc: 'Licenciada en Ciencias Ambientales con más de 10 años de experiencia en desarrollo comunitario y gestión de proyectos sociales en la región de Mendoza.',
-  },
-  {
-    name: 'Nombre Apellido',
-    role: 'Coordinador de Proyectos',
-    desc: 'Ingeniero Social con especialización en educación ambiental. Lidera los programas de formación y capacitación de la organización.',
-  },
-  {
-    name: 'Nombre Apellido',
-    role: 'Responsable de Comunicación',
-    desc: 'Periodista y comunicadora social. Encargada de difundir las acciones de la organización y conectar con la comunidad.',
-  },
-]
-
 export default function ConocenosPage() {
   const { dark, toggle: toggleDark } = useDarkMode()
 
@@ -127,19 +109,6 @@ export default function ConocenosPage() {
           </p>
 
           <div className="conocenos-team-grid">
-            {TEAM_MEMBERS.map((member, i) => (
-              <div key={i} className="conocenos-member-card">
-                <div className="conocenos-member-photo">
-                  <svg className="w-10 h-10 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                  </svg>
-                </div>
-                <h3 className="conocenos-member-name">{member.name}</h3>
-                <span className="conocenos-member-role">{member.role}</span>
-                <p className="conocenos-member-desc">{member.desc}</p>
-              </div>
-            ))}
-
             {/* Placeholder 1 */}
             <div className="conocenos-member-card conocenos-member-card--placeholder">
               <div className="conocenos-member-photo">
