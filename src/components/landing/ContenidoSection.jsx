@@ -106,6 +106,13 @@ export default function ContenidoSection() {
         <div className="landing-contenido-list">
           <ContentCard item={CONTENIDO_ITEMS[0]} />
 
+          <div className={`landing-contenido-preview-wrap ${expanded ? '' : 'landing-contenido-preview'}`}>
+            <ContentCard item={CONTENIDO_ITEMS[1]} />
+          </div>
+
+          {expanded &&
+            CONTENIDO_ITEMS.slice(2).map((item) => <ContentCard key={item.id} item={item} />)}
+
           <button
             onClick={() => setExpanded((prev) => !prev)}
             className="landing-contenido-bar"
@@ -124,9 +131,6 @@ export default function ContenidoSection() {
             </span>
             <span className="landing-contenido-bar-line" />
           </button>
-
-          {expanded &&
-            CONTENIDO_ITEMS.slice(1).map((item) => <ContentCard key={item.id} item={item} />)}
         </div>
       </div>
     </section>

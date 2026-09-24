@@ -621,6 +621,29 @@
   @apply text-emerald-400 bg-emerald-900/40;
 }
 
+/* Vista previa: el 2do contenido se muestra a la mitad con degradado hacia el fondo de la sección */
+.landing-contenido-preview-wrap {
+  position: relative;
+}
+.landing-contenido-preview {
+  max-height: 7rem;
+  overflow: hidden;
+  border-radius: 1rem;
+}
+.landing-contenido-preview::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3.5rem;
+  background: linear-gradient(to bottom, rgba(243, 244, 246, 0), rgb(243 244 246));
+  pointer-events: none;
+}
+:root.dark .landing-contenido-preview::after {
+  background: linear-gradient(to bottom, rgba(17, 24, 39, 0), rgb(17 24 39));
+}
+
 /* Barra expandible: cruza de borde a borde de la sección */
 .landing-contenido-bar {
   @apply w-full flex items-center gap-4 py-3 rounded-xl hover:bg-gray-50 text-gray-600 transition-colors;
