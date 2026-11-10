@@ -51,7 +51,7 @@ export default function LandingNavbar({ scrollTo }) {
       <div className="landing-nav-inner">
         <button onClick={() => go('inicio')} className="landing-nav-logo">
           <img src="/images/logo-3esquinas.png" alt="3 Esquinas" className="landing-nav-logo-img" />
-          <span className="landing-nav-logo-text">3 Esquinas</span>
+          <span className="landing-nav-logo-text brand-wordmark"><span className="brand-wordmark-num">3</span> Esquinas</span>
         </button>
 
         <div className="landing-nav-links">

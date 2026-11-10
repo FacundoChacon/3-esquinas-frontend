@@ -98,7 +98,7 @@ export default function DonatePage() {
           <div className="donate-nav-inner">
             <Link to="/" className="donate-nav-logo">
               <img src="/images/logo-3esquinas.png" alt="3 Esquinas" className="donate-nav-logo-img" />
-              <span className="donate-nav-logo-text">3 Esquinas</span>
+              <span className="donate-nav-logo-text brand-wordmark"><span className="brand-wordmark-num">3</span> Esquinas</span>
             </Link>
           </div>
         </nav>
@@ -155,7 +155,7 @@ export default function DonatePage() {
         <div className="donate-nav-inner">
           <Link to="/" className="donate-nav-logo">
             <img src="/images/logo-3esquinas.png" alt="3 Esquinas" className="donate-nav-logo-img" />
-            <span className="donate-nav-logo-text">3 Esquinas</span>
+            <span className="donate-nav-logo-text brand-wordmark"><span className="brand-wordmark-num">3</span> Esquinas</span>
           </Link>
           <Link to="/" className="donate-nav-back">Volver</Link>
         </div>

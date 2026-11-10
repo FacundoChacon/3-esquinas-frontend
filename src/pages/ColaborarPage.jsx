@@ -74,7 +74,7 @@ export default function ColaborarPage() {
         <div className="landing-nav-inner">
           <Link to="/" className="landing-nav-logo">
             <img src="/images/logo-3esquinas.png" alt="3 Esquinas" className="landing-nav-logo-img" />
-            <span className="landing-nav-logo-text">3 Esquinas</span>
+            <span className="landing-nav-logo-text brand-wordmark"><span className="brand-wordmark-num">3</span> Esquinas</span>
           </Link>
           <div className="landing-nav-actions">
             <button onClick={toggleDark} className="landing-nav-dark-toggle" aria-label="Cambiar modo">

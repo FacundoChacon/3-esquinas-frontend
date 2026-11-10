@@ -69,7 +69,7 @@ export default function LoginPage() {
 
         <div className="auth-header">
           <img src="/images/logo-3esquinas.png" alt="3 Esquinas" className="auth-logo" />
-          <h1 className="auth-title">3 Esquinas</h1>
+          <h1 className="auth-title brand-wordmark"><span className="brand-wordmark-num">3</span> Esquinas</h1>
           <p className="auth-subtitle">Portal de Donaciones</p>
         </div>
 
