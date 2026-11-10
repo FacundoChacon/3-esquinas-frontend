@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider, useAuth } from './context/AuthContext'
+import { CONOCENOS_HABILITADA } from './config/featureFlags'
 import { DarkModeProvider } from './context/DarkModeContext'
 import { setAccessTokenGetter, setRefreshHandler } from './services/apiClient'
 import ProtectedRoute from './components/ProtectedRoute'
@@ -41,7 +42,8 @@ export default function App() {
           {/* ============================================= */}
 
           <Route path="/" element={<LandingPage />} />
-          <Route path="/conocenos" element={<ConocenosPage />} />
+          {/* /conocenos deshabilitada al público (ver src/config/featureFlags.js) */}
+          <Route path="/conocenos" element={CONOCENOS_HABILITADA ? <ConocenosPage /> : <Navigate to="/" replace />} />
           <Route path="/donar" element={<DonatePage />} />
           <Route path="/colaborar" element={<ColaborarPage />} />
           <Route path="/login" element={<LoginPage />} />

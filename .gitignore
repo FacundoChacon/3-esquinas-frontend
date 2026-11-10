@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 .vercel
+
+# Config local de herramientas de agente (memoria)
+.engram/
