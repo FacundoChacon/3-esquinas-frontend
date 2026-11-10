@@ -65,7 +65,7 @@ export default function HeroSection({ scrollTo }) {
         <div className="landing-hero-text-block">
           <div className="landing-hero-tag">
             <img src="/images/logo-3esquinas.png" alt="3 Esquinas" className="landing-hero-tag-img" />
-            <span className="landing-hero-tag-text brand-wordmark"><span className="brand-wordmark-num">3</span> Esquinas</span>
+            <img src="/images/logo-wordmark-dark.png" alt="3 Esquinas" className="brand-wordmark-img h-7" />
           </div>
           <h1 className="landing-hero-title">
             Construyendo un futuro sostenible desde Mendoza

@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="landing-footer-main">
           <div className="landing-footer-brand">
             <img src="/images/logo-3esquinas.png" alt="3 Esquinas" className="landing-footer-logo" />
-            <span className="landing-footer-name brand-wordmark"><span className="brand-wordmark-num">3</span> Esquinas</span>
+            <img src="/images/logo-wordmark-dark.png" alt="3 Esquinas" className="brand-wordmark-img h-6" />
           </div>
           <p className="landing-footer-desc">
             Organización sin fines de lucro dedicada al desarrollo social,

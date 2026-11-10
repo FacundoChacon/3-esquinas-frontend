@@ -30,24 +30,14 @@ html {
 }
 
 /* ============================================================= */
-/* WORDMARK "3 ESQUINAS" — tipografía de marca                   */
-/* Estilo del mockup Nombre.png: sans geométrica redondeada bold */
-/* en mayúsculas, monolínea, con el "3" en verde y el resto en   */
-/* el color de texto del contexto. Se aplica junto a la clase    */
-/* de tamaño/espaciado de cada lockup (navbar, hero, footer,     */
-/* donate, auth). Fuente: Fredoka 600 (Google Fonts, SIL OFL).   */
+/* WORDMARK "3 ESQUINAS" — imagen de marca (mockup Nombre.png)    */
+/* Dos assets en /public/images: logo-wordmark.png para fondos   */
+/* claros y logo-wordmark-dark.png (ESQUINAS blanca, verde y     */
+/* estallido claros) para fondos oscuros o modo dark del sitio.  */
+/* La altura de cada lockup se define con clases h-* en el uso.  */
 /* ============================================================= */
-.brand-wordmark {
-  font-family: 'Fredoka', var(--font-sans);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-}
-.brand-wordmark .brand-wordmark-num {
-  color: #047857; /* emerald-700 — verde del "3" como en el mockup */
-}
-:root.dark .brand-wordmark .brand-wordmark-num {
-  color: #34d399; /* emerald-400 para contraste en modo oscuro */
+.brand-wordmark-img {
+  @apply w-auto object-contain;
 }
 
 /* Estilos para scrollbar personalizada (opcional) */
